@@ -132,16 +132,9 @@ public class GridXZ<TGenericGridObj>
     /// <returns>World position at location column x, row z.</returns>
     public Vector3 GetCellPositionInWorld(int x, int z) 
     {
-        if(x<_columns && z<_rows && _columns>=0 && _rows>=0)
-        {
-            return new Vector3(x, 0, z) * _cellSize + _origin;
-        }
-        
-        else
-        {
-            Debug.Log("Error, the location is outside the bounds of the grid");
-            return Vector3.zero;
-        }
+        if (CheckInBounds(x, z)) return new Vector3(x, 0, z) * _cellSize + _origin;
+
+        else return new Vector3 (-1, 0, -1);
     }
   
     /// <summary>
@@ -155,10 +148,8 @@ public class GridXZ<TGenericGridObj>
     {
         int x = Mathf.FloorToInt((worldPosition-_origin).x / _cellSize);
         int z = Mathf.FloorToInt((worldPosition -_origin).z / _cellSize);
-        if (x < 0 || x >= _columns) x = -1;
-        if( z < 0 || z >= _rows) z = -1;
-
-        return new Vector2Int(x, z);
+        if (CheckInBounds(x, z)) return new Vector2Int(x, z);
+        else return new Vector2Int(-1, -1);
     }
     /// <summary>
     /// Set grid object on grid using grid coordinates
@@ -168,7 +159,7 @@ public class GridXZ<TGenericGridObj>
     /// <param name="value"></param>
     public void SetGridObject(int x, int z, TGenericGridObj value) //
     {
-        if  ( (x>= 0 && z >=0) && (x<_columns && z<_rows) )
+        if  ( CheckInBounds(x, z) )
         {
             _gridArray[x, z] = value;
            // if(debug) _debugTextArray[x, z].text = _gridArray[x,z].ToString();
@@ -199,7 +190,7 @@ public class GridXZ<TGenericGridObj>
     /// <returns></returns>
     public TGenericGridObj GetCellContent(int x, int z) 
     {
-        if ((x >= 0 && z >= 0) && (x < _columns && z < _rows))
+        if (CheckInBounds(x, z))
         {
             return _gridArray[x, z];
         }

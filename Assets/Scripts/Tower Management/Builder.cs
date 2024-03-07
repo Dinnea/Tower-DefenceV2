@@ -10,6 +10,7 @@ public class Builder : MonoBehaviour
 {
     Cursor _cursor;
     [SerializeField] List<BuildingTypeSO> _buildings;
+    BuildingTypeSO _buildingType = null;
 
     private void Awake()
     {
@@ -24,12 +25,19 @@ public class Builder : MonoBehaviour
     {
         _cursor.onClick -= clicked;
     }
-
+    public void SetBuildingType(int buildingID)
+    {
+        if(buildingID >= 0 && buildingID < _buildings.Count)
+        {
+            _buildingType = _buildings[buildingID];
+        }
+        else _buildingType = null;
+    }
     private void clicked(Cursor.ClickInfo info)
     {    
-        if (info.clickedCell.CanBuild())
+        if (info.clickedCell.CanBuild() && _buildingType!= null)
         {            
-            Transform built = Instantiate(_buildings[0].prefab.transform, info.clickedCellWorldLoc, Quaternion.identity);
+            Transform built = Instantiate(_buildingType.prefab.transform, info.clickedCellWorldLoc, Quaternion.identity);
             info.clickedCell.SetObjectOnTile(built);
         }
         

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 069244f14a82fb04ab664f4d979bb237, type: 3}
-  m_Name: EMP_Tower
+  m_Name: Pylon_Tower
   m_EditorClassIdentifier: 
-  nameString: Slow_Tower
-  prefab: {fileID: 1691257490863768, guid: bb71db365cb6e4757aa6d7368e5d7967, type: 3}
+  nameString: AoE-Tower
+  prefab: {fileID: 1281184777904054, guid: ae6256d5ec26b436fb1b2573af9e93f8, type: 3}
   width: 1
   height: 1
   cost: 0

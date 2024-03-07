@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 069244f14a82fb04ab664f4d979bb237, type: 3}
-  m_Name: EMP_Tower
+  m_Name: HQ
   m_EditorClassIdentifier: 
-  nameString: Slow_Tower
-  prefab: {fileID: 1691257490863768, guid: bb71db365cb6e4757aa6d7368e5d7967, type: 3}
-  width: 1
-  height: 1
+  nameString: 
+  prefab: {fileID: 0}
+  width: 0
+  height: 0
   cost: 0
