@@ -37,7 +37,7 @@ public class GridXZ<TGenericGridObj>
     /// <param name="cellSize"></param>
     /// <param name="origin"></param>
     /// <param name="defaultObject"></param>
-    public GridXZ(int columns, int rows, float cellSize, Vector3 origin, Func<GridXZ<TGenericGridObj>, int, int, TGenericGridObj> defaultObject) 
+    public GridXZ(int columns, int rows, float cellSize, Vector3 origin, Func<GridXZ<TGenericGridObj>, int, int, TGenericGridObj> defaultObject)
     {
         _columns = columns;
         _rows = rows;
@@ -62,7 +62,7 @@ public class GridXZ<TGenericGridObj>
         {
             showDebug(columns, rows);
         }
-       
+
     }
 
     /// <summary>
@@ -118,6 +118,12 @@ public class GridXZ<TGenericGridObj>
     {
         return _cellSize;
     }
+
+    public bool CheckInBounds(int x, int z)
+    {
+        return ((x >= 0 && z >= 0) && (x < _columns && z < _rows));
+    }
+
     /// <summary>
     /// Convert grid coords to world position. Needs to be within the grid.
     /// </summary>
@@ -126,7 +132,7 @@ public class GridXZ<TGenericGridObj>
     /// <returns>World position at location column x, row z.</returns>
     public Vector3 GetCellPositionInWorld(int x, int z) 
     {
-        if(x<=_columns && z<=_rows && _columns>0 && _rows>0)
+        if(x<_columns && z<_rows && _columns>=0 && _rows>=0)
         {
             return new Vector3(x, 0, z) * _cellSize + _origin;
         }

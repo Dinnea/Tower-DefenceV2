@@ -18,6 +18,6 @@ public class Cell
     public void SetBuildZone(bool value = true) { _isBuildZone=value;}
     public void SetPath(bool value = true) { _isPath=value;}
     public bool IsPath() { return _isPath;}
-    public bool isBuildZone() {  return _isBuildZone;}
+    public bool IsBuildZone() {  return _isBuildZone;}
     public int GetX() { return _x; } public int GetZ() { return _z; }
 }

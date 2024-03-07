@@ -27,7 +27,13 @@ public class CursorFunction : MonoBehaviour
 
         if(Input.GetMouseButtonDown(0))
         {
-            Debug.Log(_grid.GetCellContent(targetCell.x, targetCell.y).isBuildZone());
+            Debug.Log(_grid.GetCellContent(targetCell.x, targetCell.y).IsBuildZone());
+            Debug.Log(targetCell);
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            Debug.Log(_grid.GetCellContent(targetCell.x, targetCell.y).IsPath());
+            Debug.Log(targetCell);
         }
     }
 }
