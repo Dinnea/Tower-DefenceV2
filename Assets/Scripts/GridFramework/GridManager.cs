@@ -22,7 +22,7 @@ public class GridManager : MonoBehaviour
     private void Awake()
     {
         _meshFilter = GetComponent<MeshFilter>();
-        _grid = new GridXZ<Cell>(_columns, _rows, _cellSize, _origin, (GridXZ<Cell> g, int x, int z) => new Cell(_grid, x, z));
+        _grid = new GridXZ<Cell>(_columns, _rows, _cellSize, _origin, (GridXZ<Cell> g, int x, int z) => new Cell(g, x, z));
         generateGridVisual();
     }
 

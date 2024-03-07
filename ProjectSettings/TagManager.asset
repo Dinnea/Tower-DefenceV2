@@ -6,6 +6,9 @@ TagManager:
   tags:
   - DeleteOnAwakePath
   - DeleteOnAwakeNoBuild
+  - TowerMesh
+  - TowerSlot
+  - Cursor
   layers:
   - Default
   - TransparentFX
