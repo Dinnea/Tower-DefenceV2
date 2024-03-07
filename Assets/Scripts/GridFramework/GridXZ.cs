@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Personal.Utilities;
 
+[ExecuteInEditMode]
 /// <summary>
 /// Class for creating and managing a grid set on the XZ dimensions. 
 /// </summary>
@@ -190,7 +191,7 @@ public class GridXZ<TGenericGridObj>
     /// <param name="x"></param>
     /// <param name="z"></param>
     /// <returns></returns>
-    public TGenericGridObj GetGridObject(int x, int z) 
+    public TGenericGridObj GetCellContent(int x, int z) 
     {
         if ((x >= 0 && z >= 0) && (x < _columns && z < _rows))
         {
@@ -204,9 +205,9 @@ public class GridXZ<TGenericGridObj>
     /// </summary>
     /// <param name="worldPosition"></param>
     /// <returns></returns>
-    public TGenericGridObj GetGridObject(Vector3 worldPosition)
+    public TGenericGridObj GetCellContent(Vector3 worldPosition)
     {
         Vector2Int gridCoords =  GetCellOnWorldPosition(worldPosition);
-        return GetGridObject(gridCoords.x, gridCoords.y);
+        return GetCellContent(gridCoords.x, gridCoords.y);
     }
 }

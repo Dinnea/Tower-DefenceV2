@@ -7,7 +7,7 @@ public class CursorFunction : MonoBehaviour
 {
     [SerializeField] LayerMask _layer;
     [SerializeField] GridManager _gridManager;
-    GridXZ<Tile> _grid;
+    GridXZ<Cell> _grid;
     Vector3 _cursorLocation = Vector3.zero;
 
     private void Start()
@@ -19,10 +19,15 @@ public class CursorFunction : MonoBehaviour
         
         _cursorLocation = Utilities.GetMousePositionWorld(Camera.main, _layer);
         Vector2Int targetCell = _grid.GetCellOnWorldPosition(_cursorLocation);
-        Debug.Log(targetCell);
+        //Debug.Log(targetCell);
         if (targetCell.x!= -1 && targetCell.y != -1)//if isnt out of bounds, change location
         { 
             transform.position = _grid.GetCellPositionInWorld(targetCell.x, targetCell.y);
+        }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            Debug.Log(_grid.GetCellContent(targetCell.x, targetCell.y).isBuildZone());
         }
     }
 }

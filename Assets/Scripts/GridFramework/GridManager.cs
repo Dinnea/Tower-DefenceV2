@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
+[ExecuteInEditMode]
 
 public class GridManager : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] Vector3 _origin = Vector3.zero;
     
 
-    GridXZ<Tile> _grid;
+    GridXZ<Cell> _grid;
     Mesh _mesh;
     MeshFilter _meshFilter;
 
@@ -21,9 +22,10 @@ public class GridManager : MonoBehaviour
     private void Awake()
     {
         _meshFilter = GetComponent<MeshFilter>();
-        _grid = new GridXZ<Tile>(_columns, _rows, _cellSize, _origin, (GridXZ<Tile> g, int x, int z) => new Tile(_grid, x, z));
+        _grid = new GridXZ<Cell>(_columns, _rows, _cellSize, _origin, (GridXZ<Cell> g, int x, int z) => new Cell(_grid, x, z));
         generateGridVisual();
     }
+
     //Creates a visual for grid
     void generateGridVisual()
     {
@@ -76,6 +78,6 @@ public class GridManager : MonoBehaviour
         _mesh.RecalculateBounds();
         _meshFilter.mesh = _mesh;
     }
-    public GridXZ<Tile> GetGrid() { return _grid; }
+    public GridXZ<Cell> GetGrid() { return _grid; }
 
 }
