@@ -1911,6 +1911,7 @@ GameObject:
   m_Component:
   - component: {fileID: 885876037}
   - component: {fileID: 885876038}
+  - component: {fileID: 885876039}
   m_Layer: 5
   m_Name: BuyMenu
   m_TagString: Untagged
@@ -1967,6 +1968,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &885876039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885876036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8bfd664e7040f64994d52b78de853ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &887184820 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4143467678722466353, guid: 050ca7efc3a210341b314579d134a93d, type: 3}
