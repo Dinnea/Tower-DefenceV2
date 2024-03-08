@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Personal.Utilities;
 using UnityEngine.UIElements;
@@ -15,15 +16,15 @@ public class Builder : MonoBehaviour
     private void Awake()
     {
         _cursor = FindAnyObjectByType<Cursor>();
+        sendTowerModelsToCursor();
     }
-
     private void OnEnable()
     {
-       _cursor.onClick += clicked;
+       _cursor.onClick += cursorClicked;
     }
     private void OnDisable()
     {
-        _cursor.onClick -= clicked;
+        _cursor.onClick -= cursorClicked;
     }
     public void SetBuildingType(int buildingID)
     {
@@ -33,7 +34,7 @@ public class Builder : MonoBehaviour
         }
         else _buildingType = null;
     }
-    private void clicked(Cursor.ClickInfo info)
+    private void cursorClicked(Cursor.ClickInfo info)
     {    
         if (info.clickedCell.CanBuild() && _buildingType!= null)
         {            
@@ -41,5 +42,13 @@ public class Builder : MonoBehaviour
             info.clickedCell.SetObjectOnTile(built);
         }
         
+    }
+    private void sendTowerModelsToCursor()
+    {
+        foreach (BuildingTypeSO building in _buildings)
+        {
+            Transform towerModel = Search.FindComponentInChildrenWithTag<Transform>(building.prefab, "TowerMesh");
+            _cursor.AddCursorOption(towerModel.GetComponent<MeshFilter>().sharedMesh);
+        }
     }
 }

@@ -77,7 +77,7 @@ public class GridXZ<TGenericGridObj>
             for (int z = 0; z < _gridArray.GetLength(1); z++)
             {
 
-                _debugTextArray[x, z] = Utilities.CreateTextInWorld(_gridArray[x, z]?.ToString(), null, GetCellPositionInWorld(x, z) + _cellOffset, 10, Color.white, new Vector3(90, 0, 0), TextAnchor.MiddleCenter);
+                _debugTextArray[x, z] = TextTools.CreateTextInWorld(_gridArray[x, z]?.ToString(), null, GetCellPositionInWorld(x, z) + _cellOffset, 10, Color.white, new Vector3(90, 0, 0), TextAnchor.MiddleCenter);
                 Debug.DrawLine(GetCellPositionInWorld(x, z), GetCellPositionInWorld(x, z + 1), Color.white, 1000f);
                 Debug.DrawLine(GetCellPositionInWorld(x, z), GetCellPositionInWorld(x + 1, z), Color.white, 1000f);
             }
