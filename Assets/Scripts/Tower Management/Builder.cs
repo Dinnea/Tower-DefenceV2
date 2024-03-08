@@ -13,9 +13,12 @@ public class Builder : MonoBehaviour
     [SerializeField] List<BuildingTypeSO> _buildings;
     BuildingTypeSO _buildingType = null;
 
+    public Action<TransactionData> onBuild;
+    public Action<TransactionData> onSale;
+
     private void Awake()
     {
-        _cursor = FindAnyObjectByType<Cursor>();
+        _cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Cursor>();
         sendTowerModelsToCursor();
     }
     private void OnEnable()
@@ -35,13 +38,25 @@ public class Builder : MonoBehaviour
         else _buildingType = null;
     }
     private void cursorClicked(Cursor.ClickInfo info)
-    {    
-        if (info.clickedCell.CanBuild() && _buildingType!= null)
-        {            
-            Transform built = Instantiate(_buildingType.prefab.transform, info.clickedCellWorldLoc, Quaternion.identity);
-            info.clickedCell.SetObjectOnTile(built);
+    {
+        buildTower(info.clickedCell, info.clickedCellWorldLoc);
+        resetBuildChoice();
+    }
+
+    private void buildTower(Cell cell, Vector3 location)
+    {
+        if (cell.CanBuild() && _buildingType != null)
+        {
+            Transform built = Instantiate(_buildingType.prefab.transform, location, Quaternion.identity);
+            cell.SetObjectOnTile(built);
+
+            onBuild?.Invoke(new TransactionData(_buildingType.cost));
         }
-        
+    }
+    private void resetBuildChoice()
+    {
+        _buildingType = null;
+        _cursor.SetCursorModel(-1);
     }
     private void sendTowerModelsToCursor()
     {
@@ -50,5 +65,18 @@ public class Builder : MonoBehaviour
             Transform towerModel = Search.FindComponentInChildrenWithTag<Transform>(building.prefab, "TowerMesh");
             _cursor.AddCursorOption(towerModel.GetComponent<MeshFilter>().sharedMesh);
         }
+    }
+    public List<BuildingTypeSO> GetBuildOptions()
+    {
+        return _buildings;
+    }
+}
+
+public class TransactionData
+{
+    public float cost;
+    public TransactionData(float pCost)
+    {
+        cost = pCost;
     }
 }

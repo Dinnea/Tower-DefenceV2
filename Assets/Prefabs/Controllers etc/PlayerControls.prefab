@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5483646013482869130}
   - component: {fileID: 1385109041797914960}
+  - component: {fileID: 9102428433107672417}
   m_Layer: 0
-  m_Name: LevelControls
-  m_TagString: Untagged
+  m_Name: PlayerControls
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,3 +47,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _buildings:
   - {fileID: 1691257490863768, guid: bb71db365cb6e4757aa6d7368e5d7967, type: 3}
+--- !u!114 &9102428433107672417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522130144261109231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e873b7509cf6c34eb546f37ca41ff60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _money: 1000

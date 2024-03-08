@@ -9,6 +9,7 @@ TagManager:
   - TowerMesh
   - TowerSlot
   - Cursor
+  - Grid
   layers:
   - Default
   - TransparentFX

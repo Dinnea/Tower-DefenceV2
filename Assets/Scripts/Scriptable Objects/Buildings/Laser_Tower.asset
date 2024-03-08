@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameString: SingleTower
   prefab: {fileID: 1444973102034290, guid: 1e8fc0d9d18c8408baa941efc8b49d4b, type: 3}
-  width: 0
-  height: 0
-  cost: 0
+  width: 1
+  height: 1
+  cost: 200
