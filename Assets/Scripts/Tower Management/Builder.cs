@@ -12,9 +12,12 @@ public class Builder : MonoBehaviour
     Cursor _cursor;
     [SerializeField] List<BuildingTypeSO> _buildings;
     BuildingTypeSO _buildingType = null;
+    bool _sell = false;
 
     public Action<TransactionData> onBuild;
     public Action<TransactionData> onSale;
+
+    [SerializeField][Range(0, 1)] float _resaleValue = 0.75f;
 
     private void Awake()
     {
@@ -23,11 +26,11 @@ public class Builder : MonoBehaviour
     }
     private void OnEnable()
     {
-       _cursor.onClick += cursorClicked;
+       _cursor.onClick += processClick;
     }
     private void OnDisable()
     {
-        _cursor.onClick -= cursorClicked;
+        _cursor.onClick -= processClick;
     }
     public void SetBuildingType(int buildingID)
     {
@@ -37,20 +40,47 @@ public class Builder : MonoBehaviour
         }
         else _buildingType = null;
     }
-    private void cursorClicked(Cursor.ClickInfo info)
+    public void DisableSell()
     {
-        buildTower(info.clickedCell, info.clickedCellWorldLoc);
-        resetBuildChoice();
+        _sell = false;
+    }
+    public void SellSwitch()
+    {
+        _sell = !_sell;
+    }
+    private void processClick(Cursor.ClickInfo info)
+    {
+        if (_buildingType != null)
+        {
+            buildTower(info.clickedCell, info.clickedCellWorldLoc);
+            resetBuildChoice();
+        }
+        if (_sell)
+        {
+            sellTower(info.clickedCell);
+        }
     }
 
     private void buildTower(Cell cell, Vector3 location)
     {
-        if (cell.CanBuild() && _buildingType != null)
+        if (cell.CanBuild())
         {
             Transform built = Instantiate(_buildingType.prefab.transform, location, Quaternion.identity);
-            cell.SetObjectOnTile(built);
+            cell.SetObjectOnTile(built, _buildingType);
 
-            onBuild?.Invoke(new TransactionData(_buildingType.cost));
+            onBuild?.Invoke(new TransactionData(-_buildingType.cost));
+        }
+    }
+    private void sellTower(Cell cell)
+    {
+        if (!cell.IsCellFree())
+        {
+            Transform buildingToSell = cell.GetObjectOnTile();
+            BuildingTypeSO buildingToSellType = cell.GetObjectOnTileType();
+            cell.ResetObjectOnTile();
+            float income = buildingToSellType.cost * _resaleValue;
+            onSale?.Invoke(new TransactionData(income));
+            Destroy(buildingToSell.gameObject);
         }
     }
     private void resetBuildChoice()
@@ -74,9 +104,9 @@ public class Builder : MonoBehaviour
 
 public class TransactionData
 {
-    public float cost;
-    public TransactionData(float pCost)
+    public float moneyChange;
+    public TransactionData(float pMoneyChange)
     {
-        cost = pCost;
+        moneyChange = pMoneyChange;
     }
 }

@@ -21,22 +21,19 @@ public class MoneyManager : MonoBehaviour
 
     private void OnEnable()
     {
-        _builder.onBuild += buyTower;
+        _builder.onBuild += towerTransaction;
+        _builder.onSale += towerTransaction;
     }
 
     private void OnDisable()
     {
-        _builder.onBuild -= buyTower;
+        _builder.onBuild -= towerTransaction;
+        _builder.onSale -= towerTransaction;
     }
 
-    private void buyTower(TransactionData transactionData)
+    private void towerTransaction(TransactionData transactionData)
     {
-        _money -= transactionData.cost;
-        refreshCanAffordBuildings();
-    }
-    private void sellTower(TransactionData transactionData)
-    {
-        _money += transactionData.cost;
+        _money += transactionData.moneyChange;
         refreshCanAffordBuildings();
     }
 

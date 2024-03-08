@@ -8,7 +8,8 @@ public class Cell
     int _x, _z;
     bool _isBuildZone = false;
     bool _isPath = false;
-    Transform _objectOnTile;
+    Transform _objectOnTile = null;
+    BuildingTypeSO _objectType;
     public string name = "no";
 
     public Cell(GridXZ<Cell> grid, int x, int z)
@@ -21,15 +22,26 @@ public class Cell
     {
         name = pname;
     }
-    public void SetObjectOnTile(Transform objectToPlace)
+    public void SetObjectOnTile(Transform objectToPlace, BuildingTypeSO objectType)
     {
-            _objectOnTile = objectToPlace;
-            _grid.TriggerGridObjectChanged(_x, _z);
+        _objectOnTile = objectToPlace;
+        _objectType = objectType;
+        _grid.TriggerGridObjectChanged(_x, _z);
+    }
+    public void ResetObjectOnTile()
+    {
+        _objectOnTile = null;
+        _objectType = null;
     }
 
     public Transform GetObjectOnTile()
     {
         return _objectOnTile;
+    }
+
+    public BuildingTypeSO GetObjectOnTileType()
+    {
+        return _objectType;
     }
 
     public bool CanBuild()
