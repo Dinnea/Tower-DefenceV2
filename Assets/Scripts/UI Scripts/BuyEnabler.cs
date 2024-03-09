@@ -5,23 +5,23 @@ using UnityEngine.UI;
 
 public class BuyEnabler : MonoBehaviour
 {
-    MoneyManager _moneyManager;
+    Builder _builder;
     Button[] _buttons;
 
     private void Awake()
     {
-        _moneyManager = GameObject.FindGameObjectWithTag("Player").GetComponent<MoneyManager>();
+        _builder = GameObject.FindGameObjectWithTag("Player").GetComponent<Builder>();
         _buttons = GetComponentsInChildren<Button>();
     }
 
     private void OnEnable()
     {
-        _moneyManager.onMoneyChanged += enableButton;
+        _builder.onMoneyChanged += enableButton;
     }
 
     private void OnDisable()
     {
-        _moneyManager.onMoneyChanged -= enableButton;
+        _builder.onMoneyChanged -= enableButton;
     }
 
     private void enableButton(MoneyChangedData data)

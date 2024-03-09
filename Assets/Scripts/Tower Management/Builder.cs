@@ -6,6 +6,7 @@ using Personal.Utilities;
 using UnityEngine.UIElements;
 using System;
 using Unity.VisualScripting;
+using static UnityEditor.ObjectChangeEventStream;
 
 public class Builder : MonoBehaviour
 {
@@ -14,15 +15,19 @@ public class Builder : MonoBehaviour
     BuildingTypeSO _buildingType = null;
     bool _sell = false;
 
-    public Action<TransactionData> onBuild;
-    public Action<TransactionData> onSale;
-
+    [SerializeField] float _money = 1000;
     [SerializeField][Range(0, 1)] float _resaleValue = 0.75f;
+    public Action<MoneyChangedData> onMoneyChanged;
 
     private void Awake()
     {
         _cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Cursor>();
         sendTowerModelsToCursor();
+    }
+
+    private void Start()
+    {
+        refreshMoneyBalance();
     }
     private void OnEnable()
     {
@@ -53,7 +58,7 @@ public class Builder : MonoBehaviour
         if (_buildingType != null)
         {
             buildTower(info.clickedCell, info.clickedCellWorldLoc);
-            resetBuildChoice();
+            //resetBuildChoice();
         }
         if (_sell)
         {
@@ -67,8 +72,8 @@ public class Builder : MonoBehaviour
         {
             Transform built = Instantiate(_buildingType.prefab.transform, location, Quaternion.identity);
             cell.SetObjectOnTile(built, _buildingType);
-
-            onBuild?.Invoke(new TransactionData(-_buildingType.cost));
+            _money -= _buildingType.cost;
+            refreshMoneyBalance();
         }
     }
     private void sellTower(Cell cell)
@@ -79,7 +84,8 @@ public class Builder : MonoBehaviour
             BuildingTypeSO buildingToSellType = cell.GetObjectOnTileType();
             cell.ResetObjectOnTile();
             float income = buildingToSellType.cost * _resaleValue;
-            onSale?.Invoke(new TransactionData(income));
+            _money += income;
+            refreshMoneyBalance();
             Destroy(buildingToSell.gameObject);
         }
     }
@@ -87,6 +93,20 @@ public class Builder : MonoBehaviour
     {
         _buildingType = null;
         _cursor.SetCursorModel(-1);
+    }
+    private void refreshMoneyBalance()
+    {
+       
+        for (int i = 0; i < _buildings.Count; i++)
+        {
+            bool canAffordCurrent = canAfford(_buildings[i].cost);
+            if (_buildingType == _buildings[i] && !canAffordCurrent) resetBuildChoice();
+            onMoneyChanged?.Invoke(new MoneyChangedData(i, _money, canAffordCurrent));
+        }
+    }
+    private bool canAfford(float cost)
+    {
+        return (_money - cost) >= 0;
     }
     private void sendTowerModelsToCursor()
     {
@@ -101,12 +121,15 @@ public class Builder : MonoBehaviour
         return _buildings;
     }
 }
-
-public class TransactionData
+public class MoneyChangedData
 {
-    public float moneyChange;
-    public TransactionData(float pMoneyChange)
+    public readonly int buildingID;
+    public readonly float currentMoney;
+    public readonly bool canAfford;
+    public MoneyChangedData(int pBuildingID, float pCurrentMoney, bool pCanAfford)
     {
-        moneyChange = pMoneyChange;
+        buildingID = pBuildingID;
+        currentMoney = pCurrentMoney;
+        canAfford = pCanAfford;
     }
 }

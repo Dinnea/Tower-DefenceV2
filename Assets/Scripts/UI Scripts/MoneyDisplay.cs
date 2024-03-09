@@ -5,28 +5,27 @@ using UnityEngine;
 
 public class MoneyDisplay : MonoBehaviour
 {
-    MoneyManager _moneyManager;
+    Builder _builder;
     private TextMeshProUGUI _moneyDisplay;
     private void Awake()
     {
-        _moneyManager = GameObject.FindGameObjectWithTag("Player").GetComponent<MoneyManager>();
+        _builder = GameObject.FindGameObjectWithTag("Player").GetComponent<Builder>();
         _moneyDisplay = GetComponent<TextMeshProUGUI>();
     }
 
     private void OnEnable()
     {
-       _moneyManager.onMoneyChanged += setMoney;
+       _builder.onMoneyChanged += setMoney;
     }
 
     private void OnDisable()
     {
-        _moneyManager.onMoneyChanged -= setMoney;
+        _builder.onMoneyChanged -= setMoney;
     }
 
     private void setMoney(MoneyChangedData data)
     {
         _moneyDisplay.text = "Money: " + data.currentMoney.ToString();
     }
-
 
 }
