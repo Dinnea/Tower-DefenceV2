@@ -25,6 +25,7 @@ public class BuilderState : GameState
     public override void OnExitState()
     {
         StopAllCoroutines();
+        onClockTick?.Invoke(0);
     }
 
     private IEnumerator countdownToWave()
