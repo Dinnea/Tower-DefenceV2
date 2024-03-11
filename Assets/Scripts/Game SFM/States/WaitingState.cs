@@ -4,18 +4,38 @@ using UnityEngine;
 
 public class WaitingState : GameState
 {
+    float _enemyCheckTimer = 1;
+
     public override void Handle()
     {
-        throw new System.NotImplementedException();
+        
+        if(_enemyCheckTimer> 0)
+        {
+            _enemyCheckTimer -= Time.deltaTime;
+        }
+        else
+        {
+            if (areAllEnemiesDead())
+            {
+                levelSFM.ChangeState(GetComponent<BuilderState>());
+            }
+            _enemyCheckTimer = 1;
+        }
     }
 
     public override void OnEnterState()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void OnExitState()
     {
-        throw new System.NotImplementedException();
+        
+    }
+
+    bool areAllEnemiesDead()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        return enemies.Length == 0;
     }
 }

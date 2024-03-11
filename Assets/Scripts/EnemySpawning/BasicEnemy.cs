@@ -24,6 +24,7 @@ public class BasicEnemy : MonoBehaviour, IEnemy
     private void Update()
     {
         Move();
+        Die();
     }
     public void Move()
     {
@@ -39,7 +40,7 @@ public class BasicEnemy : MonoBehaviour, IEnemy
 
     public void Die()
     {
-        if (_pointsReached > _navPoints.Length)
+        if (_pointsReached == _navPoints.Length)
         {
             Destroy(gameObject);
         }
