@@ -8,19 +8,22 @@ public class WaveSpawnerQueue : MonoBehaviour, IWaveSpawnStrategy
     IEnemySpawnStrategy _enemySpawnStrategy;
     [SerializeField] GameObject _enemySpawner;
     Wave _currentWave;
-    Batch _currentBatch;
+    int _waveIndex = 0;
     private void Awake()
     {
         _enemySpawnStrategy = _enemySpawner.GetComponent<IEnemySpawnStrategy>();
+        _currentWave = _waves[_waveIndex];
     }
     public void OnWaveFinished()
     {
+        _waveIndex++;
+        if(_waveIndex >= _waves.Count) _waveIndex = 0; //for now reset waves if out of bounds
+        _currentWave = _waves[_waveIndex];
         IWaveSpawnStrategy.onFinishedSpawning?.Invoke();
     }
 
     public void SpawnWave()
     {
-        _currentWave = _waves[0];
         StartCoroutine(spawnWave());
     }
 
