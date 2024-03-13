@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4986728340022836}
   - component: {fileID: 33371016615958770}
   - component: {fileID: 23599820235404328}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Buggy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4405945576505646}
-  m_Layer: 11
+  m_Layer: 3
   m_Name: Targetable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4952032072423588}
   - component: {fileID: 135872954984398384}
-  m_Layer: 11
+  m_Layer: 3
   m_Name: Targetter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 4710001871782986}
   - component: {fileID: 198947236953423532}
   - component: {fileID: 199831189578393678}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4969,7 +4969,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4013251577074370}
-  m_Layer: 11
+  m_Layer: 3
   m_Name: FiringPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5000,7 +5000,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4868172392206810}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5035,7 +5035,7 @@ GameObject:
   - component: {fileID: 4325018194371740}
   - component: {fileID: 198500803998785630}
   - component: {fileID: 199682121056504144}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9836,7 +9836,7 @@ GameObject:
   - component: {fileID: 4097844741792062}
   - component: {fileID: 198189058776006664}
   - component: {fileID: 199187367632400350}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Flare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14610,7 +14610,7 @@ GameObject:
   - component: {fileID: 4229214336035610}
   - component: {fileID: 23879421479926544}
   - component: {fileID: 33779597045209308}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14694,7 +14694,7 @@ GameObject:
   - component: {fileID: 198522976810761492}
   - component: {fileID: 199510500062863298}
   - component: {fileID: 82800053033675694}
-  m_Layer: 10
+  m_Layer: 3
   m_Name: EnemyShootEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19619,7 +19619,8 @@ GameObject:
   - component: {fileID: 136866353072794800}
   - component: {fileID: 6208188645178243338}
   - component: {fileID: 2278913379382476715}
-  m_Layer: 11
+  - component: {fileID: 2218616643688127381}
+  m_Layer: 3
   m_Name: Hoverbuggy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -19668,7 +19669,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -19783,7 +19784,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -19812,7 +19813,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!114 &2278913379382476715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19823,6 +19824,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cac6e8b740c0904182bb0ea9af9680c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2218616643688127381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511114609136056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 541a81f09ee05d34da77642c2fc95a32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1513377180020570
@@ -19836,7 +19849,7 @@ GameObject:
   - component: {fileID: 4117795387484174}
   - component: {fileID: 198825076258804720}
   - component: {fileID: 199937323177308352}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BigFlare2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24629,7 +24642,7 @@ GameObject:
   - component: {fileID: 33341525742038492}
   - component: {fileID: 23846337783577638}
   - component: {fileID: 111385861744325040}
-  m_Layer: 11
+  m_Layer: 3
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24728,7 +24741,7 @@ GameObject:
   - component: {fileID: 4998514154472544}
   - component: {fileID: 33406155520140382}
   - component: {fileID: 23533339096246342}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Buggy_Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24809,7 +24822,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4170109201421712}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RedAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24843,7 +24856,7 @@ GameObject:
   - component: {fileID: 4093141451977064}
   - component: {fileID: 198913161039543974}
   - component: {fileID: 199973173914889030}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29634,7 +29647,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4193058270655844}
-  m_Layer: 11
+  m_Layer: 3
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29671,7 +29684,7 @@ GameObject:
   - component: {fileID: 4760851291318566}
   - component: {fileID: 198390064799116254}
   - component: {fileID: 199883649011111710}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BigFlare1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34463,7 +34476,7 @@ GameObject:
   - component: {fileID: 4210130831364110}
   - component: {fileID: 198739619323476846}
   - component: {fileID: 199188346531693478}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FireFlare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39253,7 +39266,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4213428961054356}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GreenAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39287,7 +39300,7 @@ GameObject:
   - component: {fileID: 4705233885132880}
   - component: {fileID: 23075635659635482}
   - component: {fileID: 33605914513425580}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39370,7 +39383,7 @@ GameObject:
   - component: {fileID: 4809076497959726}
   - component: {fileID: 198490616205895206}
   - component: {fileID: 199109114516989108}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tracer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

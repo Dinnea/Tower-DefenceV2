@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+[RequireComponent(typeof(IgnoreCollisionSameLayer))]
 public class BasicEnemy : MonoBehaviour, IEnemy
 {
     NavMeshAgent _agent;
     Vector3[] _navPoints;
     int _pointsReached = 0;
+
+    float _health;
+    float _speed;
+    float _money;
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -24,7 +28,7 @@ public class BasicEnemy : MonoBehaviour, IEnemy
     private void Update()
     {
         Move();
-        Die();
+        //Die();
     }
     public void Move()
     {
@@ -44,5 +48,20 @@ public class BasicEnemy : MonoBehaviour, IEnemy
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SetHealth(float pHealth)
+    {
+        _health = pHealth;
+    }
+
+    public void SetSpeed(float pSpeed)
+    {
+        _speed = pSpeed;
+    }
+
+    public void SetMoney(float pMoney)
+    {
+        _money = pMoney;
     }
 }

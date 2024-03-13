@@ -6,7 +6,7 @@ public class TestSpawnStrategy : MonoBehaviour, IEnemySpawnStrategy
 {
     [SerializeField] GameObject _toSpawn;
     [SerializeField] Transform _spawner;
-    public void Spawn()
+    public void Spawn(EnemySO toSpawn)
     {
         Instantiate(_toSpawn, _spawner.position, _spawner.rotation);
     }

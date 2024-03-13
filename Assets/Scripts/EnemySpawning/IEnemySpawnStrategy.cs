@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IEnemySpawnStrategy 
 {
-    public void Spawn();
+    public void Spawn(EnemySO toSpawn);
 }

@@ -19,6 +19,7 @@ public class BuilderState : GameState
     public override void OnEnterState()
     {
         _waveCountdown = levelSFM.GetCountdownBetweenWaves();
+        onClockTick?.Invoke(_waveCountdown);
         StartCoroutine(countdownToWave());
     }
 

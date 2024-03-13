@@ -7,6 +7,7 @@ public class TestWaveSpawner : MonoBehaviour, IWaveSpawnStrategy
 {
     [SerializeField] GameObject _enemySpawner;
     IEnemySpawnStrategy _enemySpawnStrategy;
+    public List<Wave> _waves;
 
     private void Awake()
     {
@@ -14,7 +15,7 @@ public class TestWaveSpawner : MonoBehaviour, IWaveSpawnStrategy
     }
     public void SpawnWave()
     {
-        _enemySpawnStrategy.Spawn();
+        //_enemySpawnStrategy.Spawn();
         OnWaveFinished();
     }
     public void OnWaveFinished()
