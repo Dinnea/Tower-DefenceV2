@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaveSpawnerQueue : MonoBehaviour, IWaveSpawnStrategy
+public class WaveSpawnerSingleTyperPerBatch : MonoBehaviour, IWaveSpawnStrategy
 {
     [SerializeField] List<Wave> _waves;
     IEnemySpawnStrategy _enemySpawnStrategy;
@@ -28,11 +28,11 @@ public class WaveSpawnerQueue : MonoBehaviour, IWaveSpawnStrategy
     }
 
 
-    IEnumerator spawnBatch(BatchQueue batch)
+    IEnumerator spawnBatch(BatchOneType batch)
     {
-        foreach (EnemySO enemy in batch.enemyQueue)
+        for (int i = 0; i< batch.enemyNumber; i++)
         {
-            _enemySpawnStrategy.Spawn(enemy);
+            _enemySpawnStrategy.Spawn(batch.enemyType);
             yield return new WaitForSeconds(batch.intervalBetweenEnemies);
         }
     }
@@ -41,7 +41,7 @@ public class WaveSpawnerQueue : MonoBehaviour, IWaveSpawnStrategy
     {
         foreach (Batch batch in _currentWave.batches)
         {
-            StartCoroutine(spawnBatch(batch as BatchQueue));
+            StartCoroutine(spawnBatch(batch as BatchOneType));
             yield return new WaitForSeconds(batch.intervalBetweenBatches);
         }
     }
