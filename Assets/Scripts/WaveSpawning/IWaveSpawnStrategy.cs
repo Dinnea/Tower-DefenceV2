@@ -7,6 +7,8 @@ public interface IWaveSpawnStrategy
 {
     public void SpawnWave();
     public void OnWaveFinished();
+    public int GetCurrentWaveNr();
+    public int GetMaxWaveNr();
 
     public static Action onFinishedSpawning;
 }

@@ -13,6 +13,8 @@ TagManager:
   - LevelFSM
   - Enemy
   - NavPoint
+  - TowerPreview
+  - WaveSpawner
   layers:
   - Default
   - TransparentFX

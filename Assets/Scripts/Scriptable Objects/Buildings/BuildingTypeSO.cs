@@ -11,6 +11,10 @@ public class BuildingTypeSO : ScriptableObject
     public int width;
     public int height;
     public int cost;
+    public float damage;
+    public float attackSpeed;
+    public string attackType;
+    public float range;
 
     public List<Vector2Int> GetGridPositionList(Vector2Int offset)
     {

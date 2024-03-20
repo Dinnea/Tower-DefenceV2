@@ -28,7 +28,7 @@ public class BasicEnemy : MonoBehaviour, IEnemy
     private void Update()
     {
         Move();
-        //Die();
+        Die();
     }
     public void Move()
     {

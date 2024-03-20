@@ -9,7 +9,7 @@ public class Cell
     bool _isBuildZone = false;
     bool _isPath = false;
     Transform _objectOnTile = null;
-    BuildingTypeSO _objectType;
+    BuildingTypeSO _objectType = null;
     public string name = "no";
 
     public Cell(GridXZ<Cell> grid, int x, int z)

@@ -23,4 +23,14 @@ public class TestWaveSpawner : MonoBehaviour, IWaveSpawnStrategy
         Debug.Log("Switch to waiting");
         IWaveSpawnStrategy.onFinishedSpawning?.Invoke();
     }
+
+    public int GetCurrentWaveNr()
+    {
+        return 0;///throw new NotImplementedException();
+    }
+
+    public int GetMaxWaveNr()
+    {
+        return 0;//throw new NotImplementedException();
+    }
 }

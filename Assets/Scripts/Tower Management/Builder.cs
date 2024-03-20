@@ -26,7 +26,7 @@ public class Builder : MonoBehaviour
 
     private void Start()
     {
-        refreshMoneyBalance();
+        refreshMoneyBalance(0);
     }
     private void OnEnable()
     {
@@ -71,8 +71,7 @@ public class Builder : MonoBehaviour
         {
             Transform built = Instantiate(_buildingType.prefab.transform, location, Quaternion.identity);
             cell.SetObjectOnTile(built, _buildingType);
-            _money -= _buildingType.cost;
-            refreshMoneyBalance();
+            refreshMoneyBalance(-_buildingType.cost);
         }
     }
     private void sellTower(Cell cell)
@@ -83,8 +82,7 @@ public class Builder : MonoBehaviour
             BuildingTypeSO buildingToSellType = cell.GetObjectOnTileType();
             cell.ResetObjectOnTile();
             float income = buildingToSellType.cost * _resaleValue;
-            _money += income;
-            refreshMoneyBalance();
+            refreshMoneyBalance(income);
             Destroy(buildingToSell.gameObject);
         }
     }
@@ -93,14 +91,14 @@ public class Builder : MonoBehaviour
         _buildingType = null;
         _cursor.SetCursorModel(-1);
     }
-    private void refreshMoneyBalance()
+    private void refreshMoneyBalance(float moneyChange)
     {
-       
+        _money += moneyChange;  
         for (int i = 0; i < _buildings.Count; i++)
         {
             bool canAffordCurrent = canAfford(_buildings[i].cost);
             if (_buildingType == _buildings[i] && !canAffordCurrent) resetBuildChoice();
-            onMoneyChanged?.Invoke(new MoneyChangedData(i, _money, canAffordCurrent));
+            onMoneyChanged?.Invoke(new MoneyChangedData(i, _money, moneyChange, canAffordCurrent));
         }
     }
     private bool canAfford(float cost)
@@ -124,8 +122,9 @@ public class MoneyChangedData
 {
     public readonly int buildingID;
     public readonly float currentMoney;
+    public readonly float cost;
     public readonly bool canAfford;
-    public MoneyChangedData(int pBuildingID, float pCurrentMoney, bool pCanAfford)
+    public MoneyChangedData(int pBuildingID, float pCurrentMoney, float pCost, bool pCanAfford)
     {
         buildingID = pBuildingID;
         currentMoney = pCurrentMoney;

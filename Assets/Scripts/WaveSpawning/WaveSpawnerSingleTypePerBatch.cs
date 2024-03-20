@@ -44,6 +44,16 @@ public class WaveSpawnerSingleTyperPerBatch : MonoBehaviour, IWaveSpawnStrategy
             StartCoroutine(spawnBatch(batch as BatchOneType));
             yield return new WaitForSeconds(batch.intervalBetweenBatches);
         }
+        OnWaveFinished();
     }
 
+    public int GetCurrentWaveNr()
+    {
+        return _waveIndex;
+    }
+
+    public int GetMaxWaveNr()
+    {
+        return _waves.Count;
+    }
 }

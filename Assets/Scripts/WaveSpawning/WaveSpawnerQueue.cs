@@ -46,4 +46,13 @@ public class WaveSpawnerQueue : MonoBehaviour, IWaveSpawnStrategy
         }
     }
 
+    public int GetCurrentWaveNr()
+    {
+        return 1;
+    }
+
+    public int GetMaxWaveNr()
+    {
+        return 1;
+    }
 }

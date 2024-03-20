@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine;
 public class WaitingState : GameState
 {
     float _enemyCheckTimer = 1;
+
+    public static Action onWaveEnded;
 
     public override void Handle()
     {
@@ -30,7 +33,7 @@ public class WaitingState : GameState
 
     public override void OnExitState()
     {
-        
+        onWaveEnded?.Invoke();
     }
 
     bool areAllEnemiesDead()
