@@ -16,7 +16,7 @@ public class EnemySO : ScriptableObject
     {
         enemyScript = prefab.GetComponent<IEnemy>();
     }
-    public void SetParameters()
+    public void SetParameters(IEnemy enemyScript)
     {
         enemyScript.SetHealth(health);
         enemyScript.SetSpeed(speed);

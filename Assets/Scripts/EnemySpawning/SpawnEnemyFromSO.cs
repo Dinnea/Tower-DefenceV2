@@ -16,8 +16,9 @@ public class SpawnEnemyFromSO : MonoBehaviour, IEnemySpawnStrategy
     //}
     public void Spawn(EnemySO toSpawn)
     {
-        toSpawn.FindEnemyScript();
-        toSpawn.SetParameters();
-        Instantiate(toSpawn.prefab, transform.position, transform.rotation);
+        //toSpawn.FindEnemyScript();
+        //toSpawn.SetParameters();
+        GameObject temp = Instantiate(toSpawn.prefab, transform.position, transform.rotation);
+        toSpawn.SetParameters(temp.GetComponent<IEnemy>());
     }
 }

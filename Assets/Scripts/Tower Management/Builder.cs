@@ -6,6 +6,7 @@ using Personal.Utilities;
 using UnityEngine.UIElements;
 using System;
 using Unity.VisualScripting;
+using static EventBus<Event>;
 
 public class Builder : MonoBehaviour
 {
@@ -13,48 +14,27 @@ public class Builder : MonoBehaviour
     [SerializeField] List<BuildingTypeSO> _buildings;
     BuildingTypeSO _buildingType = null;
     bool _sell = false;
-    BuildSelector[] _buildSelector;
-
-    [SerializeField] float _money = 1000;
-    [SerializeField][Range(0, 1)] float _resaleValue = 0.75f;
-    public Action<MoneyChangedData> onMoneyChanged;
+    MoneyManager _moneyManager;
 
     private void Awake()
     {
         _cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Cursor>();
-        sendTowerModelsToCursor();
+        _moneyManager = GetComponent<MoneyManager>();
     }
 
     private void Start()
     {
-        refreshMoneyBalance(0);
-        _buildSelector = FindObjectsOfType<BuildSelector>();
-        foreach (BuildSelector selector in _buildSelector)
-        {
-            selector.onClickEvent += SetBuildingType;
-        }
+               
     }
     private void OnEnable()
     {
        _cursor.onClick += processClick;
-        if (_buildSelector != null)
-        {
-            foreach (BuildSelector selector in _buildSelector)
-            {
-                selector.onClickEvent += SetBuildingType;
-            }
-        }
+        EventBus<BuildingSwitchedEvent>.OnEvent += SetBuildingType;
     }
     private void OnDisable()
     {
         _cursor.onClick -= processClick;
-        if (_buildSelector != null)
-        {
-            foreach(BuildSelector selector in _buildSelector)
-            {
-                selector.onClickEvent -= SetBuildingType;
-            }
-        }
+        EventBus<BuildingSwitchedEvent>.OnEvent -= SetBuildingType;
     }
     public void SetBuildingType(int buildingID)
     {
@@ -69,6 +49,12 @@ public class Builder : MonoBehaviour
     {
        if(_buildings.Contains(type)) _buildingType = type;
        else _buildingType = null;
+    }
+
+    public void SetBuildingType(BuildingSwitchedEvent buildingSwitchedEvent)
+    {
+        Debug.Log("attempt1");
+        _buildingType = buildingSwitchedEvent.buildingType;
     }
     public void DisableSell()
     {
@@ -97,7 +83,7 @@ public class Builder : MonoBehaviour
         {
             Transform built = Instantiate(_buildingType.prefab.transform, location, Quaternion.identity);
             cell.SetObjectOnTile(built, _buildingType);
-            refreshMoneyBalance(-_buildingType.cost);
+            checkIfCanAffordCurrentBuilding(_moneyManager.CalculateTransaction(_buildingType.cost));
         }
     }
     private void sellTower(Cell cell)
@@ -107,53 +93,21 @@ public class Builder : MonoBehaviour
             Transform buildingToSell = cell.GetObjectOnTile();
             BuildingTypeSO buildingToSellType = cell.GetObjectOnTileType();
             cell.ResetObjectOnTile();
-            float income = buildingToSellType.cost * _resaleValue;
-            refreshMoneyBalance(income);
+            checkIfCanAffordCurrentBuilding(_moneyManager.CalculateTransaction(buildingToSellType.cost, true));
             Destroy(buildingToSell.gameObject);
         }
     }
     private void resetBuildChoice()
     {
         _buildingType = null;
-        _cursor.SetCursorModel(-1);
+        _cursor.SetCursorDefault();
     }
-    private void refreshMoneyBalance(float moneyChange)
+    private void checkIfCanAffordCurrentBuilding(float money)
     {
-        _money += moneyChange;  
-        for (int i = 0; i < _buildings.Count; i++)
-        {
-            bool canAffordCurrent = canAfford(_buildings[i].cost);
-            if (_buildingType == _buildings[i] && !canAffordCurrent) resetBuildChoice();
-            onMoneyChanged?.Invoke(new MoneyChangedData(i, _money, moneyChange, canAffordCurrent));
-        }
-    }
-    private bool canAfford(float cost)
-    {
-        return (_money - cost) >= 0;
-    }
-    private void sendTowerModelsToCursor()
-    {
-        foreach (BuildingTypeSO building in _buildings)
-        {
-            Transform towerModel = Search.FindComponentInChildrenWithTag<Transform>(building.prefab, "TowerMesh");
-            _cursor.AddCursorOption(towerModel.GetComponent<MeshFilter>().sharedMesh);
-        }
+       if(_buildingType != null) if(_buildingType.cost > money) resetBuildChoice();
     }
     public List<BuildingTypeSO> GetBuildOptions()
     {
         return _buildings;
-    }
-}
-public class MoneyChangedData
-{
-    public readonly int buildingID;
-    public readonly float currentMoney;
-    public readonly float cost;
-    public readonly bool canAfford;
-    public MoneyChangedData(int pBuildingID, float pCurrentMoney, float pCost, bool pCanAfford)
-    {
-        buildingID = pBuildingID;
-        currentMoney = pCurrentMoney;
-        canAfford = pCanAfford;
     }
 }

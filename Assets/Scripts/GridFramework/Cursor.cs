@@ -4,6 +4,7 @@ using UnityEngine;
 using Personal.Utilities;
 using UnityEngine.Events;
 using System;
+using static EventBus<Event>;
 
 public class Cursor : MonoBehaviour
 {
@@ -15,7 +16,6 @@ public class Cursor : MonoBehaviour
     MeshFilter _cursorModel;
     Renderer _cursorRenderer;
     
-    List<Mesh> _cursorOptions = new List<Mesh>();
     Mesh _defaultCursor;
     Vector3 _defaultCursorScale;
 
@@ -49,18 +49,29 @@ public class Cursor : MonoBehaviour
     {       
         cursorMoveOnGrid();
     }
-    public void AddCursorOption(Mesh mesh)
+
+    private void OnEnable()
     {
-        _cursorOptions.Add(mesh);
+        EventBus<BuildingSwitchedEvent>.OnEvent += SetCursorModel;
     }
 
-    public void SetCursorModel(int buildingID)
+    private void OnDisable()
     {
-        if (buildingID >= 0 && buildingID < _cursorOptions.Count)
+        EventBus<BuildingSwitchedEvent>.OnEvent -= SetCursorModel;
+    }
+    public void SetCursorDefault()
+    {    
+        _cursorModel.mesh = _defaultCursor;
+        _cursorModel.transform.localScale = _defaultCursorScale;
+        
+    }
+    public void SetCursorModel(BuildingSwitchedEvent buildingSwitchedEvent)
+    {
+        if (buildingSwitchedEvent.buildingType != null)
         {
-            _cursorModel.mesh = _cursorOptions[buildingID];
+            _cursorModel.mesh = Search.FindComponentInChildrenWithTag<Transform>(buildingSwitchedEvent.buildingType.prefab, "TowerMesh").GetComponent<MeshFilter>().sharedMesh;
             _cursorModel.transform.localScale = new Vector3(2, 2, 2);
-        }
+        }            
         else
         {
             _cursorModel.mesh = _defaultCursor;

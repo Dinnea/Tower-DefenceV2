@@ -11,21 +11,21 @@ public class MoneyDisplay : MonoBehaviour
     {
         _builder = GameObject.FindGameObjectWithTag("Player").GetComponent<Builder>();
         _moneyDisplay = GetComponent<TextMeshProUGUI>();
+        //setMoney(1000);
     }
 
     private void OnEnable()
     {
-       _builder.onMoneyChanged += setMoney;
+       MoneyManager.onMoneyChanged += setMoney;
     }
 
     private void OnDisable()
     {
-        _builder.onMoneyChanged -= setMoney;
+        MoneyManager.onMoneyChanged -= setMoney;
     }
 
-    private void setMoney(MoneyChangedData data)
+    private void setMoney(float money)
     {
-        _moneyDisplay.text = "Money: " + data.currentMoney.ToString();
+        _moneyDisplay.text = "Money: " + money.ToString();
     }
-
 }

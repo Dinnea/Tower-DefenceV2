@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static EventBus<Event>;
+
 [RequireComponent(typeof(IgnoreCollisionSameLayer))]
 public class BasicEnemy : MonoBehaviour, IEnemy
 {
@@ -11,7 +13,7 @@ public class BasicEnemy : MonoBehaviour, IEnemy
 
     float _health;
     float _speed;
-    float _money;
+    [SerializeField] float _money;
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -46,6 +48,7 @@ public class BasicEnemy : MonoBehaviour, IEnemy
     {
         if (_pointsReached == _navPoints.Length)
         {
+            EventBus<EnemyKilledEvent>.Publish(new EnemyKilledEvent(this));
             Destroy(gameObject);
         }
     }
@@ -63,5 +66,10 @@ public class BasicEnemy : MonoBehaviour, IEnemy
     public void SetMoney(float pMoney)
     {
         _money = pMoney;
+    }
+
+    public float GetMoney()
+    {
+        return _money;
     }
 }

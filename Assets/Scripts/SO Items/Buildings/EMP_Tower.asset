@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 069244f14a82fb04ab664f4d979bb237, type: 3}
   m_Name: EMP_Tower
   m_EditorClassIdentifier: 
-  nameString: Slow_Tower
+  nameString: EMP Tower
   prefab: {fileID: 1691257490863768, guid: bb71db365cb6e4757aa6d7368e5d7967, type: 3}
   width: 1
   height: 1

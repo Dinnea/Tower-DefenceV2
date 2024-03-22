@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5483646013482869130}
   - component: {fileID: 1385109041797914960}
+  - component: {fileID: 8331400907182777230}
   m_Layer: 0
   m_Name: PlayerControls
   m_TagString: Player
@@ -50,3 +51,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bec23df46e2f7344b91ffcf37f1c4f8a, type: 2}
   _money: 1000
   _resaleValue: 0.75
+--- !u!114 &8331400907182777230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522130144261109231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52e9aab8124285741a89b59d2272c371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _money: 1000
+  _moneyStrategy: {fileID: 11400000, guid: b22b65d7d8a99ed4d87104e034500008, type: 2}
+  _buyStrategy: {fileID: 11400000, guid: e1b053db16a603d429e23eceac090187, type: 2}
+  _sellStrategy: {fileID: 11400000, guid: 57ec17707e02ec14f8dca6e7c9523102, type: 2}

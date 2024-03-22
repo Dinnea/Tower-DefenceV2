@@ -7,37 +7,44 @@ using TMPro;
 using System.Security.Cryptography;
 using System;
 using Unity.VisualScripting;
+using static EventBus<Event>;
 
 public class BuildSelector : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    BuildingTypeSO _buildingType;
     GameObject _towerPreview;
     TextMeshProUGUI[] _statsText;
     TextMeshProUGUI _buttonText;
     Button _button;
     public Action<BuildingTypeSO> onClickEvent;
+    BuildingTypeSO _buildingType;
+    //public BuildingSwitchedEvent onSwitched = new(null);
+
     private void Awake()
     {
         _towerPreview = FindObjectOfType<TowerPreview>(true).gameObject;
         _statsText = _towerPreview.GetComponentsInChildren<TextMeshProUGUI>(true);
         _buttonText = GetComponentInChildren<TextMeshProUGUI>();
         _button = GetComponent<Button>();
-        _button.onClick.AddListener(onClickTrigger);
-        
+        _button.onClick.AddListener(onClickTrigger);        
     }
     public void OnPointerEnter(PointerEventData eventData)
-    {
-        if(_buildingType != null)
-        {
-            _towerPreview.SetActive(true);
-            applyData();
-        }
+    {       
+        _towerPreview.SetActive(true);
+        applyData();
     }
     public void OnPointerExit(PointerEventData eventData)
     {
         _towerPreview.SetActive(false);
     }
 
+    private void OnEnable()
+    {
+        MoneyManager.onMoneyChanged += checkAfford;
+    }
+    private void OnDisable()
+    {
+        MoneyManager.onMoneyChanged -= checkAfford;
+    }
 
     private void applyData()
     {
@@ -47,18 +54,28 @@ public class BuildSelector : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         _statsText[3].text = "Range: " + _buildingType.range.ToString();
         _statsText[4].text = "Attack interval " + _buildingType.attackSpeed.ToString();
         _statsText[5].text = "Cost: " + _buildingType.cost.ToString();
-
     }
-
+    private void checkAfford(float money)
+    {
+        if(money < _buildingType.cost)
+        {
+            _button.interactable = false;
+        }
+        else _button.interactable = true;
+    }
     public void AssignBuildingType(BuildingTypeSO buildingType)
     {
-        //Debug.Log(buildingType.nameString);
+        _buttonText.text = buildingType.nameString;
         _buildingType = buildingType;
-        _buttonText.text = _buildingType.nameString;
+    }
+
+    public BuildingTypeSO GetAssignedType()
+    {
+        return _buildingType;
     }
 
     private void onClickTrigger()
     {
-        onClickEvent?.Invoke(_buildingType);
+        EventBus<BuildingSwitchedEvent>.Publish(new BuildingSwitchedEvent(_buildingType));
     }
 }
