@@ -5,13 +5,13 @@ using UnityEngine;
 public class WaveSpawnerQueue : MonoBehaviour, IWaveSpawnStrategy
 {
     [SerializeField] List<Wave> _waves;
-    IEnemySpawnStrategy _enemySpawnStrategy;
+    IEnemySpawner _enemySpawnStrategy;
     [SerializeField] GameObject _enemySpawner;
     Wave _currentWave;
     int _waveIndex = 0;
     private void Awake()
     {
-        _enemySpawnStrategy = _enemySpawner.GetComponent<IEnemySpawnStrategy>();
+        _enemySpawnStrategy = _enemySpawner.GetComponent<IEnemySpawner>();
         _currentWave = _waves[_waveIndex];
     }
     public void OnWaveFinished()

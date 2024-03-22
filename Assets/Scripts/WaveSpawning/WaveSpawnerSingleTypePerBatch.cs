@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaveSpawnerSingleTyperPerBatch : MonoBehaviour, IWaveSpawnStrategy
+public class WaveSpawnerV2 : MonoBehaviour, IWaveSpawnStrategy
 {
     [SerializeField] List<Wave> _waves;
-    IEnemySpawnStrategy _enemySpawnStrategy;
-    [SerializeField] GameObject _enemySpawner;
+    IEnemySpawner _enemySpawner;
+    [SerializeField] GameObject _spawnContainer;
     Wave _currentWave;
     int _waveIndex = 0;
     private void Awake()
     {
-        _enemySpawnStrategy = _enemySpawner.GetComponent<IEnemySpawnStrategy>();
+        _enemySpawner = _spawnContainer.GetComponent<IEnemySpawner>();
         _currentWave = _waves[_waveIndex];
     }
     public void OnWaveFinished()
@@ -27,12 +27,12 @@ public class WaveSpawnerSingleTyperPerBatch : MonoBehaviour, IWaveSpawnStrategy
         StartCoroutine(spawnWave());
     }
 
-
-    IEnumerator spawnBatch(BatchOneType batch)
+    IEnumerator spawnBatch(Batch batch)
     {
-        for (int i = 0; i< batch.enemyNumber; i++)
+        BatchOneType batchOneType = (batch as BatchOneType);
+        for (int i = 0; i< batchOneType.enemyNumber; i++)
         {
-            _enemySpawnStrategy.Spawn(batch.enemyType);
+            _enemySpawner.Spawn(batchOneType.enemyType);
             yield return new WaitForSeconds(batch.intervalBetweenEnemies);
         }
     }

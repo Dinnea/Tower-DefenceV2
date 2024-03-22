@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class SpawnEnemyFromSO : MonoBehaviour, IEnemySpawnStrategy
+public class SpawnEnemyFromSO : MonoBehaviour, IEnemySpawner
 {
     //[SerializeField] EnemySO _enemySO;
     //public void Spawn(EnemySO enemySO))
