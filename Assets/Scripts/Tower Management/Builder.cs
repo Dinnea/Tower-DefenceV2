@@ -13,6 +13,7 @@ public class Builder : MonoBehaviour
     [SerializeField] List<BuildingTypeSO> _buildings;
     BuildingTypeSO _buildingType = null;
     bool _sell = false;
+    BuildSelector[] _buildSelector;
 
     [SerializeField] float _money = 1000;
     [SerializeField][Range(0, 1)] float _resaleValue = 0.75f;
@@ -27,14 +28,33 @@ public class Builder : MonoBehaviour
     private void Start()
     {
         refreshMoneyBalance(0);
+        _buildSelector = FindObjectsOfType<BuildSelector>();
+        foreach (BuildSelector selector in _buildSelector)
+        {
+            selector.onClickEvent += SetBuildingType;
+        }
     }
     private void OnEnable()
     {
        _cursor.onClick += processClick;
+        if (_buildSelector != null)
+        {
+            foreach (BuildSelector selector in _buildSelector)
+            {
+                selector.onClickEvent += SetBuildingType;
+            }
+        }
     }
     private void OnDisable()
     {
         _cursor.onClick -= processClick;
+        if (_buildSelector != null)
+        {
+            foreach(BuildSelector selector in _buildSelector)
+            {
+                selector.onClickEvent -= SetBuildingType;
+            }
+        }
     }
     public void SetBuildingType(int buildingID)
     {
@@ -43,6 +63,12 @@ public class Builder : MonoBehaviour
             _buildingType = _buildings[buildingID];
         }
         else _buildingType = null;
+    }
+
+    public void SetBuildingType(BuildingTypeSO type)
+    {
+       if(_buildings.Contains(type)) _buildingType = type;
+       else _buildingType = null;
     }
     public void DisableSell()
     {

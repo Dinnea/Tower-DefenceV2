@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildings:
-  - {fileID: 1691257490863768, guid: bb71db365cb6e4757aa6d7368e5d7967, type: 3}
+  - {fileID: 11400000, guid: 6a7cef8a5b50e044fa59f61f9013a2e3, type: 2}
+  - {fileID: 11400000, guid: 151d8bb5ca6975d47b6bcfa566993df5, type: 2}
+  - {fileID: 11400000, guid: bec23df46e2f7344b91ffcf37f1c4f8a, type: 2}
   _money: 1000
   _resaleValue: 0.75
