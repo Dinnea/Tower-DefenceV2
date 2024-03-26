@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 069244f14a82fb04ab664f4d979bb237, type: 3}
-  m_Name: Pylon_Tower
+  m_Name: Laser2
   m_EditorClassIdentifier: 
-  nameString: Explosive Pylon
-  prefab: {fileID: 1281184777904054, guid: ae6256d5ec26b436fb1b2573af9e93f8, type: 3}
+  nameString: Laser Tower
+  prefab: {fileID: 1444973102034290, guid: 1e8fc0d9d18c8408baa941efc8b49d4b, type: 3}
+  upgrade: {fileID: 11400000}
   width: 1
   height: 1
-  cost: 300
-  damage: 50
-  attackSpeed: 1
-  attackType: AOE DMG
-  range: 50
+  cost: 100
+  damage: 30
+  attackRate: 0.2
+  attackType: Single Target DMG
+  range: 100

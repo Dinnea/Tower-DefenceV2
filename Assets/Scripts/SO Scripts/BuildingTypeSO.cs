@@ -8,11 +8,12 @@ public class BuildingTypeSO : ScriptableObject
 
     public string nameString;
     public GameObject prefab;
+    public BuildingTypeSO upgrade;
     public int width;
     public int height;
     public int cost;
     public float damage;
-    public float attackSpeed;
+    public float attackRate;
     public string attackType;
     public float range;
 

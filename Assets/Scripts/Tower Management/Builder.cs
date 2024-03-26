@@ -83,6 +83,7 @@ public class Builder : MonoBehaviour
         {
             Transform built = Instantiate(_buildingType.prefab.transform, location, Quaternion.identity);
             cell.SetObjectOnTile(built, _buildingType);
+            cell.AddValueToCell(_buildingType.cost);
             checkIfCanAffordCurrentBuilding(_moneyManager.CalculateTransaction(_buildingType.cost));
         }
     }
@@ -94,7 +95,7 @@ public class Builder : MonoBehaviour
             Transform buildingToSell = cell.GetObjectOnTile();
             BuildingTypeSO buildingToSellType = cell.GetObjectOnTileType();
             cell.ResetObjectOnTile();
-            checkIfCanAffordCurrentBuilding(_moneyManager.CalculateTransaction(buildingToSellType.cost, true));
+            checkIfCanAffordCurrentBuilding(_moneyManager.CalculateTransaction(cell.GetValueOnCell(), true));
             Destroy(buildingToSell.gameObject);
         }
     }

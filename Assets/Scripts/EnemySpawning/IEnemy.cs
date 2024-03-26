@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IEnemy 
 {
+    //get world loc
     public void SetHealth(float health);
     public void SetSpeed(float speed);
     public void SetMoney(float money);

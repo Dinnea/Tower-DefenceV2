@@ -10,6 +10,8 @@ public class HQ : MonoBehaviour//, IAttackable
 
     [SerializeField]public HealthBar healthBar;
 
+    //on ememy hurt event => observer, => health bar
+
     private void Start()
     {
         healthBar = GetComponentInChildren<HealthBar>();

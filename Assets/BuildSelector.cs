@@ -52,7 +52,7 @@ public class BuildSelector : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         _statsText[1].text = _buildingType.attackType;
         _statsText[2].text = "Dmg per hit: " + _buildingType.damage.ToString();
         _statsText[3].text = "Range: " + _buildingType.range.ToString();
-        _statsText[4].text = "Attack interval " + _buildingType.attackSpeed.ToString();
+        _statsText[4].text = "Attack interval " + _buildingType.attackRate.ToString();
         _statsText[5].text = "Cost: " + _buildingType.cost.ToString();
     }
     private void checkAfford(float money)

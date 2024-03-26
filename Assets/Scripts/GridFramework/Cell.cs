@@ -12,6 +12,7 @@ public class Cell
     BuildingTypeSO _objectType = null;
     public string name = "no";
     bool _isHq = false;
+    float _valueOnCell;
 
     public Cell(GridXZ<Cell> grid, int x, int z)
     {
@@ -34,7 +35,14 @@ public class Cell
         _objectOnTile = null;
         _objectType = null;
     }
-
+    public void AddValueToCell(float value)
+    {
+        _valueOnCell += value;
+    }
+    public float GetValueOnCell()
+    {
+        return _valueOnCell;
+    }
     public Transform GetObjectOnTile()
     {
         return _objectOnTile;
