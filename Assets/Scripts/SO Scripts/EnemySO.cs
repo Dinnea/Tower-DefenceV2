@@ -11,6 +11,7 @@ public class EnemySO : ScriptableObject
     public float health;
     public float speed;
     public float money;
+    public float dmg;
 
     public void FindEnemyScript()
     {
@@ -21,5 +22,6 @@ public class EnemySO : ScriptableObject
         enemyScript.SetHealth(health);
         enemyScript.SetSpeed(speed);
         enemyScript.SetMoney(money);
+        enemyScript.SetDmg(dmg);
     }
 }

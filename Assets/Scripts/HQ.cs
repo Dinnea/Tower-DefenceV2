@@ -1,61 +1,66 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HQ : MonoBehaviour//, IAttackable
+public class HQ : MonoBehaviour, IAttackable
 {
-    [SerializeField] private float _maxHealth = 100;
-    [SerializeField] private float _currentHealth;
-
-    [SerializeField]public HealthBar healthBar;
+    [SerializeField] float _maxHealth = 100;
+    float _health;
+    public Action<float> onTakeDamage { get; set; }
 
     //on ememy hurt event => observer, => health bar
 
-    private void Start()
+    private void Awake()
     {
-        healthBar = GetComponentInChildren<HealthBar>();
-        SetMaxHP(_maxHealth, true);
+        _health = _maxHealth;
     }
 
     private void Update()
     {
-        TakeDmg(0.5f);
-    }
+        //TakeDmg(0.5f);
 
-    public void SetMaxHP(float hp, bool resetHealth)
-    {
-        if (hp > 0)
+        if(_health <= 0)
         {
-            _maxHealth = hp;
-            if (resetHealth) _currentHealth = _maxHealth;
-            healthBar.SetMaxHealth(_maxHealth, resetHealth);
+            Die();
         }
-        else Debug.Log("Max health must be a positive number.");
-    }
-
-    public void SetCurrentHP(float hp)
-    {
-        _currentHealth = hp;
-        healthBar.SetHealth(hp);
     }
 
     public void TakeDmg(float dmg)
     {
-        _currentHealth -= dmg;
-        if(_currentHealth< 0) _currentHealth = 0;
-        healthBar.SetHealth(_currentHealth);
+        _health -= dmg;
+        if(_health< 0) _health = 0;
+        onTakeDamage?.Invoke(_health);
     }
 
     public void GetHealed(float heal)
     {
-        _currentHealth += heal;
-        if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
-        healthBar.SetHealth(_currentHealth);
+        _health += heal;
+        if (_health > _maxHealth) _health = _maxHealth;
+        onTakeDamage?.Invoke(_health);
     }
 
     public void Die()
     {
-        if (_currentHealth <= 0) Debug.Log("HQ has died");
+        Debug.Log("HQ has died");
+    }
+
+    public float GetMaxHealth()
+    {
+        return _maxHealth;
+    }
+
+    public float GetHealth()
+    {
+        return _health;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            Debug.Log("sdmg");
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,4 +12,7 @@ public interface IEnemy
     public float GetMoney();
     public void Move();
     public void Die();
+
+    public Vector3 GetWorldLocation();
+    void SetDmg(float dmg);
 }

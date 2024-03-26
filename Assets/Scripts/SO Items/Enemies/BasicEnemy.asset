@@ -16,3 +16,4 @@ MonoBehaviour:
   health: 100
   speed: 10
   money: 50
+  dmg: 1

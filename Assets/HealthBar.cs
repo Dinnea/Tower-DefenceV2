@@ -7,27 +7,34 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     Slider _healthSlider;
+    IAttackable _parent;
     private void Awake()
     {
         _healthSlider = Search.FindComponentInChildrenWithTag<Slider>(gameObject, "HealthBar");
+        _parent = GetComponentInParent<IAttackable>();
+        //setMaxHealth(_parent.GetMaxHealth(), true);
     }
-    public void SetMaxHealth(float value, bool resetHealth)
+    private void Start()
+    {
+        setMaxHealth(_parent.GetMaxHealth(), true);
+    }
+    void setMaxHealth(float value, bool resetHealth)
     {
         _healthSlider.maxValue = value;
         if (resetHealth) _healthSlider.value = value;
     }
-    public void SetHealth(float value)
+    void setHealth(float value)
     {
         _healthSlider.value = value;
     }
 
-    public void TakeDamage(float value)
+    private void OnEnable()
     {
-        _healthSlider.value -= value;
+        _parent.onTakeDamage += setHealth;
     }
 
-    public void GetHealed(float value)
+    private void OnDisable()
     {
-        _healthSlider.value += value;
+        _parent.onTakeDamage -= setHealth;
     }
 }

@@ -21,11 +21,6 @@ public class Builder : MonoBehaviour
         _cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Cursor>();
         _moneyManager = GetComponent<MoneyManager>();
     }
-
-    private void Start()
-    {
-               
-    }
     private void OnEnable()
     {
        _cursor.onClick += processClick;

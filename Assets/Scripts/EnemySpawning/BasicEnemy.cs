@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,32 +6,41 @@ using UnityEngine.AI;
 using static EventBus<Event>;
 
 [RequireComponent(typeof(IgnoreCollisionSameLayer))]
-public class BasicEnemy : MonoBehaviour, IEnemy
+public class BasicEnemy : MonoBehaviour, IEnemy, IAttackable
 {
     NavMeshAgent _agent;
     Vector3[] _navPoints;
     int _pointsReached = 0;
 
+    float _maxHealth;
     float _health;
     float _speed;
+    float _dmg;
     [SerializeField] float _money;
+
+    public Action<float> onTakeDamage { get; set; }
+
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
+        _agent.speed = _speed;
         GameObject[] navPoints = GameObject.FindGameObjectsWithTag("NavPoint");
         _navPoints = new Vector3[navPoints.Length];
         foreach(GameObject navPoint in navPoints)
         {
             NavPoint point = navPoint.GetComponent<NavPoint>();
             _navPoints[point.index] = point.GetNavLocation();
-            
         }
         
     }
     private void Update()
     {
+        //TakeDmg(0.1f);
         Move();
-        Die();
+        if (_health < 0)
+        {
+            Die();
+        }
     }
     public void Move()
     {
@@ -46,16 +56,14 @@ public class BasicEnemy : MonoBehaviour, IEnemy
 
     public void Die()
     {
-        if (_pointsReached == _navPoints.Length)
-        {
-            EventBus<EnemyKilledEvent>.Publish(new EnemyKilledEvent(this));
-            Destroy(gameObject);
-        }
+        EventBus<EnemyKilledEvent>.Publish(new EnemyKilledEvent(this));
+        Destroy(gameObject);
     }
 
     public void SetHealth(float pHealth)
     {
         _health = pHealth;
+        _maxHealth = pHealth;
     }
 
     public void SetSpeed(float pSpeed)
@@ -71,5 +79,31 @@ public class BasicEnemy : MonoBehaviour, IEnemy
     public float GetMoney()
     {
         return _money;
+    }
+
+    public Vector3 GetWorldLocation()
+    {
+        return transform.position;
+    }
+
+    public float GetMaxHealth()
+    {
+        return _maxHealth;
+    }
+
+    public float GetHealth()
+    {
+        return _health;
+    }
+
+    public void TakeDmg(float damage)
+    {
+        _health -= damage;
+        onTakeDamage?.Invoke(_health);
+    }
+
+    public void SetDmg(float dmg)
+    {
+        throw new NotImplementedException();
     }
 }

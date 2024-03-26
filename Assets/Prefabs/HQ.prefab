@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 8053492897894453604}
   - component: {fileID: 961269854031668789}
   - component: {fileID: 6385349642994825883}
+  - component: {fileID: 7930127285405928332}
   m_Layer: 0
   m_Name: HQ
   m_TagString: HQ
@@ -163,8 +164,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 100
-  _currentHealth: 100
-  healthBar: {fileID: 758892442569510933}
 --- !u!114 &6385349642994825883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +177,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveByHalf: 0
+--- !u!65 &7930127285405928332
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7547009368358760646}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6, y: 5, z: 7.5}
+  m_Center: {x: 5, y: 2.5, z: 5}
 --- !u!1001 &1352348653751487325
 PrefabInstance:
   m_ObjectHideFlags: 0
