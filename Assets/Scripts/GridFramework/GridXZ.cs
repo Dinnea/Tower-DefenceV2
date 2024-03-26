@@ -207,4 +207,9 @@ public class GridXZ<TGenericGridObj>
         Vector2Int gridCoords =  GetCellOnWorldPosition(worldPosition);
         return GetCellContent(gridCoords.x, gridCoords.y);
     }
+
+    public Vector3 GetOffset()
+    {
+        return _cellOffset;
+    }
 }

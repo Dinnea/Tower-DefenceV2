@@ -7,9 +7,11 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class SnapToGridMiddle : MonoBehaviour
 {
+    [SerializeField] bool _moveByHalf = false;
     private void Awake()
     {
-        transform.position = new Vector3 ((float)Math.Round(transform.position.x / 5.0f) * 5.0f, 0, (float)Math.Round(transform.position.z / 5.0f) * 5.0f);
+        if(_moveByHalf) transform.position = new Vector3((float)Math.Round(transform.position.x / 5.0f) * 5.0f, 0, (float)Math.Round(transform.position.z / 5.0f) * 5.0f) + new Vector3(2.5f, 0, 2.5f);
+        else transform.position = new Vector3 ((float)Math.Round(transform.position.x / 5.0f) * 5.0f, 0, (float)Math.Round(transform.position.z / 5.0f) * 5.0f);
         
     }
 }

@@ -11,6 +11,7 @@ public class Cell
     Transform _objectOnTile = null;
     BuildingTypeSO _objectType = null;
     public string name = "no";
+    bool _isHq = false;
 
     public Cell(GridXZ<Cell> grid, int x, int z)
     {
@@ -54,7 +55,9 @@ public class Cell
     }
     public void SetBuildZone(bool value = true) { _isBuildZone=value;}
     public void SetPath(bool value = true) { _isPath=value;}
+    public void SetHQ(bool value = true) { _isHq = value; }
     public bool IsPath() { return _isPath;}
+    public bool IsHQ() { return _isHq;}
     public bool IsBuildZone() {  return _isBuildZone;}
     public int GetX() { return _x; } public int GetZ() { return _z; }
 }

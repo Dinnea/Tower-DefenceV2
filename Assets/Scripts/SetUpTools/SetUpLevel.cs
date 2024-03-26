@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SetUpLevel : MonoBehaviour
@@ -12,14 +13,29 @@ public class SetUpLevel : MonoBehaviour
     public GameObject valid;
     public GameObject invalid;
     public bool debug = true;
+    [SerializeField] BuildingTypeSO _HQ;
     private void Start()
     {
         _gridManager = GetComponent<GridManager>();
         _grid =_gridManager.GetGrid();
+        setHQ();
         getPathTiles();
     }
-    void getPathTiles()
+
+    void setHQ()
     {
+        GameObject hq = GameObject.FindGameObjectWithTag("HQ");
+        Vector2Int hqCell = _grid.GetCellOnWorldPosition(hq.transform.position);
+        List<Vector2Int> hqCellsCoords = _HQ.GetCellsCovered(hqCell);
+        foreach (Vector2Int coords in hqCellsCoords)
+        {
+            Cell cell = _grid.GetCellContent(coords.x, coords.y);
+            cell.SetHQ(true);
+        }
+    }
+    void getPathTiles()
+    { 
+
         GameObject[] pathZones = GameObject.FindGameObjectsWithTag("DeleteOnAwakePath");
         foreach (GameObject path in pathZones)
         {
@@ -71,7 +87,7 @@ public class SetUpLevel : MonoBehaviour
         if(_grid.CheckInBounds(x, z)) 
         { 
             Cell targetCell = _grid.GetCellContent(x, z);
-            if (targetCell.IsPath() == false) targetCell.SetBuildZone();
+            if (!targetCell.IsPath() && !targetCell.IsHQ()) targetCell.SetBuildZone();
         }
         
     }

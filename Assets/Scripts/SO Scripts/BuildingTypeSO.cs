@@ -16,14 +16,14 @@ public class BuildingTypeSO : ScriptableObject
     public string attackType;
     public float range;
 
-    public List<Vector2Int> GetGridPositionList(Vector2Int offset)
+    public List<Vector2Int> GetCellsCovered(Vector2Int corePosition)
     {
         List<Vector2Int> gridPositionList = new List<Vector2Int>();
         for (int x = 0; x < width; x++)
         {
             for(int y = 0; y < height; y++)
             {
-                gridPositionList.Add(offset + new Vector2Int(x, y));
+                gridPositionList.Add(corePosition + new Vector2Int(x, y));
             }
         }
         return gridPositionList;

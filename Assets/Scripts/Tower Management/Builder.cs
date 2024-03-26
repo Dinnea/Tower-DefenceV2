@@ -86,6 +86,7 @@ public class Builder : MonoBehaviour
             checkIfCanAffordCurrentBuilding(_moneyManager.CalculateTransaction(_buildingType.cost));
         }
     }
+
     private void sellTower(Cell cell)
     {
         if (!cell.IsCellFree())
