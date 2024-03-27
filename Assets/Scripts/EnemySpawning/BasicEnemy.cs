@@ -14,7 +14,7 @@ public class BasicEnemy : MonoBehaviour, IEnemy, IAttackable
 
     float _maxHealth;
     float _health;
-    float _speed;
+    [SerializeField] float _speed;
     float _dmg;
     [SerializeField] float _money;
 
@@ -23,7 +23,6 @@ public class BasicEnemy : MonoBehaviour, IEnemy, IAttackable
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
-        _agent.speed = _speed;
         GameObject[] navPoints = GameObject.FindGameObjectsWithTag("NavPoint");
         _navPoints = new Vector3[navPoints.Length];
         foreach(GameObject navPoint in navPoints)
@@ -69,6 +68,7 @@ public class BasicEnemy : MonoBehaviour, IEnemy, IAttackable
     public void SetSpeed(float pSpeed)
     {
         _speed = pSpeed;
+        _agent.speed = pSpeed;
     }
 
     public void SetMoney(float pMoney)
