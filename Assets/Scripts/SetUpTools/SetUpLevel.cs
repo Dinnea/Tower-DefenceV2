@@ -12,6 +12,7 @@ public class SetUpLevel : MonoBehaviour
     List<Cell> _path = new List<Cell>();
     public GameObject valid;
     public GameObject invalid;
+    public GameObject path;
     public bool debug = true;
     [SerializeField] BuildingTypeSO _HQ;
     private void Start()
@@ -61,25 +62,24 @@ public class SetUpLevel : MonoBehaviour
             }           
         }
         
-        if (debug) 
+        for (int x = 0; x < _grid.GetWidthInColumns(); x++)
         {
-            for (int x = 0; x < _grid.GetWidthInColumns(); x++)
+            for (int z = 0; z < _grid.GetHeightInRows(); z++)
             {
-                for (int z = 0; z < _grid.GetHeightInRows(); z++)
+                if (_grid.GetCellContent(x, z).IsBuildZone())
                 {
-                    if (_grid.GetCellContent(x, z).IsBuildZone())
-                    {
-                        Instantiate(valid, _grid.GetCellPositionInWorld(x, z), Quaternion.identity);
-                    }
-                    else Instantiate(Instantiate(invalid, _grid.GetCellPositionInWorld(x, z), Quaternion.identity));
-
+                    Instantiate(valid, _grid.GetCellPositionInWorld(x, z), Quaternion.identity);
+                }
+                else if (_grid.GetCellContent(x, z).IsHQ())
+                {
+                    Instantiate(path, _grid.GetCellPositionInWorld(x, z), Quaternion.identity);
+                }
+                else if (!_grid.GetCellContent(x, z).IsPath())
+                {
+                    Instantiate(invalid, _grid.GetCellPositionInWorld(x, z), Quaternion.identity);
                 }
             }
         }
-        //for (int i = pathZones.Length; i--> 0;)
-        //{
-        //    Destroy(pathZones[i]);
-        //}
     }
 
     void trySetCellAsBuildZone(int x, int z)

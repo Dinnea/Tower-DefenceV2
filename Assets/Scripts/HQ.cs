@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class HQ : MonoBehaviour, IAttackable
 {
+    [SerializeField] DamageCalculationStrategy _dmgStrategy;
     [SerializeField] float _maxHealth = 100;
     float _health;
     public Action<float> onTakeDamage { get; set; }
@@ -60,7 +61,7 @@ public class HQ : MonoBehaviour, IAttackable
     {
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("sdmg");
+            TakeDmg(_dmgStrategy.CalculateDmg(other.GetComponent<IEnemy>().GetDmg(), this));
         }
     }
 }

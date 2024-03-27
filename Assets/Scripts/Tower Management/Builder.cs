@@ -48,7 +48,6 @@ public class Builder : MonoBehaviour
 
     public void SetBuildingType(BuildingSwitchedEvent buildingSwitchedEvent)
     {
-        Debug.Log("attempt1");
         _buildingType = buildingSwitchedEvent.buildingType;
     }
     public void DisableSell()

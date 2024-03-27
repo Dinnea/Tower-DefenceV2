@@ -15,4 +15,5 @@ public interface IEnemy
 
     public Vector3 GetWorldLocation();
     void SetDmg(float dmg);
+    float GetDmg();
 }

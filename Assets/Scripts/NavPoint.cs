@@ -6,9 +6,11 @@ public class NavPoint : MonoBehaviour
 {
     [SerializeField]Transform _navLocation;
     public int index;
-    private void Start()
+    private void Awake()
     {
-        _navLocation = GetComponentInChildren<MeshFilter>().transform;
+        MeshRenderer temp = GetComponentInChildren<MeshRenderer>();
+        _navLocation = temp.transform;
+        //temp.enabled = false;
     }
 
     public Vector3 GetNavLocation()

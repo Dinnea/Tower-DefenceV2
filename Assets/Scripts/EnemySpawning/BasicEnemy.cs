@@ -9,7 +9,7 @@ using static EventBus<Event>;
 public class BasicEnemy : MonoBehaviour, IEnemy, IAttackable
 {
     NavMeshAgent _agent;
-    Vector3[] _navPoints;
+    [SerializeField] Vector3[] _navPoints;
     int _pointsReached = 0;
 
     float _maxHealth;
@@ -104,6 +104,11 @@ public class BasicEnemy : MonoBehaviour, IEnemy, IAttackable
 
     public void SetDmg(float dmg)
     {
-        throw new NotImplementedException();
+        _dmg = dmg;//throw new NotImplementedException();
+    }
+
+    public float GetDmg()
+    {
+        return _dmg;
     }
 }
