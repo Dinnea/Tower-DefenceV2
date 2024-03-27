@@ -87,9 +87,8 @@ public class Builder : MonoBehaviour
         if (!cell.IsCellFree())
         {
             Transform buildingToSell = cell.GetObjectOnTile();
-            BuildingTypeSO buildingToSellType = cell.GetObjectOnTileType();
-            cell.ResetObjectOnTile();
             checkIfCanAffordCurrentBuilding(_moneyManager.CalculateTransaction(cell.GetValueOnCell(), true));
+            cell.ResetObjectOnCell();
             Destroy(buildingToSell.gameObject);
         }
     }
