@@ -21,4 +21,4 @@ MonoBehaviour:
   damage: 25
   attackRate: 0.5
   attackType: Single Target DMG
-  range: 100
+  range: 20

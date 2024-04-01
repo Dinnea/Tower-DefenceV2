@@ -21,4 +21,4 @@ MonoBehaviour:
   damage: 0
   attackRate: 0.5
   attackType: AOE Slow
-  range: 100
+  range: 25

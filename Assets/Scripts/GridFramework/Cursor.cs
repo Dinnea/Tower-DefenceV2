@@ -18,6 +18,7 @@ public class Cursor : MonoBehaviour
     
     Mesh _defaultCursor;
     Vector3 _defaultCursorScale;
+    [SerializeField] GameObject _rangeDisplay;
 
     [SerializeField] Material _validMaterial;
     [SerializeField] Material _invalidMaterial;
@@ -63,7 +64,8 @@ public class Cursor : MonoBehaviour
     {    
         _cursorModel.mesh = _defaultCursor;
         _cursorModel.transform.localScale = _defaultCursorScale;
-        
+        _rangeDisplay.SetActive(false);
+
     }
     public void SetCursorModel(BuildingSwitchedEvent buildingSwitchedEvent)
     {
@@ -71,9 +73,12 @@ public class Cursor : MonoBehaviour
         {
             _cursorModel.mesh = Search.FindComponentInChildrenWithTag<Transform>(buildingSwitchedEvent.buildingType.prefab, "TowerMesh").GetComponent<MeshFilter>().sharedMesh;
             _cursorModel.transform.localScale = new Vector3(2, 2, 2);
+            _rangeDisplay.SetActive(true);
+            _rangeDisplay.transform.localScale = new Vector3(buildingSwitchedEvent.buildingType.range, _rangeDisplay.transform.localScale.y, buildingSwitchedEvent.buildingType.range);
         }            
         else
         {
+            _rangeDisplay.SetActive(false);
             _cursorModel.mesh = _defaultCursor;
             _cursorModel.transform.localScale = _defaultCursorScale;
         }

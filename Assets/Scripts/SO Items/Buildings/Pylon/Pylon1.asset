@@ -21,4 +21,4 @@ MonoBehaviour:
   damage: 50
   attackRate: 0
   attackType: AOE DMG
-  range: 50
+  range: 30
