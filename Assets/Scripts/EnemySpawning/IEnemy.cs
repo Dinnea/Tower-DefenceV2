@@ -11,7 +11,7 @@ public interface IEnemy
     public void SetMoney(float money);
     public float GetMoney();
     public void Move();
-    public void Die();
+    public void Die(bool killed = true);
 
     public Vector3 GetWorldLocation();
     void SetDmg(float dmg);

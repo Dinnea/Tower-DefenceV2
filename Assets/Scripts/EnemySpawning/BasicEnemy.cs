@@ -53,9 +53,9 @@ public class BasicEnemy : MonoBehaviour, IEnemy, IAttackable
         }
     }
 
-    public void Die()
+    public void Die(bool killed = true)
     {
-        EventBus<EnemyKilledEvent>.Publish(new EnemyKilledEvent(this));
+        if(killed)EventBus<EnemyKilledEvent>.Publish(new EnemyKilledEvent(this));
         Destroy(gameObject);
     }
 

@@ -11,5 +11,5 @@ public interface IAttackable
     public float GetHealth();
 
     public void TakeDmg(float damage);
-    public void Die();
+    //public void Die(bool killed = true);
 }
