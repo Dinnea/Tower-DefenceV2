@@ -107,8 +107,6 @@ public class BasicEnemy : MonoBehaviour, IEnemy, IAttackable
         _dmg = dmg;//throw new NotImplementedException();
     }
 
-    public float GetDmg()
-    {
-        return _dmg;
-    }
+    public float GetDmg() { return _dmg;}
+    public float GetSpeed() { return _speed; }
 }

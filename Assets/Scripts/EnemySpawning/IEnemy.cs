@@ -10,6 +10,7 @@ public interface IEnemy
     public void SetSpeed(float speed);
     public void SetMoney(float money);
     public float GetMoney();
+    public float GetSpeed();
     public void Move();
     public void Die(bool killed = true);
 
