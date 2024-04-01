@@ -78,6 +78,7 @@ public class Builder : MonoBehaviour
             Transform built = Instantiate(_buildingType.prefab.transform, location, Quaternion.identity);
             cell.SetObjectOnTile(built, _buildingType);
             cell.AddValueToCell(_buildingType.cost);
+            _buildingType.SetParameters(built.GetComponent<Tower>());
             checkIfCanAffordCurrentBuilding(_moneyManager.CalculateTransaction(_buildingType.cost));
         }
     }

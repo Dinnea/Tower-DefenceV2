@@ -4,8 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DefaultDMGCalcStrategy", menuName = "Damage Calculating Strategies/Default")]
 public class DefaultDMGStrategy : DamageCalculationStrategy
 {
-    public override float CalculateDmg(float rawDmg, IAttackable target)
+    public override void CalculateDmg(float rawDmg, IAttackable target)
     {
-        return rawDmg;
+        target.TakeDmg(rawDmg);
     }
 }

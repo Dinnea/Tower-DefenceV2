@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class DamageCalculationStrategy : ScriptableObject
 {
-   public abstract float CalculateDmg(float rawDmg, IAttackable target);
+   public abstract void CalculateDmg(float rawDmg, IAttackable target);
 }

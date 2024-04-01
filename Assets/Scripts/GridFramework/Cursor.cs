@@ -74,7 +74,7 @@ public class Cursor : MonoBehaviour
             _cursorModel.mesh = Search.FindComponentInChildrenWithTag<Transform>(buildingSwitchedEvent.buildingType.prefab, "TowerMesh").GetComponent<MeshFilter>().sharedMesh;
             _cursorModel.transform.localScale = new Vector3(2, 2, 2);
             _rangeDisplay.SetActive(true);
-            _rangeDisplay.transform.localScale = new Vector3(buildingSwitchedEvent.buildingType.range, _rangeDisplay.transform.localScale.y, buildingSwitchedEvent.buildingType.range);
+            _rangeDisplay.transform.localScale = new Vector3(buildingSwitchedEvent.buildingType.range*2, _rangeDisplay.transform.localScale.y, buildingSwitchedEvent.buildingType.range*2);
         }            
         else
         {

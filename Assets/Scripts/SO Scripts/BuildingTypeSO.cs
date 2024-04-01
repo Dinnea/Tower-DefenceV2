@@ -29,4 +29,11 @@ public class BuildingTypeSO : ScriptableObject
         }
         return gridPositionList;
     }
+
+    public void SetParameters(Tower tower)
+    {
+        tower.SetRange(range);
+        tower.SetActionCD(attackRate);
+        tower.SetDMG(damage);
+    }
 }
