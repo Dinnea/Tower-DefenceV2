@@ -98,9 +98,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1691257490863768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 516eb3cab8049be478f8579f035b7456, type: 3}
+  m_Script: {fileID: 11500000, guid: c6f1f2c1d614ca848955a5c52bf2bd9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesInRange: []
+  _damageStrategy: {fileID: 11400000, guid: 1f097d4dd52f36d4987cf0c6098f40b4, type: 2}
+  _effect: {fileID: 11400000, guid: 3b6d15f2b8a333d42953937300439c72, type: 2}
 --- !u!1 &1126831130195297395
 GameObject:
   m_ObjectHideFlags: 0

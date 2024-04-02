@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using static EventBus<Event>;
 
 [RequireComponent(typeof(IgnoreCollisionSameLayer))]
-public class BasicEnemy : MonoBehaviour, IEnemy, IAttackable
+public class BasicEnemy : MonoBehaviour, IEnemy, IAttackable, IBuffable
 {
     NavMeshAgent _agent;
     [SerializeField] Vector3[] _navPoints;
@@ -19,6 +19,7 @@ public class BasicEnemy : MonoBehaviour, IEnemy, IAttackable
     [SerializeField] float _money;
 
     public Action<float> onTakeDamage { get; set; }
+    List<BuffSO> IBuffable.appliedBuffs { get; set; }
 
     private void Awake()
     {
@@ -109,4 +110,26 @@ public class BasicEnemy : MonoBehaviour, IEnemy, IAttackable
 
     public float GetDmg() { return _dmg;}
     public float GetSpeed() { return _speed; }
+
+
+
+    public List<BuffSO> GetBuffs()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ApplyBuff(BuffSO buff)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void RemoveBuff(BuffSO buff)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void RemoveBuff(int index)
+    {
+        throw new NotImplementedException();
+    }
 }

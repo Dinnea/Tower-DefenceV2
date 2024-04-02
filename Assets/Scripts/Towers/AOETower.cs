@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class AOETower : Tower
 {
+    [SerializeField] BuffSO _effect = null;
     protected override void OnUpdate()
     {
         base.OnUpdate();
         if (!_isOnCooldown) Execute();
     }
 
-    void Execute()
+    protected override void Execute()
     {
-        Debug.Log("yeet");
-        onAction?.Invoke();
+        base.Execute();
         foreach (GameObject enemy in enemiesInRange)
         {
-            IAttackable target = enemy.GetComponent<IAttackable>();
-            _damageStrategy.CalculateDmg(dmg, target);
-        }
-        _isOnCooldown = true;
+            applyDamage(enemy);
+            if(_effect != null) 
+            {
+                //apply effect
+            }
+        }        
     }
 }

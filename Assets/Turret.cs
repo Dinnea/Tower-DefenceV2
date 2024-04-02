@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    [SerializeField] LaserTower _owner;
+    [SerializeField] SingleTargetTower _owner;
     [SerializeField] ParticleSystem _vfx;
 
     void Start()
     {
-        _owner = GetComponentInParent<LaserTower>();
+        _owner = GetComponentInParent<SingleTargetTower>();
         _vfx = GetComponentInChildren<ParticleSystem>();
         _owner.onAction += playVFX;
     }

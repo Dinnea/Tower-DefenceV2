@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static EventBus<Event>;
+using static UnityEngine.GraphicsBuffer;
+
 public abstract class Tower : MonoBehaviour
 {
     [SerializeField] protected List<GameObject> enemiesInRange = new List<GameObject>();
@@ -90,6 +92,17 @@ public abstract class Tower : MonoBehaviour
                 cdLeft = actionCD;
             }
         }
+    }
+    protected void applyDamage(GameObject enemy)
+    {
+        IAttackable target = enemy.GetComponent<IAttackable>();
+        _damageStrategy.CalculateDmg(dmg, target);
+    }
+
+    protected virtual void Execute()
+    {
+        onAction?.Invoke();
+        _isOnCooldown = true;
     }
     protected void ResetTarget(EnemyKilledEvent pEvent)
     {

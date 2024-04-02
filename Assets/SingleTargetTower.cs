@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static EventBus<Event>;
 
-public class LaserTower : Tower
+public class SingleTargetTower : Tower
 {
     [SerializeField] GameObject _target = null;
 
@@ -16,13 +16,10 @@ public class LaserTower : Tower
         if (_target != null && !_isOnCooldown) Execute();
     }
 
-    private void Execute()
+    protected override void Execute()
     {
-        onAction?.Invoke();
-
-        _isOnCooldown = true;
-        IAttackable target = _target.GetComponent<IAttackable>();
-        _damageStrategy.CalculateDmg(dmg, target);
+        base.Execute();
+        applyDamage(_target);
     }
 
     void selectTarget()
