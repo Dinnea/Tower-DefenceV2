@@ -30,11 +30,11 @@ public class Cell
         _objectType = objectType;
         _grid.TriggerGridObjectChanged(_x, _z);
     }
-    public void ResetObjectOnCell()
+    public void ResetObjectOnCell(bool resetValue)
     {
         _objectOnTile = null;
         _objectType = null;
-        ResetValueOnCell();
+        if(resetValue)ResetValueOnCell();
     }
     public void AddValueToCell(float value)
     {

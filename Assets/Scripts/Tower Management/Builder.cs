@@ -45,15 +45,19 @@ public class Builder : MonoBehaviour
 
     public void SetBuildingType(BuildingTypeSO type)
     {
+        Debug.Log("yea");
        if(_buildings.Contains(type)) _buildingType = type;
        else _buildingType = null;
         DisableSell();
         DisableUpgrade();
+
     }
 
     public void SetBuildingType(BuildingSwitchedEvent buildingSwitchedEvent)
     {
         _buildingType = buildingSwitchedEvent.buildingType;
+        DisableSell();
+        DisableUpgrade();
     }
     public void DisableSell()
     {
@@ -116,7 +120,7 @@ public class Builder : MonoBehaviour
         {
             Transform buildingToSell = cell.GetObjectOnTile();
             checkIfCanAffordCurrentBuilding(_moneyManager.CalculateTransaction(cell.GetValueOnCell(), true));
-            cell.ResetObjectOnCell();
+            cell.ResetObjectOnCell(true);
             Destroy(buildingToSell.gameObject);
         }
     }
@@ -132,10 +136,9 @@ public class Builder : MonoBehaviour
             {
                 // Debug.Log("attempt");
                 GameObject toDestroy = cell.GetObjectOnTile().gameObject;
-                cell.ResetObjectOnCell();
+                cell.ResetObjectOnCell(false);
                 Destroy(toDestroy);
-                Thread.Sleep(1000);
-               buildTower(cell, location, newUpgrade);
+                buildTower(cell, location, newUpgrade);
             }
         }
     }
