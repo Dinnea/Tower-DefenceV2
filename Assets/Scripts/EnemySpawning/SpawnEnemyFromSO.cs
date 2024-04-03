@@ -12,5 +12,6 @@ public class SpawnEnemyFromSO : MonoBehaviour, IEnemySpawner
         GameObject spawned = Instantiate(toSpawn.prefab, transform.position, transform.rotation); 
         toSpawn.AddEnemyScript(spawned);
         toSpawn.SetParameters(spawned.GetComponent<IEnemy>());
+        spawned.AddComponent<HealthBar>();
     }
 }

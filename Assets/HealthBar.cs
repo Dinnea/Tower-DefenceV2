@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     Slider _healthSlider;
-    IAttackable _parent;
+    IAttackable _parent = null;
     private void Awake()
     {
         _healthSlider = Search.FindComponentInChildrenWithTag<Slider>(gameObject, "HealthBar");
@@ -17,6 +17,7 @@ public class HealthBar : MonoBehaviour
     private void Start()
     {
         setMaxHealth(_parent.GetMaxHealth(), true);
+        _parent.onTakeDamage += setHealth;
     }
     void setMaxHealth(float value, bool resetHealth)
     {
@@ -30,7 +31,7 @@ public class HealthBar : MonoBehaviour
 
     private void OnEnable()
     {
-        _parent.onTakeDamage += setHealth;
+        
     }
 
     private void OnDisable()

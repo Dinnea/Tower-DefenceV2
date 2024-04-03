@@ -6,6 +6,7 @@ using UnityEngine.AI;
 using static EventBus<Event>;
 
 [RequireComponent(typeof(IgnoreCollisionSameLayer))]
+//[RequireComponent(typeof(HealthBar))]
 public class BasicEnemy : MonoBehaviour, IEnemy, IAttackable, IBuffable
 {
     NavMeshAgent _agent;
