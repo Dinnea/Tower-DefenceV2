@@ -18,6 +18,7 @@ public class EnemySO : ScriptableObject
         GameObject instance = Instantiate(Resources.Load("EnemyTemplate") as GameObject);
         Transform visualContainer = Search.FindComponentInChildrenWithTag<Transform>(instance, "Visual");
         Instantiate(visual, visualContainer);
+        instance.gameObject.name = visual.name;
         return instance;
     }
     public void AddEnemyScript(GameObject gameObject)
