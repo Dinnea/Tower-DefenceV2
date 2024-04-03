@@ -132,13 +132,17 @@ public class Builder : MonoBehaviour
             
             BuildingTypeSO newUpgrade = cell.GetObjectOnTileType().upgrade;
             Debug.Log(newUpgrade);
-            if(newUpgrade != null)
+            if (newUpgrade != null && _moneyManager.GetMoney() > newUpgrade.cost)
             {
                 // Debug.Log("attempt");
                 GameObject toDestroy = cell.GetObjectOnTile().gameObject;
                 cell.ResetObjectOnCell(false);
                 Destroy(toDestroy);
                 buildTower(cell, location, newUpgrade);
+            }
+            else
+            {
+                Debug.Log("you are broke!");
             }
         }
     }

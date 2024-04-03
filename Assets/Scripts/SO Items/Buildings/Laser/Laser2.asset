@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Laser2
   m_EditorClassIdentifier: 
   nameString: Laser Tower
-  prefab: {fileID: 1444973102034290, guid: 1e8fc0d9d18c8408baa941efc8b49d4b, type: 3}
-  upgrade: {fileID: 11400000}
+  prefab: {fileID: 8558329065540691197, guid: d82762db2c9da0a4aabdf037a8505853, type: 3}
+  upgrade: {fileID: 0}
   width: 1
   height: 1
   cost: 100
