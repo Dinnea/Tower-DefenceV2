@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawningState : GameState
 {
-    [SerializeField] WaveSpawnerV2 _waveSpawner;
+    [SerializeField] WaveSpawner _waveSpawner;
     private void Awake()
     {
     }
@@ -28,6 +28,6 @@ public class SpawningState : GameState
 
     private void OnEnable()
     {
-        WaveSpawnerV2.onFinishedSpawning += finishedSpawning;
+        WaveSpawner.onFinishedSpawning += finishedSpawning;
     }
 }

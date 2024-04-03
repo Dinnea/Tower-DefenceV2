@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaveSpawnerV2 : MonoBehaviour 
+public class WaveSpawner : MonoBehaviour 
 { 
     [SerializeField] List<Wave> _waves;
-    IEnemySpawner _enemySpawner;
+    Spawner _enemySpawner;
     Wave _currentWave;
     int _waveIndex = 0;
     public static Action onFinishedSpawning;
