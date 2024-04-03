@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,20 @@ public class LevelFSM : MonoBehaviour
             state.Init(this);
         }
         ChangeState(GetComponent<BuilderState>());
+
+        HQ.onDie += enterGameOverState;
+        WaveSpawner.onWavesOver += enterGameOverState;
+    }
+    private void OnDisable()
+    {
+        HQ.onDie -= enterGameOverState;
+        WaveSpawner.onWavesOver -= enterGameOverState;
+    }
+
+
+    private void enterGameOverState()
+    {
+        ChangeState(GetComponent<GameOverState>());
     }
 
     private void Update()

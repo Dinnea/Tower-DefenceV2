@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 using System;
 using Unity.VisualScripting;
 using static EventBus<Event>;
-
+using System.Threading;
 public class Builder : MonoBehaviour
 {
     Cursor _cursor;
@@ -15,6 +15,7 @@ public class Builder : MonoBehaviour
     BuildingTypeSO _buildingType = null;
     bool _sell = false;
     MoneyManager _moneyManager;
+    bool _upgrade = false;
 
     private void Awake()
     {
@@ -38,12 +39,16 @@ public class Builder : MonoBehaviour
             _buildingType = _buildings[buildingID];
         }
         else _buildingType = null;
+        DisableSell();
+        DisableUpgrade();
     }
 
     public void SetBuildingType(BuildingTypeSO type)
     {
        if(_buildings.Contains(type)) _buildingType = type;
        else _buildingType = null;
+        DisableSell();
+        DisableUpgrade();
     }
 
     public void SetBuildingType(BuildingSwitchedEvent buildingSwitchedEvent)
@@ -58,6 +63,14 @@ public class Builder : MonoBehaviour
     {
         _sell = !_sell;
     }
+    public void DisableUpgrade()
+    {
+        _upgrade = false;
+    }
+    public void UpgradeSwitch()
+    {
+        _upgrade = !_upgrade;
+    }
     private void processClick(Cursor.ClickInfo info)
     {
         if (_buildingType != null)
@@ -68,6 +81,10 @@ public class Builder : MonoBehaviour
         if (_sell)
         {
             sellTower(info.clickedCell);
+        }
+        if (_upgrade)
+        {
+            upgradeTower(info.clickedCell, info.clickedCellWorldLoc);
         }
     }
 
@@ -83,6 +100,16 @@ public class Builder : MonoBehaviour
         }
     }
 
+    private void buildTower(Cell cell, Vector3 location, BuildingTypeSO upgrade)
+    {
+       Transform built = Instantiate(upgrade.prefab.transform, location, Quaternion.identity);
+       cell.SetObjectOnTile(built, upgrade);
+       cell.AddValueToCell(upgrade.cost);
+       upgrade.SetParameters(built.GetComponent<Tower>());
+       checkIfCanAffordCurrentBuilding(_moneyManager.CalculateTransaction(upgrade.cost));
+        
+    }
+
     private void sellTower(Cell cell)
     {
         if (!cell.IsCellFree())
@@ -91,6 +118,25 @@ public class Builder : MonoBehaviour
             checkIfCanAffordCurrentBuilding(_moneyManager.CalculateTransaction(cell.GetValueOnCell(), true));
             cell.ResetObjectOnCell();
             Destroy(buildingToSell.gameObject);
+        }
+    }
+
+    private void upgradeTower(Cell cell, Vector3 location)
+    {
+        if(!cell.IsCellFree())
+        {
+            
+            BuildingTypeSO newUpgrade = cell.GetObjectOnTileType().upgrade;
+            Debug.Log(newUpgrade);
+            if(newUpgrade != null)
+            {
+                // Debug.Log("attempt");
+                GameObject toDestroy = cell.GetObjectOnTile().gameObject;
+                cell.ResetObjectOnCell();
+                Destroy(toDestroy);
+                Thread.Sleep(1000);
+               buildTower(cell, location, newUpgrade);
+            }
         }
     }
     private void resetBuildChoice()

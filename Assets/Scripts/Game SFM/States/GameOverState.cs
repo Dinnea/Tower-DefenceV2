@@ -6,16 +6,16 @@ public class GameOverState : GameState
 {
     public override void Handle()
     {
-        throw new System.NotImplementedException();
+       
     }
 
     public override void OnEnterState()
     {
-        throw new System.NotImplementedException();
+       
     }
 
     public override void OnExitState()
     {
-        throw new System.NotImplementedException();
+        
     }
 }

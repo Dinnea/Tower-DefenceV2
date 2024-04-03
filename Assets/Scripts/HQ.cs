@@ -10,6 +10,7 @@ public class HQ : MonoBehaviour, IAttackable
     [SerializeField] float _maxHealth = 100;
     float _health;
     public Action<float> onTakeDamage { get; set; }
+    public static Action onDie;
 
     //on ememy hurt event => observer, => health bar
 
@@ -18,21 +19,15 @@ public class HQ : MonoBehaviour, IAttackable
         _health = _maxHealth;
     }
 
-    private void Update()
-    {
-        //TakeDmg(0.5f);
-
-        if(_health <= 0)
-        {
-            Die();
-        }
-    }
-
     public void TakeDmg(float dmg)
     {
         _health -= dmg;
         if(_health< 0) _health = 0;
         onTakeDamage?.Invoke(_health);
+        if (_health <= 0)
+        {
+            Die();
+        }
     }
 
     public void GetHealed(float heal)
@@ -44,7 +39,7 @@ public class HQ : MonoBehaviour, IAttackable
 
     public void Die()
     {
-        Debug.Log("HQ has died");
+        onDie?.Invoke();
     }
 
     public float GetMaxHealth()
@@ -63,7 +58,7 @@ public class HQ : MonoBehaviour, IAttackable
         {
             IEnemy enemy = other.GetComponent<IEnemy>();
             _dmgStrategy.CalculateDmg(enemy.GetDmg(), this);
-            enemy.Die();
+            enemy.Die(false);
         }
     }
 }

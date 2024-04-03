@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1ff09f4c880124faa3a40fcaf9c48f, type: 3}
   m_Name: SlightlyHarderEnemy
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1511114609136056, guid: ad7d940de7ce2459790897534b93482d, type: 3}
+  visual: {fileID: 1511114609136056, guid: ad7d940de7ce2459790897534b93482d, type: 3}
+  enemyType: 
   health: 120
   speed: 15
   money: 75
