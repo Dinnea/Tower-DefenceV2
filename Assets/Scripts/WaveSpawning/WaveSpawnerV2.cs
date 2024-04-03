@@ -12,7 +12,6 @@ public class WaveSpawnerV2 : MonoBehaviour
     public static Action onFinishedSpawning;
     private void Awake()
     {
-        Debug.Log(_enemySpawner = GetComponentInChildren<IEnemySpawner>());
         _currentWave = _waves[_waveIndex];
     }
     public void OnWaveFinished()

@@ -6,16 +6,23 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Enemy", menuName ="ScriptableObjects/Enemies")]
 public class EnemySO : ScriptableObject
 {
-    public GameObject prefab;
+    public GameObject visual;
     public string enemyType;
     public float health;
     public float speed;
     public float money;
     public float dmg;
 
+    public GameObject InstantiatePrefab()
+    {
+        GameObject instance = Instantiate(Resources.Load("EnemyTemplate") as GameObject);
+        Transform visualContainer = Search.FindComponentInChildrenWithTag<Transform>(instance, "Visual");
+        Instantiate(visual, visualContainer);
+        return instance;
+    }
     public void AddEnemyScript(GameObject gameObject)
     {
-        if (prefab.GetComponent<IEnemy>()==null)
+        if (gameObject.GetComponent<IEnemy>()==null)
         {
             switch (enemyType)
             {
