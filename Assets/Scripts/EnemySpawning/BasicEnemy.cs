@@ -19,7 +19,7 @@ public class BasicEnemy : MonoBehaviour, IEnemy, IAttackable, IBuffable
     [SerializeField] float _money;
 
     public Action<float> onTakeDamage { get; set; }
-    List<BuffSO> IBuffable.appliedBuffs { get; set; }
+    List<BuffSO> _appliedBuffs = new List<BuffSO>();
 
     private void Awake()
     {
@@ -105,7 +105,7 @@ public class BasicEnemy : MonoBehaviour, IEnemy, IAttackable, IBuffable
 
     public void SetDmg(float dmg)
     {
-        _dmg = dmg;//throw new NotImplementedException();
+        _dmg = dmg;
     }
 
     public float GetDmg() { return _dmg;}
@@ -115,21 +115,21 @@ public class BasicEnemy : MonoBehaviour, IEnemy, IAttackable, IBuffable
 
     public List<BuffSO> GetBuffs()
     {
-        throw new NotImplementedException();
+        return _appliedBuffs;
     }
 
     public void ApplyBuff(BuffSO buff)
     {
-        throw new NotImplementedException();
+        if(!_appliedBuffs.Contains(buff)) _appliedBuffs.Add(buff);
     }
 
     public void RemoveBuff(BuffSO buff)
     {
-        throw new NotImplementedException();
+        _appliedBuffs.Remove(buff);
     }
 
     public void RemoveBuff(int index)
     {
-        throw new NotImplementedException();
+        _appliedBuffs.RemoveAt(index);
     }
 }

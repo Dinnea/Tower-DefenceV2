@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class SetWaveNumber : MonoBehaviour
 {
-    IWaveSpawnStrategy _waveSpawnStrategy;
+    WaveSpawnerV2 _waveSpawnStrategy;
     TextMeshProUGUI _textMesh;
     private void Awake()
     {
-        _waveSpawnStrategy = GameObject.FindGameObjectWithTag("WaveSpawner").GetComponent<IWaveSpawnStrategy>();
+        _waveSpawnStrategy = GameObject.FindGameObjectWithTag("WaveSpawner").GetComponent<WaveSpawnerV2>();
         _textMesh = GetComponent<TextMeshProUGUI>();
         _textMesh.text = "Wave 1/" + _waveSpawnStrategy.GetMaxWaveNr().ToString();
     }

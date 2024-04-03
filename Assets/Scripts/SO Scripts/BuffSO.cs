@@ -4,7 +4,17 @@ using UnityEngine;
 
 public abstract class BuffSO : ScriptableObject
 {
-    public abstract void OnApply(IBuffable target);
+    public float duration;
+    protected float timer;
+    public virtual void OnApply(IBuffable target)
+    {
+        timer = duration;
+    }
     public abstract void OnRemove(IBuffable target);
+
+    protected virtual void Countdown()
+    {
+
+    }
 }
 

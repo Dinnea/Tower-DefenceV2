@@ -7,12 +7,14 @@ public class SlowDebuff : BuffSO
     float _originalSpeed;
     public override void OnApply(IBuffable target)
     {
+        target.ApplyBuff(this);
         //_originalSpeed = target.GetSpeed();
         //target.SetSpeed(_originalSpeed * speedModifier);
     }
 
     public override void OnRemove(IBuffable target)
     {
+        target.RemoveBuff(this);
         //target.SetSpeed(_originalSpeed);
     }
 }

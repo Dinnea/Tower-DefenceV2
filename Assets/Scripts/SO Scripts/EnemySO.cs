@@ -7,15 +7,26 @@ using UnityEngine;
 public class EnemySO : ScriptableObject
 {
     public GameObject prefab;
-    IEnemy enemyScript;
+    public string enemyType;
     public float health;
     public float speed;
     public float money;
     public float dmg;
 
-    public void FindEnemyScript()
+    public void AddEnemyScript(GameObject gameObject)
     {
-        enemyScript = prefab.GetComponent<IEnemy>();
+        if (prefab.GetComponent<IEnemy>()==null)
+        {
+            switch (enemyType)
+            {
+                case "basic":
+                    gameObject.AddComponent<BasicEnemy>();
+                    break;
+                default:
+                    gameObject.AddComponent<BasicEnemy>();
+                    break;
+            }
+        }
     }
     public void SetParameters(IEnemy enemyScript)
     {

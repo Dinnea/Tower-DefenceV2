@@ -37,11 +37,11 @@ public class aoeFX : MonoBehaviour
         StopAllCoroutines();
         _mesh.material.color = _originalColor;
         _mesh.enabled = true;
-        StartCoroutine(FadeOut());
+        StartCoroutine(fadeOut());
 
     }
 
-    private IEnumerator FadeOut()
+    private IEnumerator fadeOut()
     {
         while (_mesh.material.color.a > 0)
         {

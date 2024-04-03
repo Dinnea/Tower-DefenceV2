@@ -4,26 +4,21 @@ using UnityEngine;
 
 public class SpawningState : GameState
 {
-    [SerializeField] GameObject _waveSpawner;
-    IWaveSpawnStrategy _waveSpawnStrategy;
+    [SerializeField] WaveSpawnerV2 _waveSpawner;
     private void Awake()
     {
-        _waveSpawnStrategy = _waveSpawner.GetComponent<IWaveSpawnStrategy>();
     }
     public override void Handle()
     {
-        
     }
 
     public override void OnEnterState()
     {
-       
-        _waveSpawnStrategy.SpawnWave();
+        _waveSpawner.SpawnWave();
     }
 
     public override void OnExitState()
     {
-        
     }
 
     private void finishedSpawning()
@@ -33,6 +28,6 @@ public class SpawningState : GameState
 
     private void OnEnable()
     {
-        IWaveSpawnStrategy.onFinishedSpawning += finishedSpawning;
+        WaveSpawnerV2.onFinishedSpawning += finishedSpawning;
     }
 }
