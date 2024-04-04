@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "Double Money Strategy", menuName = "Money Strategies/Double Strategy")]
-public class DoubleMoneyStrategy : MoneyStrategy
+public class MultiplierMoneyStrategy : MoneyEarningStrategy
 {
-    public override float GetMoneyFromEnemy(IEnemy enemy)
+    public float modifier; 
+    public override float GetMoneyFromEnemy(Enemy enemy)
     {
-        return 2 * enemy.GetMoney();
+        return modifier * enemy.GetMoney();
     } 
 }

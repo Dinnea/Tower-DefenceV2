@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Personal.GridFramework;
 
 public class UpgradeMonitor : MonoBehaviour
 {
@@ -10,11 +11,16 @@ public class UpgradeMonitor : MonoBehaviour
     {
         _grid = GetComponent<GridManager>().GetGrid();
     }
+
+    /// <summary>
+    /// If the cell is taken, check if the player can afford the tower upgrade. 
+    /// Display an indicating graphic if yes. If no, or if there is no upgrade option, hide the graphic.
+    /// </summary>
+    /// <param name="money"></param>
     private void checkUpgradePossible(float money)
     {
         if (_grid!=null)
         {
-            Debug.Log("abcd");
             for (int x = 0; x < _grid.GetWidthInColumns(); x++)
             {
                 for (int z = 0; z < _grid.GetHeightInRows(); z++)
@@ -22,7 +28,8 @@ public class UpgradeMonitor : MonoBehaviour
                     Cell cell = _grid.GetCellContent(x, z);
                     if (!cell.IsCellFree())
                     {
-                        if (cell.GetObjectOnTileType().upgrade.cost <= money)
+                        BuildingTypeSO temp = cell.GetObjectOnTileType().upgrade;
+                        if (temp != null && temp.cost <= money)
                         {
                             cell.GetObjectOnTile().GetComponentInChildren<Image>().enabled = true;//enable upgrade arrow
                         }

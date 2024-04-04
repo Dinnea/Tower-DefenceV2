@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 7796206472062922836}
   - component: {fileID: 5493477208090350476}
   - component: {fileID: 8993875840550185129}
+  - component: {fileID: 1064724004324583821}
   m_Layer: 0
   m_Name: NavPoint
   m_TagString: NavPoint
@@ -151,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef0228d7850d9f4191ed8445e1b60c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveByHalf: 0
 --- !u!114 &8993875840550185129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,5 +163,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f16e509b5a4686b4e94fc12a34da52b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _navLocation: {fileID: 0}
+  index: 0
+--- !u!114 &1064724004324583821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9087546916584804102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6836eea64e45814982dd6f0d05b1e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

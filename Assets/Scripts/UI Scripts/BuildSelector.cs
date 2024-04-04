@@ -27,11 +27,18 @@ public class BuildSelector : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         _button = GetComponent<Button>();
         _button.onClick.AddListener(onClickTrigger);        
     }
+    /// <summary>
+    /// Enables tower preview on hover.
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnPointerEnter(PointerEventData eventData)
     {       
         _towerPreview.SetActive(true);
         applyData();
     }
+    /// <summary>
+    /// Disables tower preview on end hover.
+    /// </summary>
     public void OnPointerExit(PointerEventData eventData)
     {
         _towerPreview.SetActive(false);
@@ -46,6 +53,9 @@ public class BuildSelector : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         MoneyManager.onMoneyChanged -= checkAfford;
     }
 
+    /// <summary>
+    /// Applies data of the _buildingTye coressponding to the hovered over button.
+    /// </summary>
     private void applyData()
     {
         _statsText[0].text = "Level 1";
@@ -63,6 +73,11 @@ public class BuildSelector : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
         else _button.interactable = true;
     }
+
+    /// <summary>
+    /// Assing building type to the button.
+    /// </summary>
+    /// <param name="buildingType"></param>
     public void AssignBuildingType(BuildingTypeSO buildingType)
     {
         _buttonText.text = buildingType.nameString;
@@ -74,6 +89,9 @@ public class BuildSelector : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         return _buildingType;
     }
 
+    /// <summary>
+    /// Triggers when the button is clicked, signals that new building has been selected.
+    /// </summary>
     private void onClickTrigger()
     {
         EventBus<BuildingSwitchedEvent>.Publish(new BuildingSwitchedEvent(_buildingType));

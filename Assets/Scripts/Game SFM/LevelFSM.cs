@@ -18,12 +18,12 @@ public class LevelFSM : MonoBehaviour
         ChangeState(GetComponent<BuilderState>());
 
         HQ.onDie += enterGameOverState;
-        WaveSpawner.onWavesOver += enterGameOverState;
+        //WaveSpawner.onWavesOver += enterGameOverState;
     }
     private void OnDisable()
     {
         HQ.onDie -= enterGameOverState;
-        WaveSpawner.onWavesOver -= enterGameOverState;
+        //WaveSpawner.onWavesOver -= enterGameOverState;
     }
 
 

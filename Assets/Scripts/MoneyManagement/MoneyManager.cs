@@ -7,7 +7,7 @@ using UnityEngine;
 public class MoneyManager : MonoBehaviour
 {
     [SerializeField] float _money = 1000;
-    [SerializeField] MoneyStrategy _moneyStrategy;
+    [SerializeField] MoneyEarningStrategy _moneyStrategy;
     [SerializeField] TransactionStrategy _buyStrategy;
     [SerializeField] TransactionStrategy _sellStrategy;
     public static Action<float> onMoneyChanged;

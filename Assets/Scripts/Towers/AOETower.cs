@@ -10,7 +10,9 @@ public class AOETower : Tower
         base.OnUpdate();
         if (!_isOnCooldown) Execute();
     }
-
+    /// <summary>
+    /// Execute tower's given effect. Override in derived classes. Applies a buff//debuff to targets if there is one.
+    /// </summary>
     protected override void Execute()
     {
         base.Execute();

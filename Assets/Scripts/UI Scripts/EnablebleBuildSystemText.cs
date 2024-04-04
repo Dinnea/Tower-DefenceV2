@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static EventBus<BuildingSwitchedEvent>;
 
-public class Enableble : MonoBehaviour
+public class EnablebleBuildSystemText : MonoBehaviour
 {
     public void EnableSwitch()
     {

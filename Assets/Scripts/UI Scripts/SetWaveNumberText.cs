@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class SetWaveNumber : MonoBehaviour
+public class SetWaveNumberText : MonoBehaviour
 {
     WaveSpawner _waveSpawnStrategy;
     TextMeshProUGUI _textMesh;

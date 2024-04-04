@@ -18,12 +18,12 @@ public class DetectGameOver : MonoBehaviour
     private void OnEnable()
     {
         HQ.onDie += enableLoss;
-        WaveSpawner.onWavesOver += enableWin;
+        WaveSpawner.onLastWaveSpawned += enableWin;
     }
     private void OnDisable()
     {
         HQ.onDie -= enableLoss;
-        WaveSpawner.onWavesOver -= enableWin;
+        WaveSpawner.onLastWaveSpawned -= enableWin;
     }
 
     private void enableWin()

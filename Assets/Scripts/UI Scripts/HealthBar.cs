@@ -12,12 +12,10 @@ public class HealthBar : MonoBehaviour
     {
         _healthSlider = Search.FindComponentInChildrenWithTag<Slider>(gameObject, "HealthBar");
         _parent = GetComponentInParent<IAttackable>();
-        //setMaxHealth(_parent.GetMaxHealth(), true);
     }
     private void Start()
     {
         setMaxHealth(_parent.GetMaxHealth(), true);
-        _parent.onTakeDamage += setHealth;
     }
     void setMaxHealth(float value, bool resetHealth)
     {
@@ -31,7 +29,7 @@ public class HealthBar : MonoBehaviour
 
     private void OnEnable()
     {
-        
+        _parent.onTakeDamage += setHealth;
     }
 
     private void OnDisable()

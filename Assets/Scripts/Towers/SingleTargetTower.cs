@@ -22,6 +22,9 @@ public class SingleTargetTower : Tower
         applyDamage(_target);
     }
 
+    /// <summary>
+    /// Logic for selecting the tower's primary target. Will select a new one if current is out of range.
+    /// </summary>
     void selectTarget()
     {
         if (enemiesInRange.Count > 0)

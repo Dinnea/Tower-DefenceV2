@@ -2,10 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Wave 
+public class TowerPreview : MonoBehaviour
 {
-    public List<BatchOneType> batches;
+    ///Empty classs used as a pseudotag.
 }
-
-

@@ -24,11 +24,16 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1.0f;
     }
 
+    void pause()
+    {
+        Time.timeScale = 0.0f;
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R)) Restart();
         if (Input.GetKeyDown(KeyCode.Q)) speedUpTime2();
         if (Input.GetKeyDown(KeyCode.W)) speedUpTime3();
-        if(Input.GetKeyDown(KeyCode.E)) normalTime();
+        if (Input.GetKeyDown(KeyCode.E)) normalTime();
+        if (Input.GetKeyDown(KeyCode.P)) pause();
     }
 }

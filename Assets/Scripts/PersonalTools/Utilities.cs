@@ -130,17 +130,3 @@ namespace Personal.Utilities
         }
     }
 }
-//notes
-
-/*
-        private IEnumerator countdownTemplate()
-        {
-            while (countdown > 0)
-            {
-                event?.Invoke();
-
-                yield return new WaitForSeconds(period);
-                coundown--;
-            }
-        }
-*/

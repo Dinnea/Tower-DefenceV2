@@ -4,7 +4,7 @@ using UnityEngine;
 using Personal.Utilities;
 using UnityEngine.Events;
 using System;
-using static EventBus<Event>;
+using Personal.GridFramework;
 
 public class Cursor : MonoBehaviour
 {
@@ -25,6 +25,9 @@ public class Cursor : MonoBehaviour
 
     public Action<ClickInfo> onClick;
 
+    /// <summary>
+    /// Contains info on where the cursor has clicked in world location and the cell that is located there.
+    /// </summary>
     public class ClickInfo
     {
         //public Vector2Int clickedCellCoords;
@@ -67,6 +70,11 @@ public class Cursor : MonoBehaviour
         _rangeDisplay.SetActive(false);
 
     }
+    /// <summary>
+    /// Sets the cursor's mesh to the mesh of a BuildingTypeSO provided by buildingSwitchedEvent. Shows the effect range of the building.
+    /// If no building is provided, reses the cursor to default.
+    /// </summary>
+    /// <param name="buildingSwitchedEvent"></param>
     public void SetCursorModel(BuildingSwitchedEvent buildingSwitchedEvent)
     {
         if (buildingSwitchedEvent.buildingType != null)
@@ -78,11 +86,13 @@ public class Cursor : MonoBehaviour
         }            
         else
         {
-            _rangeDisplay.SetActive(false);
-            _cursorModel.mesh = _defaultCursor;
-            _cursorModel.transform.localScale = _defaultCursorScale;
+            SetCursorDefault();
         }
     }
+    /// <summary>
+    /// Snaps the cursor to the grid, changes the cursor colour based on if the space is avaiable for building towers.
+    /// Ensures that clickOnCell is only called when inside of the grid boundaries.
+    /// </summary>
     private void cursorMoveOnGrid()
     {
         _cursorLocation = VectorMath.GetMousePositionWorld(Camera.main, _layer);
@@ -104,6 +114,10 @@ public class Cursor : MonoBehaviour
             clickOnCell(targetCell);
         }
     }
+    /// <summary>
+    /// Triggers the onClick event when LMB is clicked.
+    /// </summary>
+    /// <param name="targetCell"></param>
     private void clickOnCell( Cell targetCell)
     {
         if (Input.GetMouseButtonDown(0))

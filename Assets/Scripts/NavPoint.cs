@@ -8,9 +8,8 @@ public class NavPoint : MonoBehaviour
     public int index;
     private void Awake()
     {
-        MeshRenderer temp = GetComponentInChildren<MeshRenderer>();
-        _navLocation = temp.transform;
-        //temp.enabled = false;
+        MeshRenderer renderer = GetComponentInChildren<MeshRenderer>();
+        _navLocation = renderer.transform;
     }
 
     public Vector3 GetNavLocation()

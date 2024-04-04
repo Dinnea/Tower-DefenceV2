@@ -31,14 +31,15 @@ public class aoeFX : MonoBehaviour
     {
         transform.localScale = new Vector3(radius * 2, transform.localScale.y, radius * 2);
     }
-
+    /// <summary>
+    /// Ensures that the VFX mesh is enable and restarts the fadeOut coroutine.
+    /// </summary>
     private void triggerVFX()
     {
         StopAllCoroutines();
         _mesh.material.color = _originalColor;
         _mesh.enabled = true;
         StartCoroutine(fadeOut());
-
     }
 
     private IEnumerator fadeOut()

@@ -13,6 +13,10 @@ public class EnemySO : ScriptableObject
     public float money;
     public float dmg;
 
+    /// <summary>
+    /// Spawns a new enemy, adds the visual, sets the name.
+    /// </summary>
+    /// <returns>Returns the spawned enemy.</returns>
     public GameObject InstantiatePrefab()
     {
         GameObject instance = Instantiate(Resources.Load("EnemyTemplate") as GameObject);
@@ -21,9 +25,13 @@ public class EnemySO : ScriptableObject
         instance.gameObject.name = visual.name;
         return instance;
     }
+    /// <summary>
+    /// If the enemy prefab does not yet have an Enemy script, add a script determined by the enemyType string. BasicEnemy => default.
+    /// </summary>
+    /// <param name="gameObject"></param>
     public void AddEnemyScript(GameObject gameObject)
     {
-        if (gameObject.GetComponent<IEnemy>()==null)
+        if (gameObject.GetComponent<Enemy>()==null)
         {
             switch (enemyType)
             {
@@ -36,7 +44,11 @@ public class EnemySO : ScriptableObject
             }
         }
     }
-    public void SetParameters(IEnemy enemyScript)
+    /// <summary>
+    /// Sets parameters of an abstract Enemy class.
+    /// </summary>
+    /// <param name="tower"></param>
+    public void SetParameters(Enemy enemyScript)
     {
         enemyScript.SetHealth(health);
         enemyScript.SetSpeed(speed);

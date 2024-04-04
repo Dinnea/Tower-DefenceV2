@@ -3,17 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Personal.GridFramework;
 
 public class SetUpLevel : MonoBehaviour
 {
-    List<Vector3> _pathZones;
     GridManager _gridManager;
     GridXZ<Cell> _grid;
-    List<Cell> _path = new List<Cell>();
     public GameObject valid;
     public GameObject invalid;
     public GameObject path;
-    public bool debug = true;
     [SerializeField] BuildingTypeSO _HQ;
     private void Start()
     {
@@ -23,6 +21,9 @@ public class SetUpLevel : MonoBehaviour
         getPathTiles();
     }
 
+    /// <summary>
+    /// Find the location of the HQ. Set occupied Cells accordingly.
+    /// </summary>
     void setHQ()
     {
         GameObject hq = GameObject.FindGameObjectWithTag("HQ");
@@ -34,6 +35,10 @@ public class SetUpLevel : MonoBehaviour
             cell.SetHQ(true);
         }
     }
+    /// <summary>
+    /// Find all cells marked as a path for the enemies. Marks surrounding tiles as buildzones IF they are not path/HQ zones. 
+    /// Can override buildzone as path if appropriate.
+    /// </summary>
     void getPathTiles()
     { 
 
@@ -82,6 +87,11 @@ public class SetUpLevel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Markes a given cell as buildzone, IF it isn't yet a path/HQ zone.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="z"></param>
     void trySetCellAsBuildZone(int x, int z)
     {
         if(_grid.CheckInBounds(x, z)) 

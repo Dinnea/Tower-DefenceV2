@@ -1,93 +1,45 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using static EventBus<Event>;
 
 [RequireComponent(typeof(IgnoreCollisionSameLayer))]
-//[RequireComponent(typeof(HealthBar))]
-public class BasicEnemy : MonoBehaviour, IEnemy, IAttackable, IBuffable
+public class BasicEnemy : Enemy, IAttackable, IBuffable
 {
-    NavMeshAgent _agent;
     [SerializeField] Vector3[] _navPoints;
     int _pointsReached = 0;
-
-    float _maxHealth;
-    float _health;
-    [SerializeField] float _speed;
-    float _dmg;
-    [SerializeField] float _money;
-
     public Action<float> onTakeDamage { get; set; }
     List<BuffSO> _appliedBuffs = new List<BuffSO>();
 
-    private void Awake()
+// -------------- Abstract Enemy ----------------//
+    protected override void OnAwake()
     {
-        _agent = GetComponent<NavMeshAgent>();
+        base.OnAwake();
         GameObject[] navPoints = GameObject.FindGameObjectsWithTag("NavPoint");
         _navPoints = new Vector3[navPoints.Length];
-        foreach(GameObject navPoint in navPoints)
+        foreach (GameObject navPoint in navPoints)
         {
             NavPoint point = navPoint.GetComponent<NavPoint>();
             _navPoints[point.index] = point.GetNavLocation();
         }
-        
     }
-    private void Update()
+    protected override void OnUpdate()
     {
-        //TakeDmg(0.1f);
-        Move();
-        if (_health < 0)
+        move();
+        base.OnUpdate();
+    }
+
+    private void move()
+    {
+        if (_pointsReached < _navPoints.Length)
         {
-            Die();
+            if(Move(_navPoints[_pointsReached])) _pointsReached++;
         }
     }
-    public void Move()
-    {
-        if(_pointsReached < _navPoints.Length)
-        {
-            _agent.destination = _navPoints[_pointsReached];
-            if (transform.position.x == _navPoints[_pointsReached].x && transform.position.z == _navPoints[_pointsReached].z)
-            {
-                _pointsReached++;
-            }
-        }
-    }
-
-    public void Die(bool killed = true)
-    {
-        if(killed)EventBus<EnemyKilledEvent>.Publish(new EnemyKilledEvent(this));
-        Destroy(gameObject);
-    }
-
-    public void SetHealth(float pHealth)
-    {
-        _health = pHealth;
-        _maxHealth = pHealth;
-    }
-
-    public void SetSpeed(float pSpeed)
-    {
-        _speed = pSpeed;
-        _agent.speed = pSpeed;
-    }
-
-    public void SetMoney(float pMoney)
-    {
-        _money = pMoney;
-    }
-
-    public float GetMoney()
-    {
-        return _money;
-    }
-
-    public Vector3 GetWorldLocation()
-    {
-        return transform.position;
-    }
-
+ //----------------- IAttackable -------------- //
     public float GetMaxHealth()
     {
         return _maxHealth;
@@ -104,16 +56,7 @@ public class BasicEnemy : MonoBehaviour, IEnemy, IAttackable, IBuffable
         onTakeDamage?.Invoke(_health);
     }
 
-    public void SetDmg(float dmg)
-    {
-        _dmg = dmg;
-    }
-
-    public float GetDmg() { return _dmg;}
-    public float GetSpeed() { return _speed; }
-
-
-
+//-------------- IBuffable ----------------//
     public List<BuffSO> GetBuffs()
     {
         return _appliedBuffs;

@@ -11,7 +11,6 @@ public class MoneyDisplay : MonoBehaviour
     {
         _builder = GameObject.FindGameObjectWithTag("Player").GetComponent<Builder>();
         _moneyDisplay = GetComponent<TextMeshProUGUI>();
-        //setMoney(1000);
     }
 
     private void OnEnable()

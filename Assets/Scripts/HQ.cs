@@ -56,7 +56,7 @@ public class HQ : MonoBehaviour, IAttackable
     {
         if (other.CompareTag("Enemy"))
         {
-            IEnemy enemy = other.GetComponent<IEnemy>();
+            Enemy enemy = other.GetComponent<Enemy>();
             _dmgStrategy.CalculateDmg(enemy.GetDmg(), this);
             enemy.Die(false);
         }

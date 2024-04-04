@@ -12,7 +12,9 @@ public class EventBus<T> where T : Event
         OnEvent?.Invoke(pEvent);
     }    
 }
-
+/// <summary>
+/// Triggered when player selects a new building.
+/// </summary>
 public class BuildingSwitchedEvent : Event
 {
     public BuildingTypeSO buildingType;
@@ -21,20 +23,13 @@ public class BuildingSwitchedEvent : Event
         buildingType = pBuildingType;
     }
 }
-
-public class BuyOrSellEvent : Event
-{
-    public int money;
-    public BuyOrSellEvent(int pMoney)
-    {
-        money = pMoney;
-    }
-}
-
+/// <summary>
+/// Triggered when an enemy is killed.
+/// </summary>
 public class EnemyKilledEvent : Event
 {
-    public IEnemy enemy;
-    public EnemyKilledEvent(IEnemy pEnemy) 
+    public Enemy enemy;
+    public EnemyKilledEvent(Enemy pEnemy) 
     { 
     enemy = pEnemy;
     }

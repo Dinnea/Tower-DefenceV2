@@ -26,10 +26,17 @@ public abstract class Tower : MonoBehaviour
     {
         OnUpdate();
     }
+
+    /// <summary>
+    /// This function is executed on update. Override it with functionality in derived classes. Do not change Monobehaviour's void Awake().
+    /// </summary>
     protected virtual void OnAwake()
     {
         _range = GetComponent<CapsuleCollider>();
     }
+    /// <summary>
+    /// This function is executed on update. Override it with functionality in derived classes. Do not change Monobehaviour's void Update().
+    /// </summary>
     protected virtual void OnUpdate()
     {
         cooldown();
@@ -54,6 +61,10 @@ public abstract class Tower : MonoBehaviour
     {
         this.dmg = dmg;
     }
+    /// <summary>
+    /// Looks for enemies in range, adds them to the list of enemies in range.
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Enemy"))
@@ -64,6 +75,10 @@ public abstract class Tower : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// Removes enemies from the in range list.
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Enemy"))
@@ -81,6 +96,9 @@ public abstract class Tower : MonoBehaviour
     {
         EventBus<EnemyKilledEvent>.OnEvent -= ResetTarget;
     }
+    /// <summary>
+    /// cooldown of the tower's action.
+    /// </summary>
     private void cooldown()
     {
         if (_isOnCooldown)
@@ -98,12 +116,18 @@ public abstract class Tower : MonoBehaviour
         IAttackable target = enemy.GetComponent<IAttackable>();
         _damageStrategy.CalculateDmg(dmg, target);
     }
-
+    /// <summary>
+    /// Execute tower's given effect. Override in derived classes.
+    /// </summary>
     protected virtual void Execute()
     {
         onAction?.Invoke();
         _isOnCooldown = true;
     }
+    /// <summary>
+    /// Empties the enemies in range to remove missing references.
+    /// </summary>
+    /// <param name="pEvent"></param>
     protected void ResetTarget(EnemyKilledEvent pEvent)
     {
         enemiesInRange.Clear();

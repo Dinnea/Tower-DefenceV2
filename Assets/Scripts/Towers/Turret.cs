@@ -16,9 +16,12 @@ public class Turret : MonoBehaviour
 
     private void Update()
     {
-        rotate();
+        rotateToTarget();
     }
-    void rotate()
+    /// <summary>
+    /// Always looks at parent SingleTargetTower's target.
+    /// </summary>
+    void rotateToTarget()
     {
         Transform temp = _owner.GetTargetLocation();
         if (temp != null)
@@ -31,5 +34,4 @@ public class Turret : MonoBehaviour
         _vfx.Play();
     }
 
-    //IEnumerator rotateCD
 }

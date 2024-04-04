@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Personal.GridFramework;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 [ExecuteInEditMode]
@@ -11,7 +12,6 @@ public class GridManager : MonoBehaviour
     [SerializeField] int _rows = 15;
     [SerializeField] int _cellSize = 5;
     [SerializeField] Vector3 _origin = Vector3.zero;
-    
 
     GridXZ<Cell> _grid;
     Mesh _mesh;
@@ -21,15 +21,17 @@ public class GridManager : MonoBehaviour
 
     private void Awake()
     {
-        _meshFilter = GetComponent<MeshFilter>();
-        _grid = new GridXZ<Cell>(_columns, _rows, _cellSize, _origin, (GridXZ<Cell> g, int x, int z) => new Cell(g, x, z));
-        generateGridVisual();
+        generateGrid();
     }
 
-    //Creates a visual for grid
-    void generateGridVisual()
+    /// <summary>
+    /// Generates grid and spawns meshes to create a visual for grid. 1 mesh per cell.
+    /// </summary>
+    void generateGrid()
     {
-        
+        _meshFilter = GetComponent<MeshFilter>();
+        _grid = new GridXZ<Cell>(_columns, _rows, _cellSize, _origin, (GridXZ<Cell> g, int x, int z) => new Cell(g, x, z));
+
         _mesh = new Mesh();
         _mesh.name = "Grid";
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Personal.GridFramework;
 
 public class Cell 
 {
@@ -30,34 +31,60 @@ public class Cell
         _objectType = objectType;
         _grid.TriggerGridObjectChanged(_x, _z);
     }
+    /// <summary>
+    /// ResetValue determines should the money on the cell be cleared?
+    /// </summary>
+    /// <param name="resetValue"></param>
     public void ResetObjectOnCell(bool resetValue)
     {
         _objectOnTile = null;
         _objectType = null;
         if(resetValue)ResetValueOnCell();
     }
+    /// <summary>
+    /// Stores money on cell
+    /// </summary>
+    /// <param name="value"></param>
     public void AddValueToCell(float value)
     {
         _valueOnCell += value;
     }
+    /// <summary>
+    /// Clears the money from cell.
+    /// </summary>
     public void ResetValueOnCell()
     {
         _valueOnCell = 0;
     }
+    /// <summary>
+    /// Returns amount of money on cell.
+    /// </summary>
+    /// <returns></returns>
     public float GetValueOnCell()
     {
         return _valueOnCell;
     }
+    /// <summary>
+    /// Get the actual cloned object from tile.
+    /// </summary>
+    /// <returns></returns>
     public Transform GetObjectOnTile()
     {
         return _objectOnTile;
     }
-
+    /// <summary>
+    /// Get the BuildingTypeSO that contains information about the object on tile.
+    /// </summary>
+    /// <returns></returns>
     public BuildingTypeSO GetObjectOnTileType()
     {
         return _objectType;
     }
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <returns>Is this a cell build zone and is it taken up by a tower already?</returns>
     public bool CanBuild()
     {
         return _isBuildZone && IsCellFree();

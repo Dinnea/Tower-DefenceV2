@@ -10,21 +10,27 @@ public class WaveSpawner : MonoBehaviour
     Wave _currentWave;
     int _waveIndex = 0;
     public static Action onFinishedSpawning;
-    public static Action onWavesOver;
+    public static Action onLastWaveSpawned;
     private void Awake()
     {
         _currentWave = _waves[_waveIndex];
         _enemySpawner = GetComponentInChildren<Spawner>();
     }
+    /// <summary>
+    /// Sends a finished spawning event. informs
+    /// </summary>
     public void OnWaveFinished()
     {
         _waveIndex++;
-        if (_waveIndex >= _waves.Count) 
-        { 
-            onWavesOver?.Invoke();
-        }  //for now reset waves if out of bounds
-        _currentWave = _waves[_waveIndex];
-        onFinishedSpawning?.Invoke();
+        if (_waveIndex >= _waves.Count)
+        {
+            onLastWaveSpawned?.Invoke();
+        }
+        else
+        {
+            _currentWave = _waves[_waveIndex];
+            onFinishedSpawning?.Invoke();
+        }
     }
 
     public void SpawnWave()

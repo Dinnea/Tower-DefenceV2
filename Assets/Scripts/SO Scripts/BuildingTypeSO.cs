@@ -16,7 +16,10 @@ public class BuildingTypeSO : ScriptableObject
     public float attackRate;
     public string attackType;
     public float range;
-
+    /// <summary>
+    /// </summary>
+    /// <param name="corePosition"></param>
+    /// <returns>All cells occupied by the Building</returns>
     public List<Vector2Int> GetCellsCovered(Vector2Int corePosition)
     {
         List<Vector2Int> gridPositionList = new List<Vector2Int>();
@@ -29,7 +32,10 @@ public class BuildingTypeSO : ScriptableObject
         }
         return gridPositionList;
     }
-
+    /// <summary>
+    /// Sets parameters of the abstract Tower class.
+    /// </summary>
+    /// <param name="tower"></param>
     public void SetParameters(Tower tower)
     {
         tower.SetRange(range);
