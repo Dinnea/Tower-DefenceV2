@@ -10,6 +10,7 @@ public class GameOverState : GameState
 
     public override void OnEnterState()
     {
+
     }
 
     public override void OnExitState()
