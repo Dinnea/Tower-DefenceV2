@@ -23,7 +23,7 @@ public class SpawningState : GameState
 
     private void finishedSpawning()
     {
-       levelSFM.ChangeState(GetComponent<WaitingState>());
+       _levelSFM.ChangeState(GetComponent<WaitingState>());
     }
 
     private void OnEnable()

@@ -5,7 +5,21 @@ using Personal.Utilities;
 using UnityEngine.Events;
 using System;
 using Personal.GridFramework;
-
+/// <summary>
+/// Contains info on where the cursor has clicked in world location and the cell that is located there.
+/// </summary>
+public class ClickInfo
+{
+    //public Vector2Int clickedCellCoords;
+    public Vector3 clickedCellWorldLoc;
+    public Cell clickedCell;
+    public ClickInfo(Vector3 pClickedCellWorldLoc, Cell pClickedCell)
+    {
+        //clickedCellCoords = pClickedCellCoords;
+        clickedCellWorldLoc = pClickedCellWorldLoc;
+        clickedCell = pClickedCell;
+    }
+}
 public class Cursor : MonoBehaviour
 {
     [SerializeField] LayerMask _layer;
@@ -24,22 +38,6 @@ public class Cursor : MonoBehaviour
     [SerializeField] Material _invalidMaterial;
 
     public Action<ClickInfo> onClick;
-
-    /// <summary>
-    /// Contains info on where the cursor has clicked in world location and the cell that is located there.
-    /// </summary>
-    public class ClickInfo
-    {
-        //public Vector2Int clickedCellCoords;
-        public Vector3 clickedCellWorldLoc;
-        public Cell clickedCell;
-        public ClickInfo(Vector3 pClickedCellWorldLoc, Cell pClickedCell)
-        {
-            //clickedCellCoords = pClickedCellCoords;
-            clickedCellWorldLoc = pClickedCellWorldLoc;
-            clickedCell = pClickedCell;
-        }
-    }
 
     private void Start()
     {

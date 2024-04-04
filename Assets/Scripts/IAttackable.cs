@@ -5,7 +5,7 @@ using UnityEngine;
 
 public interface IAttackable 
 {
-    Action<float> onTakeDamage { get; set; }
+    public Action<float> onTakeDamage { get; set; }
 
     public float GetMaxHealth();
     public float GetHealth();

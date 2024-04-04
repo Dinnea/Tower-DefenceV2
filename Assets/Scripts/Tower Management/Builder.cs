@@ -8,14 +8,14 @@ using System;
 using Unity.VisualScripting;
 using static EventBus<Event>;
 using System.Threading;
+public enum TransactionSetting { BUILD, SELL, UPGRADE, NONE}
 public class Builder : MonoBehaviour
 {
     Cursor _cursor;
     [SerializeField] List<BuildingTypeSO> _buildings;
     BuildingTypeSO _buildingType = null;
-    bool _sell = false;
     MoneyManager _moneyManager;
-    bool _upgrade = false;
+    TransactionSetting _transactionSetting;
 
     private void Awake()
     {
@@ -38,13 +38,12 @@ public class Builder : MonoBehaviour
     /// <param name="buildingID"></param>
     public void SetBuildingType(int buildingID)
     {
-        if(buildingID >= 0 && buildingID < _buildings.Count)
+        ChangeMode(TransactionSetting.BUILD);
+        if (buildingID >= 0 && buildingID < _buildings.Count)
         {
             _buildingType = _buildings[buildingID];
         }
         else _buildingType = null;
-        DisableSell();
-        DisableUpgrade();
     }
     /// <summary>
     /// Chooses a building to build based on provided BuiuldingTypeSo. Null if not present in the _buildings list. Disables selling and upgrading.
@@ -52,11 +51,10 @@ public class Builder : MonoBehaviour
     /// <param name="buildingID"></param>
     public void SetBuildingType(BuildingTypeSO type)
     {
+        ChangeMode(TransactionSetting.BUILD);
         Debug.Log("yea");
        if(_buildings.Contains(type)) _buildingType = type;
        else _buildingType = null;
-        DisableSell();
-        DisableUpgrade();
 
     }
     /// <summary>
@@ -67,36 +65,39 @@ public class Builder : MonoBehaviour
     {
         SetBuildingType(buildingSwitchedEvent.buildingType);
     }
-    public void DisableSell()
+
+    public void ChangeMode(TransactionSetting mode)
     {
-        _sell = false;
+        _transactionSetting = mode;
+        if (mode != TransactionSetting.BUILD) _buildingType = null;
+        Debug.Log(_transactionSetting.ToString());
     }
-    public void SellSwitch()
+
+    public void SwitchSell()
     {
-        _sell = !_sell;
+        if(_transactionSetting == TransactionSetting.SELL) ChangeMode(TransactionSetting.NONE);
+        else ChangeMode(TransactionSetting.SELL);
     }
-    public void DisableUpgrade()
+    public void SwitchUpgrade()
     {
-        _upgrade = false;
+        if(_transactionSetting == TransactionSetting.UPGRADE) ChangeMode(TransactionSetting.NONE);
+        else ChangeMode(TransactionSetting.UPGRADE);
     }
-    public void UpgradeSwitch()
+    private void processClick(ClickInfo info)
     {
-        _upgrade = !_upgrade;
-    }
-    private void processClick(Cursor.ClickInfo info)
-    {
-        if (_buildingType != null)
+
+        switch (_transactionSetting)
         {
-            buildTower(info.clickedCell, info.clickedCellWorldLoc);
-            //resetBuildChoice();
-        }
-        if (_sell)
-        {
-            sellTower(info.clickedCell);
-        }
-        if (_upgrade)
-        {
-            upgradeTower(info.clickedCell, info.clickedCellWorldLoc);
+            case TransactionSetting.BUILD:
+                if(_buildingType != null)buildTower(info.clickedCell, info.clickedCellWorldLoc);
+                break;
+            case TransactionSetting.SELL:
+                sellTower(info.clickedCell);
+                break;
+            case TransactionSetting.UPGRADE:
+                upgradeTower(info.clickedCell, info.clickedCellWorldLoc);
+                break;
+
         }
     }
 
@@ -158,7 +159,6 @@ public class Builder : MonoBehaviour
         {
             
             BuildingTypeSO newUpgrade = cell.GetObjectOnTileType().upgrade;
-            Debug.Log(newUpgrade);
             if (newUpgrade != null && _moneyManager.GetMoney() > newUpgrade.cost)
             {
                 GameObject toDestroy = cell.GetObjectOnTile().gameObject;
@@ -168,7 +168,7 @@ public class Builder : MonoBehaviour
             }
             else
             {
-                Debug.Log("you are broke!");
+
             }
         }
     }
@@ -187,5 +187,9 @@ public class Builder : MonoBehaviour
     public List<BuildingTypeSO> GetBuildOptions()
     {
         return _buildings;
+    }
+    private void Update()
+    {
+        //UpgradeSwitch();
     }
 }

@@ -15,12 +15,13 @@ public class BuildSelector : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     TextMeshProUGUI[] _statsText;
     TextMeshProUGUI _buttonText;
     Button _button;
-    public Action<BuildingTypeSO> onClickEvent;
     BuildingTypeSO _buildingType;
+    MoneyManager _moneyManager;
     //public BuildingSwitchedEvent onSwitched = new(null);
 
     private void Awake()
     {
+        _moneyManager = GameObject.FindGameObjectWithTag("Player").GetComponent<MoneyManager>();
         _towerPreview = FindObjectOfType<TowerPreview>(true).gameObject;
         _statsText = _towerPreview.GetComponentsInChildren<TextMeshProUGUI>(true);
         _buttonText = GetComponentInChildren<TextMeshProUGUI>();
@@ -46,11 +47,11 @@ public class BuildSelector : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private void OnEnable()
     {
-        MoneyManager.onMoneyChanged += checkAfford;
+        _moneyManager.onMoneyChanged += checkAfford;
     }
     private void OnDisable()
     {
-        MoneyManager.onMoneyChanged -= checkAfford;
+       _moneyManager.onMoneyChanged -= checkAfford;
     }
 
     /// <summary>

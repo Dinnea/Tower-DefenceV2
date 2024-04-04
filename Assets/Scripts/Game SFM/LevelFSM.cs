@@ -6,7 +6,7 @@ using UnityEngine;
 public class LevelFSM : MonoBehaviour
 {
     [SerializeField] GameState _currentState;
-    [SerializeField] int countdownBetweenWaves = 15;
+    [SerializeField] int _countdownBetweenWaves = 15;
 
     private void OnEnable()
     {
@@ -54,6 +54,6 @@ public class LevelFSM : MonoBehaviour
 
     public int GetCountdownBetweenWaves()
     {
-        return countdownBetweenWaves;
+        return _countdownBetweenWaves;
     }
 }

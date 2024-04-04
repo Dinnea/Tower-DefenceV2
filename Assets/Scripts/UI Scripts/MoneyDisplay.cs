@@ -5,22 +5,22 @@ using UnityEngine;
 
 public class MoneyDisplay : MonoBehaviour
 {
-    Builder _builder;
     private TextMeshProUGUI _moneyDisplay;
+    private MoneyManager _moneyManager;
     private void Awake()
     {
-        _builder = GameObject.FindGameObjectWithTag("Player").GetComponent<Builder>();
         _moneyDisplay = GetComponent<TextMeshProUGUI>();
+        _moneyManager = GameObject.FindGameObjectWithTag("Player").GetComponent<MoneyManager>();
     }
 
     private void OnEnable()
     {
-       MoneyManager.onMoneyChanged += setMoney;
+       _moneyManager.onMoneyChanged += setMoney;
     }
 
     private void OnDisable()
     {
-        MoneyManager.onMoneyChanged -= setMoney;
+        _moneyManager.onMoneyChanged -= setMoney;
     }
 
     private void setMoney(float money)

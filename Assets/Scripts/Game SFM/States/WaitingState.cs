@@ -23,8 +23,8 @@ public class WaitingState : GameState
         {
             if (areAllEnemiesDead())
             {
-                if (_lastWave) levelSFM.ChangeState(GetComponent<GameOverState>());
-                else levelSFM.ChangeState(GetComponent<BuilderState>());
+                if (_lastWave) _levelSFM.ChangeState(GetComponent<GameOverState>());
+                else _levelSFM.ChangeState(GetComponent<BuilderState>());
             }
             _enemyCheckTimer = 1;
         }

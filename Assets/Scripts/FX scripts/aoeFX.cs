@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class aoeFX : MonoBehaviour
+public class AoeFX : MonoBehaviour
 {
     Tower _owner;
     MeshRenderer _mesh;

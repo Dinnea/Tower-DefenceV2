@@ -7,6 +7,12 @@ using Personal.GridFramework;
 public class UpgradeMonitor : MonoBehaviour
 {
     GridXZ<Cell> _grid;
+    MoneyManager _moneyManager;
+
+    private void Awake()
+    {
+        _moneyManager = FindAnyObjectByType<MoneyManager>();
+    }
     private void Start()
     {
         _grid = GetComponent<GridManager>().GetGrid();
@@ -46,10 +52,10 @@ public class UpgradeMonitor : MonoBehaviour
 
     private void OnEnable()
     {
-       MoneyManager.onMoneyChanged += checkUpgradePossible;
+       _moneyManager.onMoneyChanged += checkUpgradePossible;
     }
     private void OnDisable()
     {
-        MoneyManager.onMoneyChanged -= checkUpgradePossible;
+        _moneyManager.onMoneyChanged -= checkUpgradePossible;
     }
 }

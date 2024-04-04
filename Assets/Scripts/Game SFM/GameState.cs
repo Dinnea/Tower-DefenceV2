@@ -4,13 +4,12 @@ using UnityEngine;
 
 public abstract class GameState : MonoBehaviour
 {
-    [SerializeField] protected LevelFSM levelSFM;
+    [SerializeField] protected LevelFSM _levelSFM;
     [SerializeField] protected string _stateID;
-    public string stateID => _stateID;
     
     public void Init(LevelFSM pLevelSFM)
     {
-        levelSFM = pLevelSFM;
+        _levelSFM = pLevelSFM;
     }
     /// <summary>
     /// Override this to do things at the start of state.

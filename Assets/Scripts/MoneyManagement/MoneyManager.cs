@@ -10,7 +10,7 @@ public class MoneyManager : MonoBehaviour
     [SerializeField] MoneyEarningStrategy _moneyStrategy;
     [SerializeField] TransactionStrategy _buyStrategy;
     [SerializeField] TransactionStrategy _sellStrategy;
-    public static Action<float> onMoneyChanged;
+    public Action<float> onMoneyChanged;
 
     private void Start()
     {

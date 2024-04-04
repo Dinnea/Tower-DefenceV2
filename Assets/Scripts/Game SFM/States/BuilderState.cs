@@ -12,13 +12,13 @@ public class BuilderState : GameState
     {
         if(_waveCountdown == 0)
         {
-            levelSFM.ChangeState(GetComponent<SpawningState>());
+            _levelSFM.ChangeState(GetComponent<SpawningState>());
         }
     }
 
     public override void OnEnterState()
     {
-        _waveCountdown = levelSFM.GetCountdownBetweenWaves();
+        _waveCountdown = _levelSFM.GetCountdownBetweenWaves();
         onClockTick?.Invoke(_waveCountdown);
         StartCoroutine(countdownToWave());
     }

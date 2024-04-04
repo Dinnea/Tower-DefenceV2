@@ -38,13 +38,12 @@ public class WaveSpawner : MonoBehaviour
        StartCoroutine(spawnWave());
     }
 
-    IEnumerator spawnBatchOneType(Batch batch)
+    IEnumerator spawnBatchOneType(BatchOneType batch)
     {
-        BatchOneType batchOneType = batch as BatchOneType;
-        for (int i = 0; i< batchOneType.enemyNumber; i++)
+        for (int i = 0; i< batch.enemyNumber; i++)
         {
             
-            _enemySpawner.Spawn(batchOneType.enemyType);
+            _enemySpawner.Spawn(batch.enemyType);
             yield return new WaitForSeconds(batch.intervalBetweenEnemies);
         }
     }
@@ -52,7 +51,7 @@ public class WaveSpawner : MonoBehaviour
     {
         foreach (EnemySO enemy in batch.enemyQueue)
         {
-            //_enemySpawner.Spawn(enemy);
+            _enemySpawner.Spawn(enemy);
             yield return new WaitForSeconds(batch.intervalBetweenEnemies);
         }
     }

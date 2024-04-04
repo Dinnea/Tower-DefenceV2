@@ -11,7 +11,6 @@ public class Cell
     bool _isPath = false;
     Transform _objectOnTile = null;
     BuildingTypeSO _objectType = null;
-    public string name = "no";
     bool _isHq = false;
     float _valueOnCell;
 
@@ -20,10 +19,6 @@ public class Cell
         _grid = grid;
         _x = x;
         _z = z;
-    }
-    public void SetName(string pname)
-    {
-        name = pname;
     }
     public void SetObjectOnTile(Transform objectToPlace, BuildingTypeSO objectType)
     {
