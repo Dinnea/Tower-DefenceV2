@@ -30,4 +30,8 @@ public class SpawningState : GameState
     {
         WaveSpawner.onFinishedSpawning += finishedSpawning;
     }
+    private void OnDisable()
+    {
+        WaveSpawner.onFinishedSpawning -= finishedSpawning;
+    }
 }

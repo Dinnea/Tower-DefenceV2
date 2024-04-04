@@ -9,6 +9,7 @@ public class WaitingState : GameState
     bool _lastWave = false;
 
     public static Action onWaveEnded;
+    public static Action onGameWon;
 
     /// <summary>
     /// Checks periodically if all enemies have been killed. Transitions to the BuilderState if true.
@@ -23,7 +24,11 @@ public class WaitingState : GameState
         {
             if (areAllEnemiesDead())
             {
-                if (_lastWave) _levelSFM.ChangeState(GetComponent<GameOverState>());
+                if (_lastWave)
+                { 
+                    _levelSFM.ChangeState(GetComponent<GameOverState>());
+                    onGameWon?.Invoke();
+                }
                 else _levelSFM.ChangeState(GetComponent<BuilderState>());
             }
             _enemyCheckTimer = 1;

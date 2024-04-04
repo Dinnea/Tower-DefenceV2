@@ -25,6 +25,7 @@ public class WaveSpawner : MonoBehaviour
         if (_waveIndex >= _waves.Count)
         {
             onLastWaveSpawned?.Invoke();
+            onFinishedSpawning?.Invoke();
         }
         else
         {

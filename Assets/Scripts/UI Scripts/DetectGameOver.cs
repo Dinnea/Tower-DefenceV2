@@ -17,13 +17,13 @@ public class DetectGameOver : MonoBehaviour
 
     private void OnEnable()
     {
+        WaitingState.onGameWon += enableWin;
         HQ.onDie += enableLoss;
-        WaveSpawner.onLastWaveSpawned += enableWin;
     }
     private void OnDisable()
     {
+        WaitingState.onGameWon += enableWin;
         HQ.onDie -= enableLoss;
-        WaveSpawner.onLastWaveSpawned -= enableWin;
     }
 
     private void enableWin()
