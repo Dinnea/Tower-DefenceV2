@@ -11,6 +11,7 @@ public class MoneyManager : MonoBehaviour
     [SerializeField] TransactionStrategy _buyStrategy;
     [SerializeField] TransactionStrategy _sellStrategy;
     public Action<float> onMoneyChanged;
+    [SerializeField] GameObject _floatingText;
 
     private void Start()
     {
@@ -27,7 +28,10 @@ public class MoneyManager : MonoBehaviour
 
     private void onEnemyKilled(EnemyKilledEvent enemyKilledEvent)
     {
-        _money += _moneyStrategy.GetMoneyFromEnemy(enemyKilledEvent.enemy);
+        Enemy enemy = enemyKilledEvent.enemy;
+        _floatingText.GetComponentInChildren<TextMesh>().text = enemy.GetMoney().ToString();
+        Instantiate(_floatingText, enemy.GetWorldLocation(), _floatingText.transform.rotation);
+        _money += _moneyStrategy.GetMoneyFromEnemy(enemy);
         onMoneyChanged?.Invoke(_money);
     }
 
