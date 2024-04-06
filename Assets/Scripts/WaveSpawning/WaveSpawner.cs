@@ -21,6 +21,7 @@ public class WaveSpawner : MonoBehaviour
     /// </summary>
     public void OnWaveFinished()
     {
+        Debug.Log("finished wave");
         _waveIndex++;
         if (_waveIndex >= _waves.Count)
         {
@@ -63,11 +64,11 @@ public class WaveSpawner : MonoBehaviour
         {
             if (batch is BatchOneType)
             {
-                StartCoroutine(spawnBatchOneType(batch as BatchOneType));
+                yield return spawnBatchOneType(batch as BatchOneType);
             }
             else if (batch is BatchQueue)
             {
-                StartCoroutine(spawnBatchQueue(batch as BatchQueue));
+                yield return spawnBatchQueue(batch as BatchQueue);//StartCoroutine(spawnBatchQueue(batch as BatchQueue));
             }
             yield return new WaitForSeconds(batch.intervalBetweenBatches);
         }

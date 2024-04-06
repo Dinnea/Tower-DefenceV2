@@ -17,8 +17,8 @@ MonoBehaviour:
   upgrade: {fileID: 11400000, guid: bf67321558c648a40a934b46362886ab, type: 2}
   width: 1
   height: 1
-  cost: 100
-  damage: 40
-  attackRate: 0.5
+  cost: 200
+  damage: 30
+  attackRate: 0.65
   attackType: Single Target DMG
-  range: 20
+  range: 25

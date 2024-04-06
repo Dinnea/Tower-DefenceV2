@@ -18,7 +18,7 @@ MonoBehaviour:
   width: 1
   height: 1
   cost: 300
-  damage: 10
-  attackRate: 2
+  damage: 30
+  attackRate: 3
   attackType: AOE DMG
-  range: 10
+  range: 15

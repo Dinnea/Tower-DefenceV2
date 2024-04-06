@@ -17,8 +17,8 @@ MonoBehaviour:
   upgrade: {fileID: 11400000, guid: 720db3fdab1d8be4f9146baee98f2155, type: 2}
   width: 1
   height: 1
-  cost: 100
+  cost: 50
   damage: 0
   attackRate: 2
   attackType: AOE Slow
-  range: 20
+  range: 12.5

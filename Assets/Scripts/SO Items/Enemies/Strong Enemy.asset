@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f1ff09f4c880124faa3a40fcaf9c48f, type: 3}
-  m_Name: SlightlyHarderEnemy
+  m_Name: Strong Enemy
   m_EditorClassIdentifier: 
-  visual: {fileID: 1511114609136056, guid: ad7d940de7ce2459790897534b93482d, type: 3}
+  visual: {fileID: 1300474929184216, guid: 6206e01c5c2d04db09a117c7c01052ac, type: 3}
   enemyType: 
   health: 120
-  speed: 15
+  speed: 20
   money: 75
-  dmg: 2
+  dmg: 5
