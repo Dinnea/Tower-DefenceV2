@@ -38,6 +38,9 @@ public class Cursor : MonoBehaviour
     [SerializeField] Material _invalidMaterial;
 
     public Action<ClickInfo> onClick;
+    public Action<BuildingTypeSO> onMouseoverUpgrade;
+    public Action onMouseoverNoUpGrade;
+    TransactionMode _transactionMode = TransactionMode.NONE;
 
     private void Start()
     {
@@ -79,13 +82,18 @@ public class Cursor : MonoBehaviour
         {
             _cursorModel.mesh = Search.FindComponentInChildrenWithTag<Transform>(buildingSwitchedEvent.buildingType.prefab, "TowerMesh").GetComponent<MeshFilter>().sharedMesh;
             _cursorModel.transform.localScale = new Vector3(2, 2, 2);
-            _rangeDisplay.SetActive(true);
-            _rangeDisplay.transform.localScale = new Vector3(buildingSwitchedEvent.buildingType.range*2, _rangeDisplay.transform.localScale.y, buildingSwitchedEvent.buildingType.range*2);
+            setRangeDisplay(buildingSwitchedEvent.buildingType);
         }            
         else
         {
             SetCursorDefault();
         }
+    }
+
+    private void setRangeDisplay(BuildingTypeSO buildingType)
+    {
+        _rangeDisplay.SetActive(true);
+        _rangeDisplay.transform.localScale = new Vector3(buildingType.range * 2, _rangeDisplay.transform.localScale.y,buildingType.range * 2);
     }
     /// <summary>
     /// Snaps the cursor to the grid, changes the cursor colour based on if the space is avaiable for building towers.
@@ -95,20 +103,38 @@ public class Cursor : MonoBehaviour
     {
         _cursorLocation = VectorMath.GetMousePositionWorld(Camera.main, _layer);
         Vector2Int cellCoords = _grid.GetCellOnWorldPosition(_cursorLocation);
-        //Debug.Log(targetCell);
         if (_grid.CheckInBounds(cellCoords.x, cellCoords.y))//if isnt out of bounds, change location, get ready to send click info to observers
         {
             transform.position = new Vector3(_grid.GetCellPositionInWorld(cellCoords.x, cellCoords.y).x, _cursorHeight, _grid.GetCellPositionInWorld(cellCoords.x, cellCoords.y).z);
             Cell targetCell = _grid.GetCellContent(cellCoords.x, cellCoords.y);
             //apply visual
-            if (targetCell.CanBuild())
+            switch (_transactionMode)
             {
-                _cursorRenderer.material = _validMaterial;        
+                case TransactionMode.UPGRADE:
+                    setCursorMaterial(targetCell.HasUpgrade());
+                    break;
+                case TransactionMode.SELL:
+                    setCursorMaterial(!targetCell.IsCellFree());
+                    break;
+                default:
+                    setCursorMaterial(targetCell.CanBuild());
+                    break;
             }
-            else
+            
+            if(_transactionMode == TransactionMode.UPGRADE)
             {
-                _cursorRenderer.material = _invalidMaterial;
+                if (targetCell.HasUpgrade())
+                {
+                    setRangeDisplay(targetCell.GetObjectOnTileType().upgrade);
+                    onMouseoverUpgrade?.Invoke(targetCell.GetObjectOnTileType());
+                }
+                else
+                {
+                    SetCursorDefault();
+                    onMouseoverNoUpGrade?.Invoke();
+                }
             }
+
             clickOnCell(targetCell);
         }
     }
@@ -122,5 +148,14 @@ public class Cursor : MonoBehaviour
         {
             onClick?.Invoke(new ClickInfo(_grid.GetCellPositionInWorld(targetCell.GetX(), targetCell.GetZ()), targetCell));
         }
+    }
+    public void SetTransactionMode(TransactionMode newSetting)
+    {
+        _transactionMode = newSetting;
+    }
+    private void setCursorMaterial(bool value)
+    {
+        if(value) _cursorRenderer.material = _validMaterial;
+        else _cursorRenderer.material = _invalidMaterial;
     }
 }

@@ -84,6 +84,12 @@ public class Cell
     {
         return _isBuildZone && IsCellFree();
     }
+
+    public bool HasUpgrade()
+    {
+        if(_objectType == null) return false;
+        return _objectType.upgrade != null;
+    }
     public bool IsCellFree()
     {
         return _objectOnTile == null;

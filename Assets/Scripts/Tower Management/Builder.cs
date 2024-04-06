@@ -8,14 +8,14 @@ using System;
 using Unity.VisualScripting;
 using static EventBus<Event>;
 using System.Threading;
-public enum TransactionSetting { BUILD, SELL, UPGRADE, NONE}
+public enum TransactionMode { BUILD, SELL, UPGRADE, NONE}
 public class Builder : MonoBehaviour
 {
     Cursor _cursor;
     [SerializeField] List<BuildingTypeSO> _buildings;
     BuildingTypeSO _buildingType = null;
     MoneyManager _moneyManager;
-    TransactionSetting _transactionSetting;
+    TransactionMode _transactionMode = TransactionMode.NONE;
 
     private void Awake()
     {
@@ -38,7 +38,7 @@ public class Builder : MonoBehaviour
     /// <param name="buildingID"></param>
     public void SetBuildingType(int buildingID)
     {
-        ChangeMode(TransactionSetting.BUILD);
+        ChangeMode(TransactionMode.BUILD);
         if (buildingID >= 0 && buildingID < _buildings.Count)
         {
             _buildingType = _buildings[buildingID];
@@ -51,7 +51,7 @@ public class Builder : MonoBehaviour
     /// <param name="buildingID"></param>
     public void SetBuildingType(BuildingTypeSO type)
     {
-        ChangeMode(TransactionSetting.BUILD);
+        ChangeMode(TransactionMode.BUILD);
         Debug.Log("yea");
        if(_buildings.Contains(type)) _buildingType = type;
        else _buildingType = null;
@@ -66,35 +66,35 @@ public class Builder : MonoBehaviour
         SetBuildingType(buildingSwitchedEvent.buildingType);
     }
 
-    public void ChangeMode(TransactionSetting mode)
+    public void ChangeMode(TransactionMode mode)
     {
-        _transactionSetting = mode;
-        if (mode != TransactionSetting.BUILD) _buildingType = null;
-        Debug.Log(_transactionSetting.ToString());
+        _transactionMode = mode;
+        if (mode != TransactionMode.BUILD) _buildingType = null;
+        _cursor.SetTransactionMode(mode);
     }
 
     public void SwitchSell()
     {
-        if(_transactionSetting == TransactionSetting.SELL) ChangeMode(TransactionSetting.NONE);
-        else ChangeMode(TransactionSetting.SELL);
+        if(_transactionMode == TransactionMode.SELL) ChangeMode(TransactionMode.NONE);
+        else ChangeMode(TransactionMode.SELL);
     }
     public void SwitchUpgrade()
     {
-        if(_transactionSetting == TransactionSetting.UPGRADE) ChangeMode(TransactionSetting.NONE);
-        else ChangeMode(TransactionSetting.UPGRADE);
+        if(_transactionMode == TransactionMode.UPGRADE) ChangeMode(TransactionMode.NONE);
+        else ChangeMode(TransactionMode.UPGRADE);
     }
     private void processClick(ClickInfo info)
     {
 
-        switch (_transactionSetting)
+        switch (_transactionMode)
         {
-            case TransactionSetting.BUILD:
+            case TransactionMode.BUILD:
                 if(_buildingType != null)buildTower(info.clickedCell, info.clickedCellWorldLoc);
                 break;
-            case TransactionSetting.SELL:
+            case TransactionMode.SELL:
                 sellTower(info.clickedCell);
                 break;
-            case TransactionSetting.UPGRADE:
+            case TransactionMode.UPGRADE:
                 upgradeTower(info.clickedCell, info.clickedCellWorldLoc);
                 break;
 
