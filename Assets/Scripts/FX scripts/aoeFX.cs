@@ -21,7 +21,7 @@ public class aoeFX : MonoBehaviour
         
     private void OnEnable()
     {
-            _owner.onAction += triggerVFX;
+        _owner.onAction += triggerVFX;
     }
     private void OnDisable()
     {

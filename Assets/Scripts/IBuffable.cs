@@ -4,9 +4,14 @@ using UnityEngine;
 
 public interface IBuffable
 {
-    public void ApplyBuff(BuffSO buff);
+    Transform GetTransform();
+    public float GetSpeed();
+    public void SetSpeed(float speed);
+
+    public void TryAddBuff(BuffSO buff);
     public void RemoveBuff(BuffSO buff);
-    public void RemoveBuff(int index);
-    public List<BuffSO> GetBuffs();
+
+    public IEnumerator RunBuffDuration(BuffSO buff);
+    public void RefreshBuffDuration(BuffSO buff);
 
 }

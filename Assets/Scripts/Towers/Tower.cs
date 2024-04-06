@@ -116,6 +116,7 @@ public abstract class Tower : MonoBehaviour
         IAttackable target = enemy.GetComponent<IAttackable>();
         _damageStrategy.CalculateDmg(dmg, target);
     }
+   
     /// <summary>
     /// Execute tower's given effect. Override in derived classes.
     /// </summary>

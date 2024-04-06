@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8928612942553780449}
   - component: {fileID: 5587340992613231914}
   m_Layer: 0
-  m_Name: explosionRangeVFX
+  m_Name: aoeVFXprefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 21aabae9f24be0b4895b756afd5923c0, type: 2}
+  - {fileID: 2100000, guid: 726f4042f2130f1499b96925ec8ad9f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,3 +96,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16eb003fb3de8334dad29cd7ff231c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fadeSpeed: 0.5

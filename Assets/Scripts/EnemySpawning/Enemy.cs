@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
-public abstract class Enemy : MonoBehaviour 
+public abstract class Enemy : MonoBehaviour, IAttackable, IBuffable 
 {
     protected float _maxHealth;
     protected float _health;
@@ -13,6 +14,10 @@ public abstract class Enemy : MonoBehaviour
     protected float _money;
 
     protected NavMeshAgent _agent;
+    public Action<float> onTakeDamage { get; set; }
+
+    //[SerializeField] List<BuffSO> _appliedBuffs = new List<BuffSO>();
+    [SerializeField]Dictionary<BuffSO, IEnumerator> _appliedBuffs = new Dictionary<BuffSO, IEnumerator>();
     //get world loc
     private void Update()
     {
@@ -92,6 +97,62 @@ public abstract class Enemy : MonoBehaviour
     /// </summary>
     /// <returns> Where is the enemy now?s</returns>
     public Vector3 GetWorldLocation() { return transform.position; }
-    
 
+    //----------------- IAttackable -------------- //
+    public float GetMaxHealth()
+    {
+        return _maxHealth;
+    }
+
+    public float GetHealth()
+    {
+        return _health;
+    }
+
+    public void TakeDmg(float damage)
+    {
+        _health -= damage;
+        onTakeDamage?.Invoke(_health);
+    }
+
+    //-------------- IBuffable ----------------//
+
+    public void TryAddBuff(BuffSO buff)
+    {
+        if (!_appliedBuffs.ContainsKey(buff))
+        {
+            _appliedBuffs.Add(buff, RunBuffDuration(buff));
+            Debug.Log(_speed);
+            buff.OnApply(this);
+            Debug.Log(_speed);
+            StartCoroutine(_appliedBuffs[buff]);
+        }
+        else
+        {
+            
+        }
+    }
+
+    public void RemoveBuff(BuffSO buff)
+    {
+        _appliedBuffs.Remove(buff);
+        buff.OnRemove(this);
+    }
+
+    public Transform GetTransform()
+    {
+        return transform;
+    }
+
+    public IEnumerator RunBuffDuration(BuffSO buff)
+    {
+        yield return new WaitForSeconds(buff.duration);
+        RemoveBuff(buff);
+    }
+
+    public void RefreshBuffDuration(BuffSO buff)
+    {
+        StopCoroutine(_appliedBuffs[buff]);
+        StartCoroutine(_appliedBuffs[buff]);
+    }
 }

@@ -21,8 +21,14 @@ public class AOETower : Tower
             applyDamage(enemy);
             if(_effect != null) 
             {
-                //apply effect
+                applyBuff(enemy);
             }
         }        
+    }
+
+    void applyBuff(GameObject enemy)
+    {
+        IBuffable target = enemy.GetComponent<IBuffable>();
+        target.TryAddBuff(_effect);
     }
 }

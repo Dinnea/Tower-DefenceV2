@@ -5,16 +5,19 @@ using UnityEngine;
 public abstract class BuffSO : ScriptableObject
 {
     public float duration;
-    protected float timer;
+    protected IBuffable _target;
     public virtual void OnApply(IBuffable target)
     {
-        timer = duration;
     }
-    public abstract void OnRemove(IBuffable target);
-
-    protected virtual void Countdown()
+    public abstract void Execute(IBuffable target);
+    public virtual void OnRemove(IBuffable target)
     {
+    }
 
+    public IEnumerator Duration()
+    {
+        yield return new WaitForSeconds(duration);
+        OnRemove(_target);
     }
 }
 
