@@ -35,5 +35,13 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W)) speedUpTime3();
         if (Input.GetKeyDown(KeyCode.E)) normalTime();
         if (Input.GetKeyDown(KeyCode.P)) pause();
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            GameObject[] temp = GameObject.FindGameObjectsWithTag("Enemy");
+            for (int i = temp.Length - 1; i >= 0; i--)
+            {
+                Destroy(temp[i]);
+            }
+        }
     }
 }

@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: basic slow debuff
   m_EditorClassIdentifier: 
   duration: 5
+  FX: {fileID: 1202038136039314, guid: 2a2145ba402264aca9c0deb7d222e5bc, type: 3}
   speedModifier: 0.5
