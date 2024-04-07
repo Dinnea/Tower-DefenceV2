@@ -8,6 +8,47 @@ public class DebugSystem : MonoBehaviour
 {
     public static bool debug = true;
     public static Action<bool> onDebugStateChanged;
+    private static bool _infiniteMoney = false;
+    private static bool _instaKill = false;
+    private static bool _isImmortal = false;
+
+    public static bool IsInfiniteMoney()
+    {
+        return _infiniteMoney;
+    }
+
+    private void toggleInfiniteMoney()
+    {
+        _infiniteMoney = !_infiniteMoney;
+        if (_infiniteMoney)
+        {
+            FindObjectOfType<Builder>().CheckWhatCanAfford(1000000000000000);
+            FindObjectOfType<MoneyDisplay>().SetInfinite();
+        }
+        else
+        {
+
+            FindObjectOfType<Builder>().CheckWhatCanAfford(FindObjectOfType<MoneyManager>().CalculateTransaction(0));
+        }
+    }
+    public static bool IsInstakill()
+    {
+        return _instaKill;
+    }
+    private void toggleInstakill()
+    {
+        _instaKill =!_instaKill;
+    }
+
+    public static bool IsImmortal()
+    {
+        return _isImmortal;
+    }
+
+    private void toggleImmortal()
+    {
+        _isImmortal= !_isImmortal;
+    }
 
     /// <summary>
     /// ensures debug is disabled on launch
@@ -27,23 +68,29 @@ public class DebugSystem : MonoBehaviour
         onDebugStateChanged?.Invoke(debug);
     }
 
+    private void allDie()
+    {
+        GameObject[] temp = GameObject.FindGameObjectsWithTag("Enemy");
+        for (int i = temp.Length - 1; i >= 0; i--)
+        {
+            temp[i].GetComponent<Enemy>()?.Die();
+        }
+    }
+
     public void RecieveCommand(string command)
     {
-        if(command == "killall")
+        if(command == "powerwordkill")
         {
-            GameObject[] temp = GameObject.FindGameObjectsWithTag("Enemy");
-            for (int i = temp.Length - 1; i >= 0; i--)
-            {
-                temp[i].GetComponent<Enemy>()?.Die();
-            }
+            toggleInstakill();
         }
         else if (command == "motherlode")
         {
-            Debug.Log("infinite money");
+           toggleInfiniteMoney();
+           
         }
-        else if(command == "nodie")
+        else if(command == "immortal")
         {
-            Debug.Log("invincible base");
+            toggleImmortal();
         }
         else if (command.StartsWith("scale ")) 
         { 

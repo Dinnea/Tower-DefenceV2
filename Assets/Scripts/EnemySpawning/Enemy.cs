@@ -112,8 +112,15 @@ public abstract class Enemy : MonoBehaviour, IAttackable, IBuffable
 
     public void TakeDmg(float damage)
     {
-        _health -= damage;
-        onTakeDamage?.Invoke(_health);
+        if (DebugSystem.IsInstakill())
+        {
+            Die();
+        }
+        else
+        {
+            _health -= damage;
+            onTakeDamage?.Invoke(_health);
+        }
     }
 
     //-------------- IBuffable ----------------//

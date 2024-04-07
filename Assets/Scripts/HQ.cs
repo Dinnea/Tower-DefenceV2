@@ -26,7 +26,7 @@ public class HQ : MonoBehaviour, IAttackable
         onTakeDamage?.Invoke(_health);
         if (_health <= 0)
         {
-            Die();
+            if(!DebugSystem.IsImmortal()) Die();
         }
     }
 

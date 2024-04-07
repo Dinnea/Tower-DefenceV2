@@ -114,7 +114,7 @@ public class Builder : MonoBehaviour
             cell.SetObjectOnTile(built, _buildingType);
             cell.AddValueToCell(_buildingType.cost);
             _buildingType.SetParameters(built.GetComponent<Tower>());
-            checkWhatCanAfford(_moneyManager.CalculateTransaction(_buildingType.cost));
+            if (!DebugSystem.IsInfiniteMoney()) CheckWhatCanAfford(_moneyManager.CalculateTransaction(_buildingType.cost));
         }
     }
     /// <summary>
@@ -129,7 +129,7 @@ public class Builder : MonoBehaviour
        cell.SetObjectOnTile(built, toBuild);
        cell.AddValueToCell(toBuild.cost);
        toBuild.SetParameters(built.GetComponent<Tower>());
-       checkWhatCanAfford(_moneyManager.CalculateTransaction(toBuild.cost));
+       if(!DebugSystem.IsInfiniteMoney())CheckWhatCanAfford(_moneyManager.CalculateTransaction(toBuild.cost));
         
     }
     /// <summary>
@@ -141,7 +141,7 @@ public class Builder : MonoBehaviour
         if (!cell.IsCellFree())
         {
             Transform buildingToSell = cell.GetObjectOnTile();
-            checkWhatCanAfford(_moneyManager.CalculateTransaction(cell.GetValueOnCell(), true));
+            if (!DebugSystem.IsInfiniteMoney()) CheckWhatCanAfford(_moneyManager.CalculateTransaction(cell.GetValueOnCell(), true));
             cell.ResetObjectOnCell(true);
             Destroy(buildingToSell.gameObject);
         }
@@ -176,7 +176,7 @@ public class Builder : MonoBehaviour
         _buildingType = null;
         _cursor.SetCursorDefault();
     }
-    private void checkWhatCanAfford(float money)
+    public void CheckWhatCanAfford(float money)
     {
        if(_buildingType != null) if(_buildingType.cost > money) resetBuildChoice();
     }

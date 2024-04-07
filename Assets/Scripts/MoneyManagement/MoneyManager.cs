@@ -38,6 +38,5 @@ public class MoneyManager : MonoBehaviour
         onMoneyChanged?.Invoke(_money);
         return _money;
     }
-
     public float GetMoney() { return _money; }
 }

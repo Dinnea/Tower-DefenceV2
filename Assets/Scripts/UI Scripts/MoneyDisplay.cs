@@ -27,4 +27,9 @@ public class MoneyDisplay : MonoBehaviour
     {
         _moneyDisplay.text = "Money: " + money.ToString();
     }
+
+    public void SetInfinite()
+    {
+        _moneyDisplay.text = "Infinity.";
+    }
 }
