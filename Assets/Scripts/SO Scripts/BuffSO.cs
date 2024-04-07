@@ -6,6 +6,7 @@ public abstract class BuffSO : ScriptableObject
 {
     public float duration;
     protected IBuffable _target;
+    public GameObject FX;
     public virtual void OnApply(IBuffable target)
     {
     }

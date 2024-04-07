@@ -17,7 +17,7 @@ public abstract class Enemy : MonoBehaviour, IAttackable, IBuffable
     public Action<float> onTakeDamage { get; set; }
 
     //[SerializeField] List<BuffSO> _appliedBuffs = new List<BuffSO>();
-    [SerializeField]Dictionary<BuffSO, IEnumerator> _appliedBuffs = new Dictionary<BuffSO, IEnumerator>();
+    [SerializeField]Dictionary<BuffSO, AppliedBuff> _appliedBuffs = new Dictionary<BuffSO, AppliedBuff>();
     //get world loc
     private void Update()
     {
@@ -32,7 +32,7 @@ public abstract class Enemy : MonoBehaviour, IAttackable, IBuffable
     /// </summary>
     protected virtual void OnUpdate()
     {
-        if (_health < 0)
+        if (_health <= 0)
         {
             Die();
         }
@@ -121,20 +121,19 @@ public abstract class Enemy : MonoBehaviour, IAttackable, IBuffable
     {
         if (!_appliedBuffs.ContainsKey(buff))
         {
-            _appliedBuffs.Add(buff, RunBuffDuration(buff));
-            Debug.Log(_speed);
+            _appliedBuffs.Add(buff, new AppliedBuff(RunBuffDuration(buff), Instantiate(buff.FX, transform)));
             buff.OnApply(this);
-            Debug.Log(_speed);
-            StartCoroutine(_appliedBuffs[buff]);
+            StartCoroutine(_appliedBuffs[buff].duration);
         }
         else
         {
-            
+            RefreshBuffDuration(buff);
         }
     }
 
     public void RemoveBuff(BuffSO buff)
     {
+        Destroy(_appliedBuffs[buff].instantiatedFX);
         _appliedBuffs.Remove(buff);
         buff.OnRemove(this);
     }
@@ -152,7 +151,18 @@ public abstract class Enemy : MonoBehaviour, IAttackable, IBuffable
 
     public void RefreshBuffDuration(BuffSO buff)
     {
-        StopCoroutine(_appliedBuffs[buff]);
-        StartCoroutine(_appliedBuffs[buff]);
+        StopCoroutine(_appliedBuffs[buff].duration);
+        StartCoroutine(_appliedBuffs[buff].duration);
+    }
+
+    public class AppliedBuff
+    {
+        public IEnumerator duration;
+        public GameObject instantiatedFX;
+        public AppliedBuff(IEnumerator duration,GameObject instantiatedFX)
+        {
+            this.duration = duration;
+            this.instantiatedFX = instantiatedFX;
+        }
     }
 }

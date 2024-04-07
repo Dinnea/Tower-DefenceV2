@@ -260,6 +260,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5587340992613231914, guid: 145992fe3e3ec4043859780005b28ae8, type: 3}
+      propertyPath: _fadeSpeed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8490347938820978149, guid: 145992fe3e3ec4043859780005b28ae8, type: 3}
       propertyPath: m_Name
       value: aoeVFXprefab

@@ -21,7 +21,6 @@ public class WaveSpawner : MonoBehaviour
     /// </summary>
     public void OnWaveFinished()
     {
-        Debug.Log("finished wave");
         _waveIndex++;
         if (_waveIndex >= _waves.Count)
         {

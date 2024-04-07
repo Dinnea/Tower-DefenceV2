@@ -18,7 +18,7 @@ MonoBehaviour:
   width: 1
   height: 1
   cost: 200
-  damage: 25
-  attackRate: 0.75
+  damage: 30
+  attackRate: 0.5
   attackType: Single Target DMG
   range: 20
