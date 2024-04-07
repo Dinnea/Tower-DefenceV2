@@ -8,7 +8,6 @@ using UnityEngine;
 public class Batch
 {
     public float intervalBetweenEnemies;
-    public float intervalBetweenBatches;
 }
 /// <summary>
 /// List of enemies to spawn.

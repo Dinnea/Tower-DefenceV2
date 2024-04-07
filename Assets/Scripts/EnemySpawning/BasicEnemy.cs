@@ -11,8 +11,9 @@ public class BasicEnemy : Enemy
 {
     [SerializeField] Vector3[] _navPoints;
     int _pointsReached = 0;
+    
 
-// -------------- Abstract Enemy ----------------//
+    // -------------- Abstract Enemy ----------------//
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -23,14 +24,17 @@ public class BasicEnemy : Enemy
             NavPoint point = navPoint.GetComponent<NavPoint>();
             _navPoints[point.index] = point.GetNavLocation();
         }
+
+        //Move(_navPoints[_pointsReached]);
     }
     protected override void OnUpdate()
     {
-        move();
+        if(autoNavigate)navigate();
+        
         base.OnUpdate();
     }
 
-    private void move()
+    private void navigate()
     {
         if (_pointsReached < _navPoints.Length)
         {

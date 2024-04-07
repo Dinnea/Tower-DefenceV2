@@ -11,10 +11,12 @@ public class WaveSpawner : MonoBehaviour
     int _waveIndex = 0;
     public static Action onFinishedSpawning;
     public static Action onLastWaveSpawned;
+    [SerializeField] bool _loopWaves;
     private void Awake()
     {
         _currentWave = _waves[_waveIndex];
         _enemySpawner = GetComponentInChildren<Spawner>();
+        //SpawnWave();
     }
     /// <summary>
     /// Sends a finished spawning event. informs
@@ -25,7 +27,12 @@ public class WaveSpawner : MonoBehaviour
         if (_waveIndex >= _waves.Count)
         {
             onLastWaveSpawned?.Invoke();
-            onFinishedSpawning?.Invoke();
+            if (_loopWaves) 
+            { 
+                _waveIndex = 0; 
+                Debug.Log("Looped waves"); 
+            }
+            else onFinishedSpawning?.Invoke();
         }
         else
         {
@@ -69,7 +76,7 @@ public class WaveSpawner : MonoBehaviour
             {
                 yield return spawnBatchQueue(batch as BatchQueue);//StartCoroutine(spawnBatchQueue(batch as BatchQueue));
             }
-            yield return new WaitForSeconds(batch.intervalBetweenBatches);
+            yield return new WaitForSeconds(0.5f);
         }
        OnWaveFinished();
     }
@@ -82,5 +89,15 @@ public class WaveSpawner : MonoBehaviour
     public int GetMaxWaveNr()
     {
         return _waves.Count;
+    }
+
+    public Wave GetCurrentWave()
+    {
+        return _currentWave;
+    }
+
+    public void StopSpawning()
+    {
+        StopAllCoroutines();
     }
 }

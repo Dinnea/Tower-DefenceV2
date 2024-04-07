@@ -29,20 +29,26 @@ public class EnemySO : ScriptableObject
     /// If the enemy prefab does not yet have an Enemy script, add a script determined by the enemyType string. BasicEnemy => default.
     /// </summary>
     /// <param name="gameObject"></param>
-    public void AddEnemyScript(GameObject gameObject)
+    public Component AddEnemyScript(GameObject gameObject)
     {
+        Component comp;
         if (gameObject.GetComponent<Enemy>()==null)
         {
             switch (enemyType)
             {
                 case "basic":
-                    gameObject.AddComponent<BasicEnemy>();
+                    comp = gameObject.AddComponent<BasicEnemy>();
                     break;
                 default:
-                    gameObject.AddComponent<BasicEnemy>();
+                    comp = gameObject.AddComponent<BasicEnemy>();
                     break;
             }
         }
+        else
+        {
+            comp = gameObject.GetComponent<Enemy>();
+        }
+        return comp;
     }
     /// <summary>
     /// Sets parameters of an abstract Enemy class.

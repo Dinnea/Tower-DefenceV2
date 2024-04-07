@@ -10,38 +10,42 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    void speedUpTime2()
+    public static void ScaleTime(KeyCode key, float scale)
     {
-        Time.timeScale = 2.0f;
+        if (Input.GetKeyDown(key))
+        {
+            ScaleTime(scale);
+        }
     }
-    void speedUpTime3()
+    public static void ScaleTime(float scale)
     {
-        Time.timeScale = 3.0f;
+        Time.timeScale = scale;
+        Debug.Log(Time.timeScale);
     }
 
-    void normalTime()
+    /// <summary>
+    /// Control Shift D to enableDebug
+    /// </summary>
+    void enableDebug()
     {
-        Time.timeScale = 1.0f;
-    }
-
-    void pause()
-    {
-        Time.timeScale = 0.0f;
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.D))
+        {
+            DebugSystem.EnableDebug();
+        }
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R)) Restart();
-        if (Input.GetKeyDown(KeyCode.Q)) speedUpTime2();
-        if (Input.GetKeyDown(KeyCode.W)) speedUpTime3();
-        if (Input.GetKeyDown(KeyCode.E)) normalTime();
-        if (Input.GetKeyDown(KeyCode.P)) pause();
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKey(KeyCode.LeftControl))
         {
-            GameObject[] temp = GameObject.FindGameObjectsWithTag("Enemy");
-            for (int i = temp.Length - 1; i >= 0; i--)
-            {
-                Destroy(temp[i]);
-            }
+            if (Input.GetKeyDown(KeyCode.R)) Restart();
+            ScaleTime(KeyCode.F1, 0);
+            ScaleTime(KeyCode.F2, 1);
+            ScaleTime(KeyCode.F3, 2);
+            ScaleTime(KeyCode.F4, 3);
+            
+            enableDebug();
+            
         }
+       
     }
 }

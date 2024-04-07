@@ -3,6 +3,7 @@ using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class SpawnerTest
 {
@@ -32,17 +33,17 @@ public class SpawnerTest
         WaveSpawner testWaveSpawner = GameObject.Instantiate<WaveSpawner>(_waveSpawner);
         Spawner testSpawner = testWaveSpawner.gameObject.GetComponentInChildren<Spawner>();
         yield return new WaitForEndOfFrame();
-        _waveSpawner.SpawnWave();
-        yield return new WaitForSeconds(testWaveSpawner.GetCurrentWave().batches[0].intervalBetweenEnemies*10);
-        _waveSpawner.StopSpawning();
+        testWaveSpawner.SpawnWave();
+        yield return new WaitForSeconds(testWaveSpawner.GetCurrentWave().batches[0].intervalBetweenEnemies);
+        testWaveSpawner.StopSpawning();
         GameObject spawned = testSpawner.spawns[0];
         Assert.IsNotNull(spawned.GetComponent<Enemy>());
         Enemy spawnedEnemy = spawned.GetComponent<Enemy>();
 
-        EnemySO enemyType = _waveSpawner.GetCurrentWave().batches[0].enemyType;
+        EnemySO enemyType = testWaveSpawner.GetCurrentWave().batches[0].enemyType;
 
         Component intendedScript = enemyType.AddEnemyScript(new GameObject());
-        Assert.IsTrue(intendedScript.GetType() == spawnedEnemy.GetType());
+        Assert.AreEqual(intendedScript.GetType(), spawnedEnemy.GetType());
  
     }
 
@@ -52,16 +53,16 @@ public class SpawnerTest
         WaveSpawner testWaveSpawner = GameObject.Instantiate<WaveSpawner>(_waveSpawner);
         Spawner testSpawner = testWaveSpawner.gameObject.GetComponentInChildren<Spawner>();
         yield return new WaitForEndOfFrame();
-        _waveSpawner.SpawnWave();
-        yield return new WaitForSeconds(testWaveSpawner.GetCurrentWave().batches[0].intervalBetweenEnemies * 10);
-        _waveSpawner.StopSpawning();
+        testWaveSpawner.SpawnWave();
+        yield return new WaitForSeconds(testWaveSpawner.GetCurrentWave().batches[0].intervalBetweenEnemies);
+        testWaveSpawner.StopSpawning();
         GameObject spawned = testSpawner.spawns[0];
         Assert.IsNotNull(spawned.GetComponent<Enemy>());
         Enemy spawnedEnemy = spawned.GetComponent<Enemy>();
 
-        EnemySO enemyType = _waveSpawner.GetCurrentWave().batches[0].enemyType;
+        EnemySO enemyType = testWaveSpawner.GetCurrentWave().batches[0].enemyType;
 
-        Assert.IsTrue(enemyType.speed == spawnedEnemy.GetSpeed());
+        Assert.AreEqual(enemyType.speed, spawnedEnemy.GetSpeed());
     }
 
     [UnityTest]
@@ -70,17 +71,16 @@ public class SpawnerTest
         WaveSpawner testWaveSpawner = GameObject.Instantiate<WaveSpawner>(_waveSpawner);
         Spawner testSpawner = testWaveSpawner.gameObject.GetComponentInChildren<Spawner>();
         yield return new WaitForEndOfFrame();
-        _waveSpawner.SpawnWave();
-        yield return new WaitForSeconds(testWaveSpawner.GetCurrentWave().batches[0].intervalBetweenEnemies * 10);
-        _waveSpawner.StopSpawning();
+        testWaveSpawner.SpawnWave();
+        yield return new WaitForSeconds(testWaveSpawner.GetCurrentWave().batches[0].intervalBetweenEnemies);
+        testWaveSpawner.StopSpawning();
         GameObject spawned = testSpawner.spawns[0];
         Assert.IsNotNull(spawned.GetComponent<Enemy>());
         Enemy spawnedEnemy = spawned.GetComponent<Enemy>();
 
-        EnemySO enemyType = _waveSpawner.GetCurrentWave().batches[0].enemyType;
+        EnemySO enemyType = testWaveSpawner.GetCurrentWave().batches[0].enemyType;
 
-        Assert.IsTrue(enemyType.health == spawnedEnemy.GetMaxHealth());
-        Assert.IsTrue(enemyType.dmg != spawnedEnemy.GetDmg());
+        Assert.AreEqual(enemyType.health, spawnedEnemy.GetMaxHealth());
     }
     [UnityTest]
     public IEnumerator EnemyMoneyTest()
@@ -88,16 +88,16 @@ public class SpawnerTest
         WaveSpawner testWaveSpawner = GameObject.Instantiate<WaveSpawner>(_waveSpawner);
         Spawner testSpawner = testWaveSpawner.gameObject.GetComponentInChildren<Spawner>();
         yield return new WaitForEndOfFrame();
-        _waveSpawner.SpawnWave();
-        yield return new WaitForSeconds(testWaveSpawner.GetCurrentWave().batches[0].intervalBetweenEnemies * 10);
-        _waveSpawner.StopSpawning();
+        testWaveSpawner.SpawnWave();
+        yield return new WaitForSeconds(testWaveSpawner.GetCurrentWave().batches[0].intervalBetweenEnemies);
+        testWaveSpawner.StopSpawning();
         GameObject spawned = testSpawner.spawns[0];
         Assert.IsNotNull(spawned.GetComponent<Enemy>());
         Enemy spawnedEnemy = spawned.GetComponent<Enemy>();
 
-        EnemySO enemyType = _waveSpawner.GetCurrentWave().batches[0].enemyType;
+        EnemySO enemyType = testWaveSpawner.GetCurrentWave().batches[0].enemyType;
 
-        Assert.IsTrue(enemyType.money == spawnedEnemy.GetMoney());
+        Assert.AreEqual(enemyType.money, spawnedEnemy.GetMoney());
     }
 
     [UnityTest]
@@ -106,16 +106,16 @@ public class SpawnerTest
         WaveSpawner testWaveSpawner = GameObject.Instantiate<WaveSpawner>(_waveSpawner);
         Spawner testSpawner = testWaveSpawner.gameObject.GetComponentInChildren<Spawner>();
         yield return new WaitForEndOfFrame();
-        _waveSpawner.SpawnWave();
-        yield return new WaitForSeconds(testWaveSpawner.GetCurrentWave().batches[0].intervalBetweenEnemies * 10);
-        _waveSpawner.StopSpawning();
+        testWaveSpawner.SpawnWave();
+        yield return new WaitForSeconds(testWaveSpawner.GetCurrentWave().batches[0].intervalBetweenEnemies);
+        testWaveSpawner.StopSpawning();
         GameObject spawned = testSpawner.spawns[0];
         Assert.IsNotNull(spawned.GetComponent<Enemy>());
         Enemy spawnedEnemy = spawned.GetComponent<Enemy>();
 
-        EnemySO enemyType = _waveSpawner.GetCurrentWave().batches[0].enemyType;
+        EnemySO enemyType = testWaveSpawner.GetCurrentWave().batches[0].enemyType;
 
-        Assert.IsTrue(enemyType.dmg == spawnedEnemy.GetDmg());
+        Assert.AreEqual(enemyType.dmg, spawnedEnemy.GetDmg());
     }
 
     [UnityTest]
@@ -124,15 +124,40 @@ public class SpawnerTest
         WaveSpawner testWaveSpawner = GameObject.Instantiate<WaveSpawner>(_waveSpawner);
         Spawner testSpawner = testWaveSpawner.gameObject.GetComponentInChildren<Spawner>();
         yield return new WaitForEndOfFrame();
-        _waveSpawner.SpawnWave();
-        yield return new WaitForSeconds(testWaveSpawner.GetCurrentWave().batches[0].intervalBetweenEnemies * 10);
-        _waveSpawner.StopSpawning();
+        testWaveSpawner.SpawnWave();
+        yield return new WaitForSeconds(testWaveSpawner.GetCurrentWave().batches[0].intervalBetweenEnemies);
+        testWaveSpawner.StopSpawning();
         GameObject spawned = testSpawner.spawns[0];
         Assert.IsNotNull(spawned.GetComponent<Enemy>());
         Enemy spawnedEnemy = spawned.GetComponent<Enemy>();
 
-        EnemySO enemyType = _waveSpawner.GetCurrentWave().batches[0].enemyType;
+        EnemySO enemyType = testWaveSpawner.GetCurrentWave().batches[0].enemyType;
+        Assert.AreEqual(enemyType.visual.GetComponentInChildren<MeshFilter>().sharedMesh, spawnedEnemy.GetComponentInChildren<MeshFilter>().sharedMesh);
+    }
+    [UnityTest]
+    public IEnumerator EnemyCountTest()
+    {
+        WaveSpawner testWaveSpawner = GameObject.Instantiate<WaveSpawner>(_waveSpawner);
+        Spawner testSpawner = testWaveSpawner.gameObject.GetComponentInChildren<Spawner>();
+        yield return new WaitForEndOfFrame();
+        testWaveSpawner.SpawnWave();
+        yield return new WaitForSeconds(testWaveSpawner.GetCurrentWave().batches[0].intervalBetweenEnemies * testWaveSpawner.GetCurrentWave().batches[0].enemyNumber);
+        testWaveSpawner.StopSpawning();
+        Assert.AreEqual(testWaveSpawner.GetCurrentWave().batches[0].enemyNumber, testSpawner.spawns.Count);
+        
+    }
 
-        Assert.IsTrue(enemyType.health == spawnedEnemy.GetHealth());
+    [UnityTest]
+    public IEnumerator TypeChangetest()
+    {
+        WaveSpawner testWaveSpawner = GameObject.Instantiate<WaveSpawner>(_waveSpawner);
+        Spawner testSpawner = testWaveSpawner.gameObject.GetComponentInChildren<Spawner>();
+        yield return new WaitForEndOfFrame();
+        testWaveSpawner.SpawnWave();
+        yield return new WaitForSeconds(testWaveSpawner.GetCurrentWave().batches[0].intervalBetweenEnemies * testWaveSpawner.GetCurrentWave().batches[0].enemyNumber);
+        yield return new WaitForSeconds(testWaveSpawner.GetCurrentWave().batches[1].intervalBetweenEnemies);
+        testWaveSpawner.StopSpawning();
+        Assert.AreNotEqual(testSpawner.spawns[0], testSpawner.spawns.Last());
+
     }
 }

@@ -14,9 +14,8 @@ public class SwitchBuilderState : MonoBehaviour
     public void SwitchToOrFromBuilderState()
     {
         if (_fsm.GetCurrentState() is BuilderState) _fsm.ChangeState(_fsm.GetComponent<SpawningState>());
-        else _fsm.ChangeState(_fsm.GetComponent<BuilderState>());
     }
-
+    /*
     void setButtonActive(bool debug)
     {
         gameObject.SetActive(debug);
@@ -30,5 +29,5 @@ public class SwitchBuilderState : MonoBehaviour
     private void OnDisable()
     {
         DebugSystem.onDebugStateChanged -= setButtonActive;
-    }
+    }*/
 }

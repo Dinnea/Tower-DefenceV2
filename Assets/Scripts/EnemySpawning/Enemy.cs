@@ -14,11 +14,12 @@ public abstract class Enemy : MonoBehaviour, IAttackable, IBuffable
     protected float _money;
 
     protected NavMeshAgent _agent;
+    public bool autoNavigate = true;
     public Action<float> onTakeDamage { get; set; }
 
     //[SerializeField] List<BuffSO> _appliedBuffs = new List<BuffSO>();
     [SerializeField]Dictionary<BuffSO, AppliedBuff> _appliedBuffs = new Dictionary<BuffSO, AppliedBuff>();
-    //get world loc
+
     private void Update()
     {
         OnUpdate();

@@ -19416,7 +19416,7 @@ GameObject:
   - component: {fileID: 4066970842593808}
   m_Layer: 3
   m_Name: Hoverbuggy
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
