@@ -105,7 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemiesInRange: []
   _damageStrategy: {fileID: 11400000, guid: 1f097d4dd52f36d4987cf0c6098f40b4, type: 2}
-  _effect: {fileID: 11400000, guid: 3b6d15f2b8a333d42953937300439c72, type: 2}
+  effect: {fileID: 11400000, guid: 3b6d15f2b8a333d42953937300439c72, type: 2}
 --- !u!1 &1126831130195297395
 GameObject:
   m_ObjectHideFlags: 0

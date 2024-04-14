@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AOETower : Tower
 {
-    [SerializeField] BuffSO _effect = null;
+    public BuffSO effect = null;
     protected override void OnUpdate()
     {
         base.OnUpdate();
@@ -19,7 +19,7 @@ public class AOETower : Tower
         foreach (GameObject enemy in enemiesInRange)
         {
             applyDamage(enemy);
-            if(_effect != null) 
+            if(effect != null) 
             {
                 applyBuff(enemy);
             }
@@ -29,6 +29,6 @@ public class AOETower : Tower
     void applyBuff(GameObject enemy)
     {
         IBuffable target = enemy.GetComponent<IBuffable>();
-        target.TryAddBuff(_effect);
+        target.TryAddBuff(effect);
     }
 }

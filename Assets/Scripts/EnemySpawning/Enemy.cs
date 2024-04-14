@@ -8,7 +8,7 @@ using static UnityEngine.GraphicsBuffer;
 public abstract class Enemy : MonoBehaviour, IAttackable, IBuffable 
 {
     protected float _maxHealth;
-    protected float _health;
+    [SerializeField]protected float _health;
     protected float _speed;
     protected float _dmg;
     protected float _money;
@@ -18,7 +18,7 @@ public abstract class Enemy : MonoBehaviour, IAttackable, IBuffable
     public Action<float> onTakeDamage { get; set; }
 
     //[SerializeField] List<BuffSO> _appliedBuffs = new List<BuffSO>();
-    [SerializeField]Dictionary<BuffSO, AppliedBuff> _appliedBuffs = new Dictionary<BuffSO, AppliedBuff>();
+    public Dictionary<BuffSO, AppliedBuff> appliedBuffs = new Dictionary<BuffSO, AppliedBuff>();
 
     private void Update()
     {
@@ -118,6 +118,7 @@ public abstract class Enemy : MonoBehaviour, IAttackable, IBuffable
         }
         else
         {
+            //Debug.Log(damage);
             _health -= damage;
             onTakeDamage?.Invoke(_health);
         }
@@ -127,11 +128,11 @@ public abstract class Enemy : MonoBehaviour, IAttackable, IBuffable
 
     public void TryAddBuff(BuffSO buff)
     {
-        if (!_appliedBuffs.ContainsKey(buff))
+        if (!appliedBuffs.ContainsKey(buff))
         {
-            _appliedBuffs.Add(buff, new AppliedBuff(RunBuffDuration(buff), Instantiate(buff.FX, transform)));
+            appliedBuffs.Add(buff, new AppliedBuff(RunBuffDuration(buff), Instantiate(buff.FX, transform), buff));
             buff.OnApply(this);
-            StartCoroutine(_appliedBuffs[buff].duration);
+            StartCoroutine(appliedBuffs[buff].duration);
         }
         else
         {
@@ -141,8 +142,8 @@ public abstract class Enemy : MonoBehaviour, IAttackable, IBuffable
 
     public void RemoveBuff(BuffSO buff)
     {
-        Destroy(_appliedBuffs[buff].instantiatedFX);
-        _appliedBuffs.Remove(buff);
+        Destroy(appliedBuffs[buff].instantiatedFX);
+        appliedBuffs.Remove(buff);
         buff.OnRemove(this);
     }
 
@@ -159,18 +160,20 @@ public abstract class Enemy : MonoBehaviour, IAttackable, IBuffable
 
     public void RefreshBuffDuration(BuffSO buff)
     {
-        StopCoroutine(_appliedBuffs[buff].duration);
-        StartCoroutine(_appliedBuffs[buff].duration);
+        StopCoroutine(appliedBuffs[buff].duration);
+        StartCoroutine(appliedBuffs[buff].duration);
     }
 
     public class AppliedBuff
     {
         public IEnumerator duration;
         public GameObject instantiatedFX;
-        public AppliedBuff(IEnumerator duration,GameObject instantiatedFX)
+        public BuffSO buff;
+        public AppliedBuff(IEnumerator duration,GameObject instantiatedFX, BuffSO buff)
         {
             this.duration = duration;
             this.instantiatedFX = instantiatedFX;
+            this.buff = buff;
         }
     }
 }

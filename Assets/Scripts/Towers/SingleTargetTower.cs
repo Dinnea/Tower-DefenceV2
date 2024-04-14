@@ -8,6 +8,9 @@ public class SingleTargetTower : Tower
 {
     [SerializeField] GameObject _target = null;
 
+    private void Start()
+    {
+    }
     protected override void OnUpdate()
     {
         base.OnUpdate();
@@ -16,10 +19,17 @@ public class SingleTargetTower : Tower
         if (_target != null && !_isOnCooldown) Execute();
     }
 
+    protected override void OnAwake()
+    {
+        base.OnAwake();
+
+    }
+
     protected override void Execute()
     {
-        base.Execute();
         applyDamage(_target);
+        base.Execute();
+        
     }
 
     /// <summary>
@@ -37,5 +47,9 @@ public class SingleTargetTower : Tower
     {
         if (_target != null) return _target.transform;
         return null;
+    }
+    public GameObject GetTarget()
+    {
+        return _target;
     }
 }

@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PathfinderTestScene.unity
     guid: 6d0d08086c03e514dbca115bd35457b7
+  - enabled: 1
+    path: Assets/Scenes/TowerTestScene.unity
+    guid: 5865068ea3d010a4883923008e7ae5d8
   m_configObjects: {}

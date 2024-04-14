@@ -8,13 +8,8 @@ public class SpeedBuff : BuffSO
 
     public override void OnApply(IBuffable target)
     {
-        base.OnApply(target);
         _originalSpeed = target.GetSpeed();
         target.SetSpeed(_originalSpeed*speedModifier);
-    }
-    public override void Execute(IBuffable target)
-    {
-       
     }
 
     public override void OnRemove(IBuffable target)
