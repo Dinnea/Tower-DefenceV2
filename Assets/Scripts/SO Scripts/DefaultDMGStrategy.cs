@@ -6,6 +6,7 @@ public class DefaultDMGStrategy : DamageCalculationStrategy
 {
     public override void CalculateDmg(float rawDmg, IAttackable target)
     {
+        
         target.TakeDmg(rawDmg);
     }
 }

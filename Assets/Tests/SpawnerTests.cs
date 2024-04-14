@@ -5,7 +5,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using System.Linq;
 
-public class SpawnerTest
+public class SpawnerTests
 {
     WaveSpawner _waveSpawner;
 

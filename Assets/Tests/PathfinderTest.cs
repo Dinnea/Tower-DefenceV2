@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 using UnityEngine.AI;
 
-public class PathfinderTest
+public class PathfinderTests
 {
     WaveSpawner _waveSpawner;
     GameObject[] _navPoints;

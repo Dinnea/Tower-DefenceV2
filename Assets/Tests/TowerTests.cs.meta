@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: 0f6d2306abd982a4fa93214630e1f4a1
+guid: 6b2c599ff6153b243970113ec53afa98
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - _damageStrategy: {fileID: 11400000, guid: 1f097d4dd52f36d4987cf0c6098f40b4, type: 2}
-  - _target: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
